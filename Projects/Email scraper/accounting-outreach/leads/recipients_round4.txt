@@ -1,0 +1,6 @@
+# Round 4 recipients for the accounting-firm campaign.
+# Columns: CompanyName<TAB>email<TAB>source<TAB>alias_domain
+# source = site | social | directory | alias
+# alias_domain is optional; defaults to the email's domain.
+# Comment lines starting with # are ignored.
+Example Accountants	jane@example-accountants.com	site	example-accountants.com

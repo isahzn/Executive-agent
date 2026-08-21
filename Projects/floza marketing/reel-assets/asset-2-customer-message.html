@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Floza — WhatsApp Chat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0B141A;
+    --chat-bg: #0B141A;
+    --header-bg: #1F2C34;
+    --msg-out: #005C4B;
+    --msg-in: #1F2C34;
+    --input-bg: #2A3942;
+    --border: #222D34;
+    --text: #E9EDEF;
+    --text-secondary: #8696A0;
+    --green: #00A884;
+    --green-dark: #008069;
+    --blue-tick: #53BDEB;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  .frame {
+    width: 1080px;
+    height: 1920px;
+    background: var(--chat-bg);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Chat Wallpaper Pattern */
+  .frame::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23111B21' fill-opacity='0.6'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .frame > * { position: relative; z-index: 1; }
+
+  /* Header */
+  .whatsapp-header {
+    height: 64px;
+    background: var(--header-bg);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .header-back {
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    color: var(--text-secondary);
+  }
+  .header-back svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .header-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #00A884, #008069);
+    display: grid;
+    place-items: center;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .header-info {
+    flex: 1;
+  }
+  .header-info .name {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .header-info .status {
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .header-btn {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    color: var(--text-secondary);
+  }
+  .header-btn svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* Date Separator */
+  .date-separator {
+    display: flex;
+    justify-content: center;
+    padding: 16px 0 8px;
+  }
+  .date-separator span {
+    background: #182229;
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.2);
+  }
+
+  /* Messages Container */
+  .messages {
+    flex: 1;
+    padding: 8px 60px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    overflow-y: auto;
+  }
+
+  /* Message Bubble */
+  .msg-wrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 75%;
+  }
+  .msg-wrapper.outgoing {
+    align-self: flex-end;
+  }
+  .msg-wrapper.incoming {
+    align-self: flex-start;
+  }
+  .msg-bubble {
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--text);
+    position: relative;
+    word-wrap: break-word;
+  }
+  .msg-bubble.out {
+    background: var(--msg-out);
+    border-top-right-radius: 0;
+  }
+  .msg-bubble.in {
+    background: var(--msg-in);
+    border-top-left-radius: 0;
+  }
+  .msg-meta {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    padding: 2px 4px 0;
+  }
+  .msg-time {
+    font-size: 11px;
+    color: var(--text-secondary);
+  }
+  .tick {
+    display: flex;
+    align-items: center;
+  }
+  .tick svg { width: 16px; height: 16px; }
+  .tick.read svg { stroke: var(--blue-tick); fill: none; }
+  .tick.sent svg { stroke: var(--text-secondary); fill: none; }
+
+  /* Highlighted message */
+  .msg-bubble.highlight {
+    background: linear-gradient(135deg, #005C4B, #004D40);
+    border: 1px solid rgba(0,168,132,.4);
+    box-shadow: 0 0 20px rgba(0,168,132,.2);
+    font-size: 16px;
+    font-weight: 500;
+    padding: 12px 16px;
+  }
+
+  /* Input Area */
+  .input-area {
+    padding: 10px 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .input-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .input-icon {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    color: var(--text-secondary);
+  }
+  .input-icon svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .input-field {
+    flex: 1;
+    height: 46px;
+    background: var(--input-bg);
+    border: none;
+    border-radius: 10px;
+    padding: 0 16px;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--text);
+    outline: none;
+  }
+  .input-field::placeholder { color: var(--text-secondary); }
+  .send-btn {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: var(--green);
+    border: none;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    cursor: pointer;
+  }
+  .send-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* Floza tag */
+  .floza-tag {
+    position: absolute;
+    bottom: 80px;
+    right: 30px;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(0,168,132,.25);
+    letter-spacing: .04em;
+  }
+</style>
+</head>
+<body>
+<div class="frame">
+
+  <!-- WhatsApp Header -->
+  <div class="whatsapp-header">
+    <div class="header-back">
+      <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+    </div>
+    <div class="header-avatar">MC</div>
+    <div class="header-info">
+      <div class="name">Maya Chen</div>
+      <div class="status">online</div>
+    </div>
+    <div class="header-actions">
+      <div class="header-btn">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      </div>
+      <div class="header-btn">
+        <svg viewBox="0 0 24 24"><path d="M15.05 5A5 5 0 0 1 19 8.95M15.05 1A9 9 0 0 1 23 8.94m-1 7.98v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      </div>
+      <div class="header-btn">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Messages -->
+  <div class="messages">
+    <div class="date-separator"><span>Today</span></div>
+
+    <!-- Incoming message -->
+    <div class="msg-wrapper incoming">
+      <div class="msg-bubble in">
+        Hey! I came across your website and I'm really impressed with your automation services. 😊
+      </div>
+      <div class="msg-meta">
+        <span class="msg-time">2:34 PM</span>
+      </div>
+    </div>
+
+    <!-- Outgoing message -->
+    <div class="msg-wrapper outgoing">
+      <div class="msg-bubble out">
+        Hi Maya! Thanks for reaching out! We help businesses automate repetitive tasks. What kind of business do you run?
+      </div>
+      <div class="msg-meta">
+        <span class="msg-time">2:35 PM</span>
+        <span class="tick read">
+          <svg viewBox="0 0 16 11"><path d="M11.071.653a.457.457 0 0 0-.304-.102.493.493 0 0 0-.381.178l-6.19 7.636-2.011-2.095a.463.463 0 0 0-.353-.143.47.47 0 0 0-.333.134.474.474 0 0 0-.017.678l2.375 2.459a.447.447 0 0 0 .34.153.462.462 0 0 0 .356-.176l6.546-8.075a.448.448 0 0 0-.028-.648z" stroke-width="0"/><path d="M14.757.653a.457.457 0 0 0-.305-.102.493.493 0 0 0-.381.178l-6.19 7.636-1.005-1.047-.352.436 1.358 1.407a.447.447 0 0 0 .34.153.462.462 0 0 0 .356-.176l6.546-8.075a.448.448 0 0 0-.028-.648l-.33.238z" stroke-width="0"/></svg>
+        </span>
+      </div>
+    </div>
+
+    <!-- Incoming message -->
+    <div class="msg-wrapper incoming">
+      <div class="msg-bubble in">
+        I run a design studio called Bloom Interiors. We do branding, web design, and social media for small businesses. But honestly, most of our time goes into manually entering leads from Instagram DMs into our spreadsheet. It's such a time drain!
+      </div>
+      <div class="msg-meta">
+        <span class="msg-time">2:36 PM</span>
+      </div>
+    </div>
+
+    <!-- Outgoing message -->
+    <div class="msg-wrapper outgoing">
+      <div class="msg-bubble out">
+        I totally understand! That's actually one of the most common problems we solve. We can automatically capture leads from your DMs, extract all the important info, and sync it directly to your CRM — no manual entry needed.
+      </div>
+      <div class="msg-meta">
+        <span class="msg-time">2:37 PM</span>
+        <span class="tick read">
+          <svg viewBox="0 0 16 11"><path d="M11.071.653a.457.457 0 0 0-.304-.102.493.493 0 0 0-.381.178l-6.19 7.636-2.011-2.095a.463.463 0 0 0-.353-.143.47.47 0 0 0-.333.134.474.474 0 0 0-.017.678l2.375 2.459a.447.447 0 0 0 .34.153.462.462 0 0 0 .356-.176l6.546-8.075a.448.448 0 0 0-.028-.648z" stroke-width="0"/><path d="M14.757.653a.457.457 0 0 0-.305-.102.493.493 0 0 0-.381.178l-6.19 7.636-1.005-1.047-.352.436 1.358 1.407a.447.447 0 0 0 .34.153.462.462 0 0 0 .356-.176l6.546-8.075a.448.448 0 0 0-.028-.648l-.33.238z" stroke-width="0"/></svg>
+        </span>
+      </div>
+    </div>
+
+    <!-- Incoming - The Key Message -->
+    <div class="msg-wrapper incoming">
+      <div class="msg-bubble in highlight">
+        Hi, I'm interested in your service.
+      </div>
+      <div class="msg-meta">
+        <span class="msg-time">2:38 PM</span>
+      </div>
+    </div>
+
+    <!-- Incoming follow-up -->
+    <div class="msg-wrapper incoming">
+      <div class="msg-bubble in">
+        That sounds amazing! Yes, I'd love to see a demo. Also, do you have pricing info? We're a team of 5 and manage about 20 clients. Our monthly budget for tools is around $2K. My email is maya@bloominteriors.co and my phone is (415) 555-0119.
+      </div>
+      <div class="msg-meta">
+        <span class="msg-time">2:39 PM</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Input Area -->
+  <div class="input-area">
+    <div class="input-left">
+      <div class="input-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+      </div>
+      <div class="input-icon">
+        <svg viewBox="0 0 24 24"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+      </div>
+    </div>
+    <input class="input-field" placeholder="Type a message" readonly>
+    <div class="input-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+    </div>
+    <button class="send-btn">
+      <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+
+  <div class="floza-tag">Floza</div>
+
+</div>
+</body>
+</html>

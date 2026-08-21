@@ -1,0 +1,38 @@
+# ── Doc Processor — systemd unit (bare-metal / VPS) ─────────────────
+# Install:
+#   sudo cp deploy/doc-processor.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now doc-processor
+#
+# Adjust User, WorkingDirectory and ExecStart paths for your setup.
+# The backend serves the built frontend itself, so no nginx is required
+# unless you want TLS / port 80 (see deploy/nginx.conf for that).
+
+[Unit]
+Description=Doc Processor (Express backend + built React frontend)
+After=network.target
+
+[Service]
+Type=simple
+# Run as a non-root user that owns the project directory.
+User=docproc
+Group=docproc
+WorkingDirectory=/opt/doc-processor
+
+# Environment file (secrets — copy .env.example to /opt/doc-processor/.env)
+EnvironmentFile=/opt/doc-processor/.env
+
+# The built backend. Point DATA_DIR at a persistent location.
+Environment=DATA_DIR=/var/lib/doc-processor
+ExecStart=/usr/bin/node backend/dist/index.js
+Restart=on-failure
+RestartSec=3
+
+# Hardening
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ReadWritePaths=/var/lib/doc-processor
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Floza — CRM Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #09090B;
+    --surface: #18181B;
+    --surface-2: #1E1E22;
+    --border: #27272A;
+    --text: #FAFAFA;
+    --text-2: #A1A1AA;
+    --text-3: #71717A;
+    --primary: #3B82F6;
+    --primary-dim: rgba(59,130,246,.12);
+    --accent: #60A5FA;
+    --green: #22C55E;
+    --green-dim: rgba(34,197,94,.12);
+    --amber: #F59E0B;
+    --amber-dim: rgba(245,158,11,.12);
+    --purple: #A78BFA;
+    --purple-dim: rgba(167,139,250,.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    justify-content: center;
+  }
+  .frame {
+    width: 1080px;
+    height: 1920px;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* Top Nav */
+  .topnav {
+    height: 56px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 28px;
+    gap: 20px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .brand-mark {
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+    background: linear-gradient(135deg, #3B82F6, #6366F1);
+    display: grid;
+    place-items: center;
+    color: #fff;
+  }
+  .brand-mark svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  .brand-name { font-size: 16px; font-weight: 700; letter-spacing: -.02em; }
+  .brand-name span { color: var(--text-3); font-weight: 500; }
+  .nav-items { display: flex; gap: 4px; margin-left: 32px; }
+  .nav-item {
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-3);
+    border-radius: 6px;
+  }
+  .nav-item.active {
+    background: var(--surface-2);
+    color: var(--text);
+    font-weight: 600;
+  }
+  .nav-right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+  .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #F59E0B, #EF4444);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    display: grid;
+    place-items: center;
+  }
+
+  /* Main */
+  .main {
+    flex: 1;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto;
+  }
+
+  /* Page Header */
+  .page-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .page-header h1 { font-size: 22px; font-weight: 700; letter-spacing: -.02em; }
+  .page-header .sub { font-size: 13px; color: var(--text-2); margin-top: 2px; }
+  .pill {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--green);
+    background: var(--green-dim);
+    padding: 5px 12px;
+    border-radius: 99px;
+    border: 1px solid rgba(34,197,94,.2);
+  }
+  .pill .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+  }
+  .pill.amber { color: var(--amber); background: var(--amber-dim); border-color: rgba(245,158,11,.2); }
+  .pill.amber .dot { background: var(--amber); }
+
+  /* Stats Grid */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .stat-card .label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-3);
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    margin-bottom: 8px;
+  }
+  .stat-card .value {
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -.03em;
+    color: var(--text);
+    line-height: 1;
+  }
+  .stat-card .change {
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 6px;
+  }
+  .stat-card .change.up { color: var(--green); }
+  .stat-card .change.down { color: #EF4444; }
+
+  /* Two Column Layout */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 16px;
+    flex: 1;
+  }
+
+  /* Card */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .card-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+  }
+  .card-head h2 { font-size: 14px; font-weight: 600; }
+  .card-head .badge {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 99px;
+  }
+  .badge.green { background: var(--green-dim); color: var(--green); }
+  .badge.blue { background: var(--primary-dim); color: var(--accent); }
+  .badge.purple { background: var(--purple-dim); color: var(--purple); }
+  .card-body {
+    padding: 18px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* Chart placeholder using SVG */
+  .chart-area {
+    flex: 1;
+    background: var(--surface-2);
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+  }
+  .chart-area svg { width: 100%; flex: 1; }
+
+  /* Lead Rows */
+  .lead-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: var(--surface-2);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+  .lead-row.new-lead {
+    border-color: rgba(34,197,94,.4);
+    background: rgba(34,197,94,.05);
+    animation: glow 2s ease-in-out infinite;
+  }
+  @keyframes glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+    50% { box-shadow: 0 0 12px 2px rgba(34,197,94,.15); }
+  }
+  .lead-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    flex: none;
+  }
+  .lead-info { flex: 1; min-width: 0; }
+  .lead-name { font-size: 13px; font-weight: 600; color: var(--text); }
+  .lead-sub { font-size: 11px; color: var(--text-3); margin-top: 1px; }
+  .lead-tags { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
+  .lead-tag {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+  }
+  .lead-tag.ig { background: var(--primary-dim); color: var(--accent); }
+  .lead-tag.qualified { background: var(--green-dim); color: var(--green); }
+  .lead-tag.high { background: var(--amber-dim); color: var(--amber); }
+  .lead-tag.auto { background: var(--purple-dim); color: var(--purple); }
+  .lead-right { text-align: right; flex: none; }
+  .lead-id { font-size: 11px; color: var(--text-3); font-weight: 500; }
+  .lead-time { font-size: 11px; color: var(--green); font-weight: 600; margin-top: 4px; }
+
+  /* Mini bar chart */
+  .mini-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    height: 80px;
+    padding-top: 8px;
+  }
+  .mini-bar {
+    flex: 1;
+    border-radius: 4px 4px 0 0;
+    transition: height .3s;
+  }
+
+  /* Pipeline */
+  .pipeline {
+    display: flex;
+    gap: 10px;
+  }
+  .pipe-stage {
+    flex: 1;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    text-align: center;
+  }
+  .pipe-stage .pipe-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--text-3);
+    margin-bottom: 8px;
+  }
+  .pipe-stage .pipe-count {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -.03em;
+  }
+  .pipe-stage .pipe-bar {
+    height: 4px;
+    border-radius: 99px;
+    margin-top: 8px;
+  }
+</style>
+</head>
+<body>
+<div class="frame">
+
+  <!-- Top Nav -->
+  <div class="topnav">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </div>
+      <div class="brand-name">Floza<span>.ai</span></div>
+    </div>
+    <div class="nav-items">
+      <div class="nav-item">Dashboard</div>
+      <div class="nav-item">Automations</div>
+      <div class="nav-item">Leads</div>
+      <div class="nav-item active">CRM</div>
+    </div>
+    <div class="nav-right">
+      <div class="avatar">AM</div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+    <div class="page-header">
+      <div>
+        <h1>CRM Dashboard</h1>
+        <div class="sub">All leads and deals in one place</div>
+      </div>
+      <span class="pill"><span class="dot"></span>Live sync</span>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="label">Total Leads</div>
+        <div class="value">247</div>
+        <div class="change up">+12 this week</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Qualified</div>
+        <div class="value" style="color:var(--green);">89</div>
+        <div class="change up">+8 this week</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Deals Won</div>
+        <div class="value" style="color:var(--accent);">34</div>
+        <div class="change up">+3 this week</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Revenue</div>
+        <div class="value" style="color:var(--amber);">$48K</div>
+        <div class="change up">+18% vs last month</div>
+      </div>
+    </div>
+
+    <!-- Pipeline -->
+    <div class="pipeline">
+      <div class="pipe-stage">
+        <div class="pipe-label">New</div>
+        <div class="pipe-count" style="color:var(--purple);">18</div>
+        <div class="pipe-bar" style="background:var(--purple);width:60%;"></div>
+      </div>
+      <div class="pipe-stage">
+        <div class="pipe-label">Contacted</div>
+        <div class="pipe-count" style="color:var(--accent);">24</div>
+        <div class="pipe-bar" style="background:var(--accent);width:75%;"></div>
+      </div>
+      <div class="pipe-stage">
+        <div class="pipe-label">Qualified</div>
+        <div class="pipe-count" style="color:var(--green);">12</div>
+        <div class="pipe-bar" style="background:var(--green);width:45%;"></div>
+      </div>
+      <div class="pipe-stage">
+        <div class="pipe-label">Proposal</div>
+        <div class="pipe-count" style="color:var(--amber);">8</div>
+        <div class="pipe-bar" style="background:var(--amber);width:35%;"></div>
+      </div>
+      <div class="pipe-stage">
+        <div class="pipe-label">Closed Won</div>
+        <div class="pipe-count" style="color:var(--green);">5</div>
+        <div class="pipe-bar" style="background:var(--green);width:25%;"></div>
+      </div>
+    </div>
+
+    <!-- Two Columns -->
+    <div class="two-col">
+
+      <!-- Left: Chart + Recent Leads -->
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <!-- Chart Card -->
+        <div class="card" style="flex:1;">
+          <div class="card-head">
+            <h2>Leads over time</h2>
+            <span class="badge green">+23% this month</span>
+          </div>
+          <div class="card-body">
+            <div class="chart-area">
+              <svg viewBox="0 0 500 140" preserveAspectRatio="none">
+                <!-- Grid lines -->
+                <line x1="0" y1="35" x2="500" y2="35" stroke="#27272A" stroke-width="1"/>
+                <line x1="0" y1="70" x2="500" y2="70" stroke="#27272A" stroke-width="1"/>
+                <line x1="0" y1="105" x2="500" y2="105" stroke="#27272A" stroke-width="1"/>
+                <!-- Area fill -->
+                <path d="M0,120 L50,105 L100,110 L150,90 L200,95 L250,70 L300,75 L350,50 L400,55 L450,30 L500,20 L500,140 L0,140 Z" fill="url(#grad1)" opacity=".3"/>
+                <!-- Line -->
+                <polyline points="0,120 50,105 100,110 150,90 200,95 250,70 300,75 350,50 400,55 450,30 500,20" fill="none" stroke="#3B82F6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <!-- Dots -->
+                <circle cx="250" cy="70" r="4" fill="#3B82F6"/>
+                <circle cx="350" cy="50" r="4" fill="#3B82F6"/>
+                <circle cx="450" cy="30" r="4" fill="#3B82F6"/>
+                <circle cx="500" cy="20" r="5" fill="#22C55E" stroke="#09090B" stroke-width="2"/>
+                <defs>
+                  <linearGradient id="grad1" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#3B82F6"/>
+                    <stop offset="100%" stop-color="#3B82F6" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bar Chart Card -->
+        <div class="card">
+          <div class="card-head">
+            <h2>Leads by source</h2>
+          </div>
+          <div class="card-body">
+            <div style="display:flex;gap:12px;align-items:flex-end;height:100px;">
+              <div style="flex:1;text-align:center;">
+                <div style="background:linear-gradient(to top,#3B82F6,#60A5FA);height:80px;border-radius:4px 4px 0 0;"></div>
+                <div style="font-size:10px;color:var(--text-3);margin-top:6px;font-weight:600;">Instagram</div>
+              </div>
+              <div style="flex:1;text-align:center;">
+                <div style="background:linear-gradient(to top,#22C55E,#4ADE80);height:52px;border-radius:4px 4px 0 0;"></div>
+                <div style="font-size:10px;color:var(--text-3);margin-top:6px;font-weight:600;">Website</div>
+              </div>
+              <div style="flex:1;text-align:center;">
+                <div style="background:linear-gradient(to top,#F59E0B,#FBBF24);height:38px;border-radius:4px 4px 0 0;"></div>
+                <div style="font-size:10px;color:var(--text-3);margin-top:6px;font-weight:600;">Email</div>
+              </div>
+              <div style="flex:1;text-align:center;">
+                <div style="background:linear-gradient(to top,#A78BFA,#C4B5FD);height:28px;border-radius:4px 4px 0 0;"></div>
+                <div style="font-size:10px;color:var(--text-3);margin-top:6px;font-weight:600;">Referral</div>
+              </div>
+              <div style="flex:1;text-align:center;">
+                <div style="background:linear-gradient(to top,#EC4899,#F472B6);height:18px;border-radius:4px 4px 0 0;"></div>
+                <div style="font-size:10px;color:var(--text-3);margin-top:6px;font-weight:600;">Other</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Recent Leads -->
+      <div class="card">
+        <div class="card-head">
+          <h2>Recent Leads</h2>
+          <span class="badge green">Auto-synced</span>
+        </div>
+        <div class="card-body" style="gap:10px;">
+
+          <!-- NEW LEAD - Highlighted -->
+          <div class="lead-row new-lead">
+            <div class="lead-avatar" style="background:linear-gradient(135deg,#EC4899,#8B5CF6);">MC</div>
+            <div class="lead-info">
+              <div class="lead-name">Maya Chen</div>
+              <div class="lead-sub">Bloom Interiors</div>
+              <div class="lead-tags">
+                <span class="lead-tag ig">Instagram</span>
+                <span class="lead-tag qualified">Qualified</span>
+                <span class="lead-tag auto">Auto</span>
+              </div>
+            </div>
+            <div class="lead-right">
+              <div class="lead-id">#1042</div>
+              <div class="lead-time">Just now</div>
+            </div>
+          </div>
+
+          <div class="lead-row">
+            <div class="lead-avatar" style="background:linear-gradient(135deg,#6366F1,#8B5CF6);">JR</div>
+            <div class="lead-info">
+              <div class="lead-name">James Rodriguez</div>
+              <div class="lead-sub">BrightPath Co.</div>
+              <div class="lead-tags">
+                <span class="lead-tag ig">Instagram</span>
+                <span class="lead-tag high">High priority</span>
+              </div>
+            </div>
+            <div class="lead-right">
+              <div class="lead-id">#1041</div>
+              <div class="lead-time" style="color:var(--text-3);">2h ago</div>
+            </div>
+          </div>
+
+          <div class="lead-row">
+            <div class="lead-avatar" style="background:linear-gradient(135deg,#14B8A6,#2DD4BF);">SP</div>
+            <div class="lead-info">
+              <div class="lead-name">Sarah Patel</div>
+              <div class="lead-sub">UrbanLeaf Studio</div>
+              <div class="lead-tags">
+                <span class="lead-tag ig">Instagram</span>
+                <span class="lead-tag qualified">Qualified</span>
+              </div>
+            </div>
+            <div class="lead-right">
+              <div class="lead-id">#1040</div>
+              <div class="lead-time" style="color:var(--text-3);">5h ago</div>
+            </div>
+          </div>
+
+          <div class="lead-row">
+            <div class="lead-avatar" style="background:linear-gradient(135deg,#F59E0B,#FBBF24);">MK</div>
+            <div class="lead-info">
+              <div class="lead-name">Michael Kim</div>
+              <div class="lead-sub">CrestWave.io</div>
+              <div class="lead-tags">
+                <span class="lead-tag ig">Instagram</span>
+                <span class="lead-tag high">High priority</span>
+              </div>
+            </div>
+            <div class="lead-right">
+              <div class="lead-id">#1039</div>
+              <div class="lead-time" style="color:var(--text-3);">1d ago</div>
+            </div>
+          </div>
+
+          <div class="lead-row">
+            <div class="lead-avatar" style="background:linear-gradient(135deg,#EF4444,#F87171);">EW</div>
+            <div class="lead-info">
+              <div class="lead-name">Emily Watson</div>
+              <div class="lead-sub">Lumina Studio</div>
+              <div class="lead-tags">
+                <span class="lead-tag ig">Instagram</span>
+                <span class="lead-tag qualified">Qualified</span>
+              </div>
+            </div>
+            <div class="lead-right">
+              <div class="lead-id">#1038</div>
+              <div class="lead-time" style="color:var(--text-3);">1d ago</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

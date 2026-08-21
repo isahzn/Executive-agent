@@ -1,0 +1,35 @@
+# ── Doc Processor — one container, all-in-one ───────────────────────
+# Usage:
+#   docker compose up -d --build
+#   open http://localhost:8080
+#
+# Reads secrets from the root .env (gitignored). Copy .env.example to
+# .env first and fill in OPENROUTER_API_KEY + JWT_SECRET.
+
+services:
+  app:
+    build: .
+    image: doc-processor:latest
+    container_name: doc-processor
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-8080}:5000"
+    environment:
+      # Environment variables are read from the root .env (gitignored).
+      # Use --env-file to point elsewhere if you keep secrets elsewhere.
+      NODE_ENV: production
+    env_file:
+      - .env
+    volumes:
+      # SQLite DB + uploaded documents persist across container restarts.
+      - docproc-data:/app/data
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:5000/api/health').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      start_period: 10s
+      retries: 3
+
+volumes:
+  docproc-data:
+    name: docproc-data

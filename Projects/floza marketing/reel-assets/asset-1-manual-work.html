@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Floza — Manual Lead Entry (Excel)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Segoe+UI:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #1A1A2E;
+    --surface: #16213E;
+    --excel-green: #217346;
+    --excel-green-light: #2D9B5A;
+    --excel-header: #217346;
+    --cell-bg: #FFFFFF;
+    --cell-border: #D6DCE4;
+    --cell-selected: #D4E6F1;
+    --cell-hover: #E8F0FE;
+    --header-bg: #F2F2F2;
+    --text-dark: #1A1A1A;
+    --text-light: #F0F2F5;
+    --accent: #3B82F6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    font-family: 'Segoe UI', 'Inter', -apple-system, sans-serif;
+    font-size: 13px;
+    color: var(--text-dark);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  .frame {
+    width: 1080px;
+    height: 1920px;
+    background: #F5F5F5;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Excel Title Bar */
+  .title-bar {
+    height: 44px;
+    background: var(--excel-green);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 16px;
+  }
+  .title-bar .logo {
+    width: 24px;
+    height: 24px;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    background: rgba(255,255,255,.15);
+    border-radius: 4px;
+  }
+  .title-bar .file-name {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .title-bar .right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .title-bar .save-btn {
+    background: rgba(255,255,255,.2);
+    border: none;
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .title-bar .window-controls {
+    display: flex;
+    gap: 8px;
+  }
+  .title-bar .window-controls span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.3);
+  }
+
+  /* Ribbon */
+  .ribbon {
+    height: 100px;
+    background: #F8F9FA;
+    border-bottom: 1px solid #E0E0E0;
+    display: flex;
+    flex-direction: column;
+  }
+  .ribbon-tabs {
+    display: flex;
+    gap: 0;
+    padding: 0 12px;
+    border-bottom: 1px solid #E0E0E0;
+  }
+  .ribbon-tab {
+    padding: 10px 16px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #444;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+  }
+  .ribbon-tab.active {
+    color: var(--excel-green);
+    border-bottom-color: var(--excel-green);
+    font-weight: 600;
+  }
+  .ribbon-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 20px;
+  }
+  .ribbon-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 12px;
+    border-right: 1px solid #E0E0E0;
+  }
+  .ribbon-group:last-child { border-right: none; }
+  .ribbon-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    border: none;
+    background: transparent;
+    display: grid;
+    place-items: center;
+    color: #444;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  .ribbon-btn:hover { background: #E8E8E8; }
+  .ribbon-label {
+    font-size: 10px;
+    color: #888;
+    text-align: center;
+    margin-top: 2px;
+  }
+
+  /* Formula Bar */
+  .formula-bar {
+    height: 36px;
+    background: #fff;
+    border-bottom: 1px solid #E0E0E0;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    gap: 8px;
+  }
+  .cell-ref {
+    width: 80px;
+    height: 26px;
+    background: #F8F9FA;
+    border: 1px solid #D6DCE4;
+    border-radius: 3px;
+    padding: 0 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+  }
+  .fx-label {
+    font-size: 12px;
+    font-style: italic;
+    color: #888;
+    font-weight: 600;
+    padding: 0 8px;
+    border-right: 1px solid #E0E0E0;
+  }
+  .formula-input {
+    flex: 1;
+    height: 26px;
+    border: 1px solid #D6DCE4;
+    border-radius: 3px;
+    padding: 0 8px;
+    font-size: 12px;
+    color: #333;
+    outline: none;
+  }
+
+  /* Column Headers */
+  .col-headers {
+    display: flex;
+    background: #F2F2F2;
+    border-bottom: 2px solid #D6DCE4;
+  }
+  .row-num-header {
+    width: 50px;
+    height: 28px;
+    background: #F2F2F2;
+    border-right: 1px solid #D6DCE4;
+    border-bottom: 1px solid #D6DCE4;
+  }
+  .col-header {
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: #555;
+    border-right: 1px solid #D6DCE4;
+    border-bottom: 1px solid #D6DCE4;
+    background: #F2F2F2;
+  }
+  .col-header:nth-child(2) { width: 200px; }
+  .col-header:nth-child(3) { width: 260px; }
+  .col-header:nth-child(4) { width: 160px; }
+  .col-header:nth-child(5) { width: 180px; }
+  .col-header:nth-child(6) { width: 140px; }
+
+  /* Table Area */
+  .table-area {
+    flex: 1;
+    overflow-y: auto;
+    background: #fff;
+  }
+  .table-row {
+    display: flex;
+    border-bottom: 1px solid #E8E8E8;
+  }
+  .row-num {
+    width: 50px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: #888;
+    background: #F8F9FA;
+    border-right: 1px solid #D6DCE4;
+    flex: none;
+  }
+  .row-num.header-row {
+    background: var(--excel-green);
+    color: #fff;
+    font-weight: 700;
+  }
+  .cell {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    font-size: 13px;
+    border-right: 1px solid #E8E8E8;
+    color: #333;
+  }
+  .cell.name-col { width: 200px; font-weight: 600; }
+  .cell.email-col { width: 260px; color: #1A73E8; }
+  .cell.phone-col { width: 160px; color: #555; font-variant-numeric: tabular-nums; }
+  .cell.service-col { width: 180px; }
+  .cell.status-col { width: 140px; }
+
+  /* Header row */
+  .table-row.header .cell {
+    background: var(--excel-green);
+    color: #fff;
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+  }
+
+  /* Data rows */
+  .table-row.data:nth-child(even) .cell { background: #FAFBFC; }
+  .table-row.data:hover .cell { background: #E8F4FD; }
+
+  /* Tags */
+  .service-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: #EBF5FF;
+    color: #1A73E8;
+    border: 1px solid #C8E1FF;
+  }
+  .status-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+  .status-tag.pending {
+    background: #FFF8E1;
+    color: #F57C00;
+    border: 1px solid #FFE0B2;
+  }
+  .status-tag.active {
+    background: #E8F5E9;
+    color: #2E7D32;
+    border: 1px solid #C8E6C9;
+  }
+  .status-tag.new {
+    background: #F3E5F5;
+    color: #7B1FA2;
+    border: 1px solid #E1BEE7;
+  }
+  .status-tag .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  /* Active cell highlight */
+  .cell.active-cell {
+    outline: 2px solid var(--accent);
+    outline-offset: -2px;
+    background: #E3F2FD !important;
+  }
+
+  /* Bottom Status Bar */
+  .status-bar {
+    height: 32px;
+    background: var(--excel-green);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 20px;
+    font-size: 12px;
+    color: rgba(255,255,255,.8);
+    font-weight: 500;
+  }
+  .status-bar .left { display: flex; gap: 16px; }
+  .status-bar .right { margin-left: auto; display: flex; gap: 16px; }
+  .status-bar .highlight { color: #fff; font-weight: 700; }
+
+  /* Floating "Floza" watermark */
+  .watermark {
+    position: absolute;
+    bottom: 80px;
+    right: 40px;
+    font-size: 14px;
+    font-weight: 700;
+    color: rgba(33,115,70,.15);
+    letter-spacing: .05em;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+<div class="frame">
+
+  <!-- Title Bar -->
+  <div class="title-bar">
+    <div class="logo">X</div>
+    <span class="file-name">leads_dashboard.xlsx — Excel</span>
+    <div class="right">
+      <button class="save-btn">Save</button>
+      <div class="window-controls">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ribbon -->
+  <div class="ribbon">
+    <div class="ribbon-tabs">
+      <div class="ribbon-tab">File</div>
+      <div class="ribbon-tab active">Home</div>
+      <div class="ribbon-tab">Insert</div>
+      <div class="ribbon-tab">Page Layout</div>
+      <div class="ribbon-tab">Formulas</div>
+      <div class="ribbon-tab">Data</div>
+      <div class="ribbon-tab">Review</div>
+      <div class="ribbon-tab">View</div>
+    </div>
+    <div class="ribbon-content">
+      <div class="ribbon-group">
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <div style="display:flex;gap:4px;">
+            <button class="ribbon-btn" style="font-size:12px;font-weight:700;">B</button>
+            <button class="ribbon-btn" style="font-size:12px;font-style:italic;">I</button>
+            <button class="ribbon-btn" style="font-size:12px;text-decoration:underline;">U</button>
+          </div>
+          <span class="ribbon-label">Font</span>
+        </div>
+      </div>
+      <div class="ribbon-group">
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <div style="display:flex;gap:4px;">
+            <button class="ribbon-btn">🎨</button>
+            <button class="ribbon-btn">-border</button>
+          </div>
+          <span class="ribbon-label">Alignment</span>
+        </div>
+      </div>
+      <div class="ribbon-group">
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <div style="display:flex;gap:4px;">
+            <button class="ribbon-btn">%</button>
+            <button class="ribbon-btn">,.0</button>
+          </div>
+          <span class="ribbon-label">Number</span>
+        </div>
+      </div>
+      <div class="ribbon-group">
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <div style="display:flex;gap:4px;">
+            <button class="ribbon-btn">σ</button>
+            <button class="ribbon-btn">↓</button>
+          </div>
+          <span class="ribbon-label">Sort & Filter</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Formula Bar -->
+  <div class="formula-bar">
+    <input class="cell-ref" value="A2" readonly>
+    <span class="fx-label">fx</span>
+    <input class="formula-input" value="James Rodriguez" readonly>
+  </div>
+
+  <!-- Column Headers -->
+  <div class="col-headers">
+    <div class="row-num-header"></div>
+    <div class="col-header">A</div>
+    <div class="col-header">B</div>
+    <div class="col-header">C</div>
+    <div class="col-header">D</div>
+    <div class="col-header">E</div>
+  </div>
+
+  <!-- Table -->
+  <div class="table-area">
+    <!-- Header Row -->
+    <div class="table-row header">
+      <div class="row-num header-row">1</div>
+      <div class="cell name-col">Name</div>
+      <div class="cell email-col">Email</div>
+      <div class="cell phone-col">Phone</div>
+      <div class="cell service-col">Service</div>
+      <div class="cell status-col">Status</div>
+    </div>
+
+    <!-- Data Rows -->
+    <div class="table-row data">
+      <div class="row-num">2</div>
+      <div class="cell name-col active-cell">James Rodriguez</div>
+      <div class="cell email-col">james@brightpath.co</div>
+      <div class="cell phone-col">(415) 555-0142</div>
+      <div class="cell service-col"><span class="service-tag">Social Media</span></div>
+      <div class="cell status-col"><span class="status-tag pending"><span class="dot"></span>Pending</span></div>
+    </div>
+
+    <div class="table-row data">
+      <div class="row-num">3</div>
+      <div class="cell name-col">Sarah Patel</div>
+      <div class="cell email-col">sarah@urbanleaf.com</div>
+      <div class="cell phone-col">(310) 555-0198</div>
+      <div class="cell service-col"><span class="service-tag">Email Marketing</span></div>
+      <div class="cell status-col"><span class="status-tag active"><span class="dot"></span>Active</span></div>
+    </div>
+
+    <div class="table-row data">
+      <div class="row-num">4</div>
+      <div class="cell name-col">Michael Kim</div>
+      <div class="cell email-col">m.kim@crestwave.io</div>
+      <div class="cell phone-col">(212) 555-0167</div>
+      <div class="cell service-col"><span class="service-tag">Lead Generation</span></div>
+      <div class="cell status-col"><span class="status-tag pending"><span class="dot"></span>Pending</span></div>
+    </div>
+
+    <div class="table-row data">
+      <div class="row-num">5</div>
+      <div class="cell name-col">Emily Watson</div>
+      <div class="cell email-col">emily@luminastudio.co</div>
+      <div class="cell phone-col">(628) 555-0134</div>
+      <div class="cell service-col"><span class="service-tag">Social Media</span></div>
+      <div class="cell status-col"><span class="status-tag active"><span class="dot"></span>Active</span></div>
+    </div>
+
+    <div class="table-row data">
+      <div class="row-num">6</div>
+      <div class="cell name-col">David Lee</div>
+      <div class="cell email-col">dlee@nexgenmarketing.com</div>
+      <div class="cell phone-col">(510) 555-0189</div>
+      <div class="cell service-col"><span class="service-tag">Automation</span></div>
+      <div class="cell status-col"><span class="status-tag pending"><span class="dot"></span>Pending</span></div>
+    </div>
+
+    <div class="table-row data">
+      <div class="row-num">7</div>
+      <div class="cell name-col">Aisha Nakamura</div>
+      <div class="cell email-col">aisha@prismholdings.co</div>
+      <div class="cell phone-col">(408) 555-0156</div>
+      <div class="cell service-col"><span class="service-tag">Lead Generation</span></div>
+      <div class="cell status-col"><span class="status-tag active"><span class="dot"></span>Active</span></div>
+    </div>
+
+    <div class="table-row data">
+      <div class="row-num">8</div>
+      <div class="cell name-col">Ryan Mitchell</div>
+      <div class="cell email-col">ryan@clearwaterbiz.com</div>
+      <div class="cell phone-col">(773) 555-0173</div>
+      <div class="cell service-col"><span class="service-tag">Email Marketing</span></div>
+      <div class="cell status-col"><span class="status-tag new"><span class="dot"></span>New</span></div>
+    </div>
+
+    <div class="table-row data">
+      <div class="row-num">9</div>
+      <div class="cell name-col">Laura Garcia</div>
+      <div class="cell email-col">laura@sunridgegroup.com</div>
+      <div class="cell phone-col">(305) 555-0148</div>
+      <div class="cell service-col"><span class="service-tag">Social Media</span></div>
+      <div class="cell status-col"><span class="status-tag active"><span class="dot"></span>Active</span></div>
+    </div>
+
+    <div class="table-row data">
+      <div class="row-num">10</div>
+      <div class="cell name-col">Tom Chen</div>
+      <div class="cell email-col">tom.chen@algovista.com</div>
+      <div class="cell phone-col">(917) 555-0121</div>
+      <div class="cell service-col"><span class="service-tag">Automation</span></div>
+      <div class="cell status-col"><span class="status-tag pending"><span class="dot"></span>Pending</span></div>
+    </div>
+
+    <div class="table-row data">
+      <div class="row-num">11</div>
+      <div class="cell name-col">Olivia Johnson</div>
+      <div class="cell email-col">olivia@peakventures.io</div>
+      <div class="cell phone-col">(646) 555-0195</div>
+      <div class="cell service-col"><span class="service-tag">Lead Generation</span></div>
+      <div class="cell status-col"><span class="status-tag new"><span class="dot"></span>New</span></div>
+    </div>
+  </div>
+
+  <!-- Status Bar -->
+  <div class="status-bar">
+    <div class="left">
+      <span>Ready</span>
+    </div>
+    <div class="right">
+      <span>Average: <span class="highlight">10</span></span>
+      <span>Count: <span class="highlight">10</span></span>
+      <span>Sum: —</span>
+    </div>
+  </div>
+
+  <div class="watermark">Manual Entry</div>
+
+</div>
+</body>
+</html>

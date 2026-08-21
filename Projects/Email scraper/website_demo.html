@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Floza Web Studio — Websites that stand out</title>
+<style>
+  :root {
+    --bg: #05060a;
+    --text: #f2f4fb;
+    --muted: #9aa3b8;
+    --accent1: #7c5cff;
+    --accent2: #22d3ee;
+    --glow: rgba(124, 92, 255, 0.55);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body { height: 100%; }
+
+  body {
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---------- 3D stripe scene ---------- */
+  .scene {
+    position: fixed;
+    inset: 0;
+    perspective: 1400px;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .world {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 160vmax;
+    height: 160vmax;
+    transform-style: preserve-3d;
+    animation: spin 60s linear infinite;
+  }
+  @keyframes spin {
+    from { transform: translate(-50%, -50%) rotateX(-12deg) rotateY(0deg); }
+    to   { transform: translate(-50%, -50%) rotateX(-12deg) rotateY(360deg); }
+  }
+  .ribbon {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 34vmax;
+    height: 200%;
+    margin-left: -17vmax;
+    margin-top: -100%;
+    border-radius: 2px;
+    opacity: 0.85;
+    filter: blur(1px);
+    will-change: transform;
+  }
+
+  /* soft glow + vignette on top of the scene */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+      radial-gradient(120% 90% at 50% 0%, transparent 40%, rgba(5,6,10,0.75) 100%),
+      radial-gradient(90% 70% at 50% 50%, transparent 55%, rgba(5,6,10,0.9) 100%);
+  }
+  .grain {
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: repeating-radial-gradient(circle at 30% 30%,
+      #fff 0px, transparent 1px, transparent 3px);
+    mix-blend-mode: overlay;
+  }
+
+  /* ---------- content ---------- */
+  .page {
+    position: relative;
+    z-index: 3;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 24px;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 999px;
+    padding: 8px 16px;
+    margin-bottom: 28px;
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(6px);
+  }
+  .badge .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent2);
+    box-shadow: 0 0 12px var(--accent2);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 50% { opacity: 0.35; } }
+
+  h1 {
+    font-size: clamp(40px, 8vw, 88px);
+    line-height: 1.04;
+    font-weight: 800;
+    letter-spacing: -2px;
+    max-width: 900px;
+    background: linear-gradient(120deg, #ffffff 10%, #b9a8ff 45%, var(--accent2) 90%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 80px var(--glow);
+  }
+
+  p.lead {
+    margin-top: 22px;
+    max-width: 560px;
+    font-size: clamp(16px, 2.2vw, 20px);
+    line-height: 1.65;
+    color: var(--muted);
+  }
+
+  .cta-row {
+    margin-top: 36px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .btn {
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 14px 30px;
+    border-radius: 999px;
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    cursor: pointer;
+  }
+  .btn-primary {
+    color: #0b0c14;
+    background: linear-gradient(120deg, var(--accent2), #a78bfa);
+    box-shadow: 0 8px 32px rgba(34, 211, 238, 0.35);
+  }
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 44px rgba(124, 92, 255, 0.55);
+  }
+  .btn-ghost {
+    color: var(--text);
+    border: 1px solid rgba(255,255,255,0.22);
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(6px);
+  }
+  .btn-ghost:hover {
+    transform: translateY(-3px);
+    background: rgba(255,255,255,0.12);
+    border-color: rgba(255,255,255,0.4);
+  }
+
+  .features {
+    margin-top: 60px;
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 860px;
+  }
+  .feature {
+    flex: 1 1 200px;
+    padding: 18px 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(8px);
+    text-align: left;
+    transition: transform .2s ease, border-color .2s ease;
+  }
+  .feature:hover {
+    transform: translateY(-4px);
+    border-color: rgba(167, 139, 250, 0.5);
+  }
+  .feature .ico { font-size: 22px; }
+  .feature h3 { font-size: 15px; margin: 10px 0 6px; }
+  .feature p { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+  .foot {
+    margin-top: 64px;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(154, 163, 184, 0.6);
+  }
+</style>
+</head>
+<body>
+
+<div class="scene" id="scene">
+  <div class="world" id="world"></div>
+</div>
+<div class="overlay"></div>
+<div class="grain"></div>
+
+<div class="page">
+  <div class="badge"><span class="dot"></span> Floza Web Studio</div>
+  <h1>Websites that stand out, built to perform.</h1>
+  <p class="lead">
+    I design and build modern, animated, mobile-first websites from scratch —
+    no templates, no drag-and-drop. If you can imagine it, I can build it.
+  </p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="mailto:isamohommedh@gmail.com">Let's build yours</a>
+    <a class="btn btn-ghost" href="#features">See what I do</a>
+  </div>
+
+  <div class="features" id="features">
+    <div class="feature">
+      <div class="ico">🎨</div>
+      <h3>Unique design</h3>
+      <p>Every site is custom — colors, motion, and layouts made for your brand.</p>
+    </div>
+    <div class="feature">
+      <div class="ico">⚡</div>
+      <h3>Fast &amp; clean</h3>
+      <p>Lightweight code, smooth animations, and great performance on any device.</p>
+    </div>
+    <div class="feature">
+      <div class="ico">📱</div>
+      <h3>Mobile-first</h3>
+      <p>Responsive by design — looks great on phones, tablets, and desktops.</p>
+    </div>
+  </div>
+
+  <div class="foot">Demo by Floza Web Studio — made with HTML, CSS &amp; a little magic</div>
+</div>
+
+<script>
+  // Build random colourful twisted 3D stripes
+  const world = document.getElementById('world');
+  const COUNT = 26;
+  for (let i = 0; i < COUNT; i++) {
+    const r = document.createElement('div');
+    r.className = 'ribbon';
+
+    const hue = Math.floor(Math.random() * 360);
+    const hue2 = (hue + 60 + Math.floor(Math.random() * 120)) % 360;
+    const angle = (i / COUNT) * 360 + (Math.random() * 24 - 12);
+    const rad = (angle * Math.PI) / 180;
+    const radius = 18 + Math.random() * 30;   // vmax from center
+    const x = Math.cos(rad) * radius;
+    const z = Math.sin(rad) * radius;
+    const tiltY = -20 + Math.random() * 40;
+    const skew = -18 + Math.random() * 36;
+
+    r.style.transform =
+      'translate(' + x.toFixed(1) + 'vmax, 0) ' +
+      'rotateY(' + tiltY.toFixed(1) + 'deg) ' +
+      'skewY(' + skew.toFixed(1) + 'deg) ' +
+      'translateZ(' + z.toFixed(1) + 'vmax)';
+
+    r.style.background =
+      'linear-gradient(180deg, hsl(' + hue + ', 90%, 62%), ' +
+      'hsl(' + hue2 + ', 88%, 55%) 55%, hsl(' + hue + ', 90%, 35%))';
+    r.style.boxShadow =
+      '0 0 24px hsl(' + hue + ', 90%, 55%), ' +
+      'inset 0 0 30px rgba(255,255,255,0.25)';
+    r.style.opacity = (0.35 + Math.random() * 0.5).toFixed(2);
+    world.appendChild(r);
+  }
+
+  // Gentle parallax with the mouse
+  const scene = document.getElementById('scene');
+  let tx = 0, ty = 0, cx = 0, cy = 0;
+  window.addEventListener('mousemove', function (e) {
+    tx = (e.clientX / window.innerWidth - 0.5) * 40;
+    ty = (e.clientY / window.innerHeight - 0.5) * 30;
+  });
+  function animate() {
+    cx += (tx - cx) * 0.04;
+    cy += (ty - cy) * 0.04;
+    scene.style.setProperty('--mx', cx.toFixed(2) + 'px');
+    scene.style.setProperty('--my', cy.toFixed(2) + 'px');
+    requestAnimationFrame(animate);
+  }
+  animate();
+</script>
+</body>
+</html>

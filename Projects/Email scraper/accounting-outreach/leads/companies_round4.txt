@@ -1,0 +1,5 @@
+# Round 4 companies for the accounting-firm campaign.
+# Format: Company Name<TAB>primary@email.com (one per line, tab-separated)
+# Names must match the recipients and cold_emails files (cleaned name, no Ltd).
+# Replace the EXAMPLE row with real firms from leads_master.csv.
+Example Accountants	jane@example-accountants.com

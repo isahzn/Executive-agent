@@ -1,0 +1,24 @@
+# Recipient candidates for the outreach campaign.
+# Columns: CompanyName<TAB>email<TAB>source<TAB>alias_domain(optional)
+# source = site | social | directory | alias
+# alias_domain is the domain to generate probed alias candidates on (defaults to the email's domain).
+Baker Tilly	info@bakertilly.lk	site
+Baker Tilly	priyan@bakertilly.lk	site
+Baker Tilly	anura@bakertilly.lk	site
+Baker Tilly	kumudini@bakertilly.lk	site
+Baker Tilly	manoj@bakertilly.lk	site
+Baker Tilly	rusiru@bakertilly.lk	site
+SPM Corporate Services	info@spmaccountants.lk	social
+Sumudu BPO	infob@sumudubpo.com	social
+MP Associates	info@peachpuff-sandpiper-684882.hostingersite.com	site	mpassociateslanka.com
+First Accounting Solutions	haroon@firstaccsolutions.com	directory
+Qcontra Accounting Consultants	tax@qcontra.com	site
+Qcontra Accounting Consultants	mfmashraff@yahoo.com	directory
+Qcontra Accounting Consultants	q.contra@yahoo.com	site
+H. T. Peiris & Company	tax@htpeiris.com	site
+H. T. Peiris & Company	consultancy@htpeiris.com	site
+H. T. Peiris & Company	accpushpa@gmail.com	site
+H. T. Peiris & Company	pranidhidesilva@gmail.com	site
+H. T. Peiris & Company	deshanialoka89@gmail.com	site
+MAS Associates	info@masassociates.lk	site
+Finlorex Associates	finlorexassociate@gmail.com	site

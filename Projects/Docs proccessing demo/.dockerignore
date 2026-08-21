@@ -1,0 +1,14 @@
+node_modules
+**/node_modules
+dist
+**/dist
+data
+**/data
+.env
+.env.local
+*.log
+.git
+.gitignore
+.DS_Store
+Thumbs.db
+doc-processor-agent-prompt.md

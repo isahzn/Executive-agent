@@ -1,0 +1,23 @@
+# Personalized cold emails for the accounting-firm campaign (Round 4).
+# One block per firm, separated by a line of ---.
+# Keys are CLEANED firm names and must match companies_round4.txt exactly.
+# HAS_WEBSITE: 'no' only when the firm has no website (attaches the demo).
+# Only firm-name placeholders are auto-replaced by the script; write each
+# email fully personalized (see templates/first_email.txt for the skeleton).
+---
+COMPANY: Example Accountants
+SUBJECT: Document Automation for Example Accountants
+HAS_WEBSITE: yes
+BODY:
+Hi Jane,
+
+I came across Example Accountants while researching practices in Leeds and noticed you handle accounts, tax and payroll for a small portfolio of owner-managed clients.
+
+With a four-person team, the quiet time-sink is usually document intake — chasing receipts, bank statements and invoices from clients before the books can move.
+
+I build small document processors that collect and sort that intake automatically, and I can set up an automatic reply agent so you never miss a lead, with automatic follow-ups built in.
+
+Would you be open to a quick 15-minute conversation this week? I'm doing this for the experience, so any price works — even free.
+
+Best,
+Isa

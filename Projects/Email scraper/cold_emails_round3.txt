@@ -1,0 +1,390 @@
+COMPANY: Brander & Co
+SUBJECT: Document Automation for Brander & Co
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I came across Brander & Co while looking at independent CPA firms in Calgary and noticed you serve a lot of owner-managed small businesses.
+
+For firms like yours, the quiet time-sink is usually document intake — chasing clients for receipts, bank statements and source documents before anything else can move.
+
+I build small document processors that pull that intake together automatically, and I can add an automatic reply agent so you never miss a lead or client message, with automatic follow-ups built in.
+
+Would you be open to me showing you what I found? I'm doing this for the experience, so any price works — even free.
+
+Best,
+Isa
+---
+COMPANY: Asrani CPA
+SUBJECT: Document Automation for Asrani CPA
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I noticed Asrani CPA keeps regular office hours and takes enquiries by phone and email for the Mississauga area.
+
+With a small practice, a lot of the back-and-forth — collecting client documents, sorting records, replying to enquiries — lands on the same few people every day.
+
+I build lightweight automations that handle document collection and sorting in the background, plus an automatic reply agent so no enquiry slips through, with automatic follow-ups included.
+
+Worth a quick look? I'm doing this for the experience, so any price works — even free.
+
+Best,
+Isa
+---
+COMPANY: Morley CPA
+SUBJECT: Document Automation for Morley CPA
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I saw Morley CPA serves owner-managed businesses around Gravenhurst and Barrie, with appointments at both locations.
+
+When a practice runs lean, the manual side — chasing source documents, filing, updating records — tends to pile up faster than the billable work does.
+
+I build small automations that take over that document handling so you can stay client-facing, and I can set up an automatic reply agent so you never miss an enquiry, with follow-ups sent automatically.
+
+Open to seeing what I found? I'm doing this for the experience, so any price works — even free.
+
+Best,
+Isa
+---
+COMPANY: MTG Accounting
+SUBJECT: Document Automation for MTG Accounting
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I noticed MTG Accounting runs as an online-first practice from Cambridge and works with clients all over New Zealand, whatever software they use.
+
+Online practices still end up doing a surprising amount of manual work — collecting documents from clients in different formats and moving them into the books by hand.
+
+I build document processors that handle that intake automatically, and I can add an automatic reply agent so you never miss a lead, with automatic follow-ups built in.
+
+Would it be worth a quick look? I'm doing this for the experience, so any price works — even free.
+
+Best,
+Isa
+---
+COMPANY: CB Solutions
+SUBJECT: Document Automation for CB Solutions
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I saw CB Solutions is run by Corinna and takes on new clients with a free discovery call — a very hands-on, personal approach.
+
+The catch with running a one-person practice is that every new client means a fresh round of manual document collection and follow-up emails.
+
+I build small automations that gather and sort client documents for you automatically, plus an automatic reply agent so enquiries never sit unanswered, with automatic follow-ups included.
+
+Open to seeing what I found? I'm doing this for the experience, so any price works — even free.
+
+Best,
+Isa
+---
+COMPANY: Thornton & Associates
+SUBJECT: Document Automation for Thornton & Associates
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I came across Thornton & Associates while looking at Australian accounting practices and noticed you take enquiries through a national line and web form.
+
+Practices that handle a high volume of inbound enquiries usually find the same hours disappearing into document chasing and follow-up emails that could be automated.
+
+I build automations that process client documents and handle follow-ups automatically, and I can add an automatic reply agent so no enquiry ever goes cold.
+
+Would you like me to send over the idea? I'm doing this for the experience, so any price works — even free.
+
+Best,
+Isa
+---
+COMPANY: Bizwiz
+SUBJECT: Document Automation for Bizwiz
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I noticed Bizwiz offers accounting and bookkeeping for businesses around Dubai, with enquiries coming through email and WhatsApp.
+
+Small firms in the region tell me a big chunk of each month goes into collecting receipts and invoices from clients — often in messages and photos — before the books can be updated.
+
+I build document processors that pull that intake together automatically, plus an automatic reply agent so you never miss a client message, with automatic follow-ups built in.
+
+Worth a quick look? I'm doing this for the experience, so any price works — even free.
+
+Best,
+Isa
+---
+COMPANY: Alif Accounting & Tax Consultants
+SUBJECT: Document Automation for Alif Accounting & Tax Consultants
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I saw Alif provides VAT, tax and audit services to businesses across the UAE from your Dubai office.
+
+With VAT and corporate tax compliance, the document trail is heavy — invoices, supplier records and supporting evidence all need to be collected and organized before work can begin.
+
+I build automations that handle that document collection and organization automatically, and I can set up an automatic reply agent so no enquiry is missed, with automatic follow-ups included.
+
+Open to seeing what I found? I'm doing this for the experience, so any price works — even free.
+
+Best,
+Isa
+---
+COMPANY: Venus Tax Accounting & Bookkeeping
+SUBJECT: Document Automation for Venus Tax Accounting & Bookkeeping
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I noticed Venus Tax focuses on accounting and bookkeeping for small businesses out of Al Barsha in Dubai.
+
+Bookkeeping practices end up spending a large share of their time just collecting receipts, bank statements and supplier invoices from clients in scattered formats.
+
+I build small document processors that collect and sort those automatically, plus an automatic reply agent so you never miss a lead, with automatic follow-ups built in.
+
+Would it be worth a quick look? I'm doing this for the experience, so any price works — even free.
+
+Best,
+Isa
+---
+COMPANY: FMS Consultants
+SUBJECT: Document Automation for FMS Consultants
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I noticed FMS Consultants operates across the UAE and Lahore, handling accounting, tax and business advisory for clients in both markets.
+
+Working across borders means more document shuffling — different formats, currencies and follow-up threads to keep straight.
+
+I build automations that gather and organize client documents in one place automatically, and I can add an automatic reply agent so enquiries never slip through, with automatic follow-ups included.
+
+Worth a quick look? I'm doing this for the experience, so any price works — even free.
+
+Best,
+Isa
+---
+COMPANY: Taxinnovex
+SUBJECT: Document Automation for Taxinnovex
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I saw Taxinnovex has completed 900+ projects for 500+ clients over the past 12 years — clearly a high-volume practice.
+
+At that scale, the bottleneck is rarely the technical work; it's the manual document gathering that precedes every engagement.
+
+I build document processors that handle that intake automatically, and I can set up an automatic reply agent so you never miss an enquiry, with automatic follow-ups built in.
+
+Open to seeing what I found? I'm doing this for the experience, so any price works — even free.
+
+Best,
+Isa
+---
+COMPANY: HMT Accounting Solutions
+SUBJECT: Document Automation for HMT Accounting Solutions
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I noticed HMT Accounting Solutions serves SMEs across Vavuniya and the Eastern Province with bookkeeping, tax and payroll packages.
+
+Serving many small clients usually means repeating the same document collection cycle every month — statements, invoices, receipts — often by hand.
+
+I build small automations that collect and sort client documents automatically, plus an automatic reply agent so no enquiry is missed, with automatic follow-ups built in.
+
+Would you like me to send over the idea? I'm doing this for the experience, so any price works — even free.
+
+Best,
+Isa
+---
+COMPANY: MyTaxBuddy
+SUBJECT: Document Automation for MyTaxBuddy
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I noticed MyTaxBuddy is a one-person tax practice run by Pavani, filing individual returns with a 2–7 day turnaround.
+
+For a solo practice, every filing means a manual chase for salary slips, bank certificates and supporting documents — and that part can't easily be done faster by working longer.
+
+I build small automations that collect and organize client documents automatically, so the turnaround stays fast, plus an automatic reply agent so you never miss an enquiry, with follow-ups sent automatically.
+
+Worth a quick look? I'm doing this for the experience, so any price works — even free.
+
+Best,
+Isa
+---
+COMPANY: NM Associates
+SUBJECT: Document Automation for NM Associates
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I saw NM Associates is an established chartered accountants firm based in Maharagama, handling audit, tax and advisory work.
+
+A lot of the work before the actual numbers — collecting client documents, organizing records, chasing missing items — is still done manually by the team.
+
+I build automations that take over that document gathering and sorting, and I can add an automatic reply agent so you never miss a lead, with automatic follow-ups built in.
+
+Open to seeing what I found? I'm doing this for the experience, so any price works — even free.
+
+Best,
+Isa
+---
+COMPANY: Whiz Global
+SUBJECT: Document Automation for Whiz Global
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I noticed Whiz Global covers accounting, audit, tax and bookkeeping for Sri Lankan businesses.
+
+With that full range of services, your team likely spends a good share of each week collecting and re-typing client documents instead of doing the higher-value work.
+
+I build document processors that handle that intake automatically, plus an automatic reply agent so no enquiry slips through, with automatic follow-ups included.
+
+Would it be worth a quick look? I'm doing this for the experience, so any price works — even free.
+
+Best,
+Isa
+---
+COMPANY: Ready Accounting
+SUBJECT: Document Automation for Ready Accounting
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I noticed Ready Accounting positions itself as a cloud-first, automation-minded firm with offices in Johannesburg and Rustenburg.
+
+Even cloud practices lose hours to document intake — clients sending PDFs, photos and spreadsheets that still need to be sorted before the books can be touched.
+
+I build small processors that collect and organize that automatically, and I can set up an automatic reply agent so you never miss a lead, with automatic follow-ups built in.
+
+Worth a quick look? I'm doing this for the experience, so any price works — even free.
+
+Best,
+Isa
+---
+COMPANY: Handmill Accountants
+SUBJECT: Document Automation for Handmill Accountants
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I noticed Handmill Accountants has been helping small businesses in the Stourbridge area since 1983, now run by Stacey and Angela.
+
+A long-standing practice like yours carries a big base of clients — and with that comes a constant stream of paperwork to receive, sort and file by hand.
+
+I build automations that handle that document intake automatically, plus an automatic reply agent so you never miss a client enquiry, with automatic follow-ups included.
+
+Open to seeing what I found? I'm doing this for the experience, so any price works — even free.
+
+Best,
+Isa
+---
+COMPANY: 2E Accountants
+SUBJECT: Document Automation for 2E Accountants
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I noticed 2E Accountants specialises in management accounts and financial systems for start-ups and SMEs around Clapham.
+
+Start-ups in particular send documents in every format imaginable, which makes the manual sorting and data entry side heavier than it looks from the outside.
+
+I build document processors that gather and organize that intake automatically, plus an automatic reply agent so you never miss a lead, with automatic follow-ups built in.
+
+Would you like me to send over the idea? I'm doing this for the experience, so any price works — even free.
+
+Best,
+Isa
+---
+COMPANY: Platform Accounting
+SUBJECT: Document Automation for Platform Accounting
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I noticed Platform Accounting is run by Kevin with transparent fixed fees for small businesses in Coventry — a refreshingly simple model.
+
+With fixed fees, every hour spent on manual document chasing is an hour that isn't covered by the package — so automation pays for itself quickly.
+
+I build small automations that collect and sort client documents automatically, and I can add an automatic reply agent so you never miss an enquiry, with follow-ups sent automatically.
+
+Worth a quick look? I'm doing this for the experience, so any price works — even free.
+
+Best,
+Isa
+---
+COMPANY: Robert P. Russo CPA
+SUBJECT: Document Automation for Robert P. Russo CPA
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I noticed Robert P. Russo CPA serves a wide range of small businesses and individuals out of Manhattan.
+
+Tax season is the obvious crunch — client documents arrive by email, mail and portal, and someone has to sort it all before returns can be prepared.
+
+I build automations that collect and organize client documents automatically, plus an automatic reply agent so you never miss a lead, with automatic follow-ups built in.
+
+Open to seeing what I found? I'm doing this for the experience, so any price works — even free.
+
+Best,
+Isa
+---
+COMPANY: Randal J Warner CPA
+SUBJECT: Document Automation for Randal J Warner CPA
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I saw Randal J Warner CPA is a full-service tax, accounting and consulting firm based in Huntington, Indiana.
+
+Full-service firms run into the same wall: the document side — collecting, sorting, chasing — eats time that could go into client work, especially around deadlines.
+
+I build small automations that handle that intake automatically, and I can set up an automatic reply agent so you never miss an enquiry, with automatic follow-ups included.
+
+Would it be worth a quick look? I'm doing this for the experience, so any price works — even free.
+
+Best,
+Isa
+---
+COMPANY: XL KPO Services
+SUBJECT: Document Automation for XL KPO Services
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I noticed XL KPO Services provides outsourced accounting and KPO work for firms across Ahmedabad, Mumbai and Jamnagar.
+
+In outsourced work, every client engagement starts with documents arriving from the client side — and the manual collection and sorting is where time quietly disappears.
+
+I build document processors that handle that intake automatically, plus an automatic reply agent so you never miss a client message, with automatic follow-ups built in.
+
+Worth a quick look? I'm doing this for the experience, so any price works — even free.
+
+Best,
+Isa
+---
+COMPANY: The Financial Soul
+SUBJECT: Document Automation for The Financial Soul
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I noticed The Financial Soul serves US and global clients with a boutique, consultative approach from the Delhi NCR region.
+
+Serving clients across time zones makes the document exchange side even slower — waiting on documents and chasing follow-ups across hours of overlap.
+
+I build small automations that collect and organize client documents automatically, and I can add an automatic reply agent so enquiries never go unanswered, with automatic follow-ups built in.
+
+Open to seeing what I found? I'm doing this for the experience, so any price works — even free.
+
+Best,
+Isa

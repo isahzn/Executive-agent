@@ -1,0 +1,22 @@
+# Environment variables and secrets
+.env
+
+# Node
+node_modules/
+dist/
+build/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# TMP is local development material, not for version control
+# Uncomment if you want to exclude TMP from git:
+# TMP/

@@ -1,0 +1,7 @@
+Hi,
+
+I'm a developer building out my portfolio with real, practical projects, and I'd love to build something for [Firm Name] at no cost.
+
+Specifically, I want to build a document processing workflow tool to help your team handle client documents faster automated intake, organization, and processing, so less time gets spent on manual sorting.
+
+

@@ -1,0 +1,15 @@
+# Follow-up 1 — send ~3 working days after the first email (manual for now,
+# wired into the future follow-up system). Same style, one new angle, one CTA.
+
+Subject: Re: Document Automation for {{firm_name}}
+
+Hi {{contact_name}},
+
+Just floating my last email back up — I know inboxes get busy.
+
+To keep it short: I automate the document intake side for small accounting firms (receipts, bank statements, invoices arriving by email and portal), so the team stops re-keying client paperwork by hand. It's a small build, and I'm doing it for the experience.
+
+Would it be worth 15 minutes to see if it fits? Happy to work around your schedule.
+
+Best,
+Isa

@@ -1,0 +1,15 @@
+# Follow-up 2 — send ~7 working days after the first email. Different angle:
+# the auto-reply agent / never-miss-a-lead hook.
+
+Subject: Never missing a lead enquiry
+
+Hi {{contact_name}},
+
+One more thought, then I'll leave it with you.
+
+The practices I talk to usually say the same thing twice: document intake eats time, and follow-up on enquiries slips. I handle both — automated document processing, plus an auto-reply agent that answers and books leads so nothing goes cold.
+
+Open to a quick conversation to see whether it'd help your practice? I'm doing this for the experience, so any price works — even free.
+
+Best,
+Isa

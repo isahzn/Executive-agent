@@ -1,0 +1,14 @@
+# Follow-up 3 — final message, ~14 working days after the first email. Soft close.
+
+Subject: Wrapping up from me
+
+Hi {{contact_name}},
+
+Last one from me — I'll take the hint if timing's not right.
+
+If the document side ever starts eating more of your week than it should, I build small automations that handle it (and an auto-reply agent so enquiries never slip). My offer stands: I do this for the experience, so any price works — even free.
+
+If useful, reply any time. Otherwise, all the best with the practice.
+
+Best,
+Isa

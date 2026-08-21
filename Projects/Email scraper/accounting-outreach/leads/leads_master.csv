@@ -1,0 +1,2 @@
+firm_name,contact_name,email,website,location,has_website,rating,employees,source_url,research_notes,status
+Example Accountants,Jane Doe,jane@example-accountants.com,https://www.example-accountants.com,Leeds UK,yes,4.6,4,https://www.example-accountants.com/contact,"Research note: four-person practice serving owner-managed clients; handles accounts, tax and payroll; takes enquiries by email and phone. Observation for email: small team, manual document intake.",new

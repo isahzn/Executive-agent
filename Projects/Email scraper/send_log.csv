@@ -1,0 +1,689 @@
+timestamp,company_name,email,status,error_message
+2026-08-04 22:10:08,(test),isamohommedh@gmail.com,Sent,
+2026-08-04 22:10:25,Baker Tilly,info@bakertilly.lk,Skipped,address rejected by mail server
+2026-08-04 22:10:26,SPM Corporate Services,spm@sltnet.lk,Skipped,address rejected by mail server
+2026-08-04 22:10:36,Sumudu BPO,info@sumudubpo.com,Sent,
+2026-08-04 22:10:58,Floza Automations,info@peachpuff-sandpiper-684882.hostingersite.com,Sent,
+2026-08-04 22:11:15,First Accounting Solutions,haroon@firstaccsolutions.com,Sent,
+2026-08-04 22:11:39,Qcontra Accounting Consultants,info@qcontra.com,Sent,
+2026-08-04 22:11:59,H. T. Peiris & Company,audit@htpeiris.com,Sent,
+2026-08-04 22:12:27,MAS Associates,info@masassociates.lk,Sent,
+2026-08-04 22:12:45,Finlorex Associates,finlorexassociate@gmail.com,Sent,
+2026-08-04 22:15:17,Baker Tilly,info@bakertilly.lk,Sent,
+2026-08-04 22:15:34,SPM Corporate Services,spm@sltnet.lk,Sent,
+2026-08-04 22:15:54,Sumudu BPO,info@sumudubpo.com,Skipped,duplicate / already processed
+2026-08-04 22:15:54,Floza Automations,info@peachpuff-sandpiper-684882.hostingersite.com,Skipped,duplicate / already processed
+2026-08-04 22:15:54,First Accounting Solutions,haroon@firstaccsolutions.com,Skipped,duplicate / already processed
+2026-08-04 22:15:54,Qcontra Accounting Consultants,info@qcontra.com,Skipped,duplicate / already processed
+2026-08-04 22:15:54,H. T. Peiris & Company,audit@htpeiris.com,Skipped,duplicate / already processed
+2026-08-04 22:15:54,MAS Associates,info@masassociates.lk,Skipped,duplicate / already processed
+2026-08-04 22:15:54,Finlorex Associates,finlorexassociate@gmail.com,Skipped,duplicate / already processed
+2026-08-04 22:29:07,Baker Tilly,info@bakertilly.lk,Skipped,duplicate / already processed
+2026-08-04 22:29:08,Baker Tilly,accounts@bakertilly.lk,Skipped,not confirmed by SMTP probe
+2026-08-04 22:29:10,Baker Tilly,tax@bakertilly.lk,Skipped,not confirmed by SMTP probe
+2026-08-04 22:29:13,Baker Tilly,admin@bakertilly.lk,Skipped,not confirmed by SMTP probe
+2026-08-04 22:29:14,Baker Tilly,hr@bakertilly.lk,Skipped,not confirmed by SMTP probe
+2026-08-04 22:29:21,SPM Corporate Services,info@spmaccountants.lk,Sent,
+2026-08-04 22:29:21,SPM Corporate Services,info@spmaccountants.lk,Skipped,duplicate / already processed
+2026-08-04 22:29:46,SPM Corporate Services,accounts@spmaccountants.lk,Sent,
+2026-08-04 22:29:48,SPM Corporate Services,tax@spmaccountants.lk,Skipped,rejected by mail server
+2026-08-04 22:29:51,SPM Corporate Services,admin@spmaccountants.lk,Skipped,rejected by mail server
+2026-08-04 22:30:10,Sumudu BPO,infob@sumudubpo.com,Sent,
+2026-08-04 22:30:10,Sumudu BPO,info@sumudubpo.com,Skipped,duplicate / already processed
+2026-08-04 22:30:16,Sumudu BPO,accounts@sumudubpo.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:30:22,Sumudu BPO,tax@sumudubpo.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:30:28,Sumudu BPO,admin@sumudubpo.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:30:50,MP Associates,info@mpassociateslanka.com,Sent,
+2026-08-04 22:30:57,MP Associates,accounts@mpassociateslanka.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:31:04,MP Associates,tax@mpassociateslanka.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:31:11,MP Associates,admin@mpassociateslanka.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:31:19,MP Associates,hr@mpassociateslanka.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:31:21,First Accounting Solutions,info@firstaccsolutions.com,Skipped,rejected by mail server
+2026-08-04 22:31:23,First Accounting Solutions,accounts@firstaccsolutions.com,Skipped,rejected by mail server
+2026-08-04 22:31:25,First Accounting Solutions,tax@firstaccsolutions.com,Skipped,rejected by mail server
+2026-08-04 22:31:27,First Accounting Solutions,admin@firstaccsolutions.com,Skipped,rejected by mail server
+2026-08-04 22:31:29,First Accounting Solutions,hr@firstaccsolutions.com,Skipped,rejected by mail server
+2026-08-04 22:31:58,Qcontra Accounting Consultants,tax@qcontra.com,Sent,
+2026-08-04 22:32:16,Qcontra Accounting Consultants,mfmashraff@yahoo.com,Sent,
+2026-08-04 22:32:16,Qcontra Accounting Consultants,info@qcontra.com,Skipped,duplicate / already processed
+2026-08-04 22:32:22,Qcontra Accounting Consultants,accounts@qcontra.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:32:22,Qcontra Accounting Consultants,tax@qcontra.com,Skipped,duplicate / already processed
+2026-08-04 22:32:42,H. T. Peiris & Company,tax@htpeiris.com,Sent,
+2026-08-04 22:32:57,H. T. Peiris & Company,consultancy@htpeiris.com,Sent,
+2026-08-04 22:33:14,H. T. Peiris & Company,accpushpa@gmail.com,Sent,
+2026-08-04 22:33:44,H. T. Peiris & Company,pranidhidesilva@gmail.com,Sent,
+2026-08-04 22:34:04,H. T. Peiris & Company,deshanialoka89@gmail.com,Sent,
+2026-08-04 22:34:04,MAS Associates,info@masassociates.lk,Skipped,duplicate / already processed
+2026-08-04 22:34:24,MAS Associates,accounts@masassociates.lk,Sent,
+2026-08-04 22:34:48,MAS Associates,tax@masassociates.lk,Sent,
+2026-08-04 22:35:06,MAS Associates,admin@masassociates.lk,Sent,
+2026-08-04 22:35:29,MAS Associates,hr@masassociates.lk,Sent,
+2026-08-04 22:45:56,Baker Tilly,priyan@bakertilly.lk,Sent,
+2026-08-04 22:46:20,Baker Tilly,anura@bakertilly.lk,Sent,
+2026-08-04 22:46:33,Baker Tilly,kumudini@bakertilly.lk,Sent,
+2026-08-04 22:46:50,Baker Tilly,manoj@bakertilly.lk,Sent,
+2026-08-04 22:47:05,Baker Tilly,rusiru@bakertilly.lk,Sent,
+2026-08-04 22:47:05,SPM Corporate Services,info@spmaccountants.lk,Skipped,duplicate / already processed
+2026-08-04 22:47:05,SPM Corporate Services,accounts@spmaccountants.lk,Skipped,duplicate / already processed
+2026-08-04 22:47:07,SPM Corporate Services,tax@spmaccountants.lk,Skipped,rejected by mail server
+2026-08-04 22:47:10,SPM Corporate Services,admin@spmaccountants.lk,Skipped,rejected by mail server
+2026-08-04 22:47:13,SPM Corporate Services,hr@spmaccountants.lk,Skipped,rejected by mail server
+2026-08-04 22:47:15,SPM Corporate Services,audit@spmaccountants.lk,Skipped,rejected by mail server
+2026-08-04 22:47:16,SPM Corporate Services,contact@spmaccountants.lk,Skipped,not confirmed by SMTP probe
+2026-08-04 22:47:17,SPM Corporate Services,careers@spmaccountants.lk,Skipped,not confirmed by SMTP probe
+2026-08-04 22:47:18,SPM Corporate Services,finance@spmaccountants.lk,Skipped,not confirmed by SMTP probe
+2026-08-04 22:47:19,SPM Corporate Services,support@spmaccountants.lk,Skipped,not confirmed by SMTP probe
+2026-08-04 22:47:20,SPM Corporate Services,enquiries@spmaccountants.lk,Skipped,not confirmed by SMTP probe
+2026-08-04 22:47:20,SPM Corporate Services,enquiry@spmaccountants.lk,Skipped,not confirmed by SMTP probe
+2026-08-04 22:47:20,Sumudu BPO,info@sumudubpo.com,Skipped,duplicate / already processed
+2026-08-04 22:47:27,Sumudu BPO,accounts@sumudubpo.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:47:33,Sumudu BPO,tax@sumudubpo.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:47:39,Sumudu BPO,admin@sumudubpo.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:47:45,Sumudu BPO,hr@sumudubpo.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:47:51,Sumudu BPO,audit@sumudubpo.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:47:57,Sumudu BPO,contact@sumudubpo.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:48:03,Sumudu BPO,careers@sumudubpo.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:48:09,Sumudu BPO,finance@sumudubpo.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:48:15,Sumudu BPO,support@sumudubpo.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:48:21,Sumudu BPO,enquiries@sumudubpo.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:48:27,Sumudu BPO,enquiry@sumudubpo.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:48:27,MP Associates,info@mpassociateslanka.com,Skipped,duplicate / already processed
+2026-08-04 22:48:29,MP Associates,accounts@mpassociateslanka.com,Skipped,rejected by mail server
+2026-08-04 22:48:31,MP Associates,tax@mpassociateslanka.com,Skipped,rejected by mail server
+2026-08-04 22:48:33,MP Associates,admin@mpassociateslanka.com,Skipped,rejected by mail server
+2026-08-04 22:48:36,MP Associates,hr@mpassociateslanka.com,Skipped,rejected by mail server
+2026-08-04 22:48:43,MP Associates,audit@mpassociateslanka.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:48:50,MP Associates,contact@mpassociateslanka.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:48:58,MP Associates,careers@mpassociateslanka.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:49:05,MP Associates,finance@mpassociateslanka.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:49:12,MP Associates,support@mpassociateslanka.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:49:20,MP Associates,enquiries@mpassociateslanka.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:49:27,MP Associates,enquiry@mpassociateslanka.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:49:29,First Accounting Solutions,info@firstaccsolutions.com,Skipped,rejected by mail server
+2026-08-04 22:49:31,First Accounting Solutions,accounts@firstaccsolutions.com,Skipped,rejected by mail server
+2026-08-04 22:49:33,First Accounting Solutions,tax@firstaccsolutions.com,Skipped,rejected by mail server
+2026-08-04 22:49:35,First Accounting Solutions,admin@firstaccsolutions.com,Skipped,rejected by mail server
+2026-08-04 22:49:37,First Accounting Solutions,hr@firstaccsolutions.com,Skipped,rejected by mail server
+2026-08-04 22:49:39,First Accounting Solutions,audit@firstaccsolutions.com,Skipped,rejected by mail server
+2026-08-04 22:49:41,First Accounting Solutions,contact@firstaccsolutions.com,Skipped,rejected by mail server
+2026-08-04 22:49:43,First Accounting Solutions,careers@firstaccsolutions.com,Skipped,rejected by mail server
+2026-08-04 22:49:44,First Accounting Solutions,finance@firstaccsolutions.com,Skipped,rejected by mail server
+2026-08-04 22:49:46,First Accounting Solutions,support@firstaccsolutions.com,Skipped,rejected by mail server
+2026-08-04 22:49:48,First Accounting Solutions,enquiries@firstaccsolutions.com,Skipped,rejected by mail server
+2026-08-04 22:49:50,First Accounting Solutions,enquiry@firstaccsolutions.com,Skipped,rejected by mail server
+2026-08-04 22:50:09,Qcontra Accounting Consultants,q.contra@yahoo.com,Sent,
+2026-08-04 22:50:09,Qcontra Accounting Consultants,info@qcontra.com,Skipped,duplicate / already processed
+2026-08-04 22:50:15,Qcontra Accounting Consultants,accounts@qcontra.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:50:15,Qcontra Accounting Consultants,tax@qcontra.com,Skipped,duplicate / already processed
+2026-08-04 22:50:22,Qcontra Accounting Consultants,admin@qcontra.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:50:28,Qcontra Accounting Consultants,hr@qcontra.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:50:35,Qcontra Accounting Consultants,audit@qcontra.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:50:41,Qcontra Accounting Consultants,contact@qcontra.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:50:47,Qcontra Accounting Consultants,careers@qcontra.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:50:54,Qcontra Accounting Consultants,finance@qcontra.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:51:00,Qcontra Accounting Consultants,support@qcontra.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:51:08,Qcontra Accounting Consultants,enquiries@qcontra.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:51:15,Qcontra Accounting Consultants,enquiry@qcontra.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:51:18,H. T. Peiris & Company,info@htpeiris.com,Skipped,rejected by mail server
+2026-08-04 22:51:21,H. T. Peiris & Company,accounts@htpeiris.com,Skipped,rejected by mail server
+2026-08-04 22:51:21,H. T. Peiris & Company,tax@htpeiris.com,Skipped,duplicate / already processed
+2026-08-04 22:51:23,H. T. Peiris & Company,admin@htpeiris.com,Skipped,rejected by mail server
+2026-08-04 22:51:26,H. T. Peiris & Company,hr@htpeiris.com,Skipped,rejected by mail server
+2026-08-04 22:51:26,H. T. Peiris & Company,audit@htpeiris.com,Skipped,duplicate / already processed
+2026-08-04 22:51:29,H. T. Peiris & Company,contact@htpeiris.com,Skipped,rejected by mail server
+2026-08-04 22:51:31,H. T. Peiris & Company,careers@htpeiris.com,Skipped,rejected by mail server
+2026-08-04 22:51:32,H. T. Peiris & Company,finance@htpeiris.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:51:33,H. T. Peiris & Company,support@htpeiris.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:51:34,H. T. Peiris & Company,enquiries@htpeiris.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:51:35,H. T. Peiris & Company,enquiry@htpeiris.com,Skipped,not confirmed by SMTP probe
+2026-08-04 22:51:35,MAS Associates,info@masassociates.lk,Skipped,duplicate / already processed
+2026-08-04 22:51:35,MAS Associates,accounts@masassociates.lk,Skipped,duplicate / already processed
+2026-08-04 22:51:35,MAS Associates,tax@masassociates.lk,Skipped,duplicate / already processed
+2026-08-04 22:51:35,MAS Associates,admin@masassociates.lk,Skipped,duplicate / already processed
+2026-08-04 22:51:35,MAS Associates,hr@masassociates.lk,Skipped,duplicate / already processed
+2026-08-04 22:51:52,MAS Associates,audit@masassociates.lk,Sent,
+2026-08-04 22:52:13,MAS Associates,contact@masassociates.lk,Sent,
+2026-08-04 22:52:34,MAS Associates,careers@masassociates.lk,Sent,
+2026-08-04 22:52:54,MAS Associates,finance@masassociates.lk,Sent,
+2026-08-04 22:53:11,MAS Associates,support@masassociates.lk,Sent,
+2026-08-05 19:49:01,VK Accountancy,info@vkaccountancy.co.uk,Sent,
+2026-08-05 19:49:01,VK Accountancy,info@vkaccountancy.co.uk,Skipped,duplicate / already processed
+2026-08-05 19:49:03,VK Accountancy,accounts@vkaccountancy.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:49:05,VK Accountancy,tax@vkaccountancy.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:49:06,VK Accountancy,admin@vkaccountancy.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:49:08,VK Accountancy,hr@vkaccountancy.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:49:09,VK Accountancy,audit@vkaccountancy.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:49:10,VK Accountancy,contact@vkaccountancy.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:49:12,VK Accountancy,careers@vkaccountancy.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:49:14,VK Accountancy,finance@vkaccountancy.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:49:15,VK Accountancy,support@vkaccountancy.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:49:17,VK Accountancy,enquiries@vkaccountancy.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:49:18,VK Accountancy,enquiry@vkaccountancy.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:49:39,Clark Hearsey,steve.clark@clarkhearsey.co.uk,Sent,
+2026-08-05 19:49:40,Clark Hearsey,info@clarkhearsey.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:49:41,Clark Hearsey,accounts@clarkhearsey.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:49:42,Clark Hearsey,tax@clarkhearsey.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:49:44,Clark Hearsey,admin@clarkhearsey.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:49:45,Clark Hearsey,hr@clarkhearsey.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:49:46,Clark Hearsey,audit@clarkhearsey.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:49:48,Clark Hearsey,contact@clarkhearsey.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:49:49,Clark Hearsey,careers@clarkhearsey.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:49:50,Clark Hearsey,finance@clarkhearsey.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:49:52,Clark Hearsey,support@clarkhearsey.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:49:53,Clark Hearsey,enquiries@clarkhearsey.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:49:55,Clark Hearsey,enquiry@clarkhearsey.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:50:17,Andrew Thomas Accountancy,info@andrew-thomas.org,Sent,
+2026-08-05 19:50:17,Andrew Thomas Accountancy,info@andrew-thomas.org,Skipped,duplicate / already processed
+2026-08-05 19:50:19,Andrew Thomas Accountancy,accounts@andrew-thomas.org,Skipped,not confirmed by SMTP probe
+2026-08-05 19:50:21,Andrew Thomas Accountancy,tax@andrew-thomas.org,Skipped,not confirmed by SMTP probe
+2026-08-05 19:50:23,Andrew Thomas Accountancy,admin@andrew-thomas.org,Skipped,not confirmed by SMTP probe
+2026-08-05 19:50:25,Andrew Thomas Accountancy,hr@andrew-thomas.org,Skipped,not confirmed by SMTP probe
+2026-08-05 19:50:26,Andrew Thomas Accountancy,audit@andrew-thomas.org,Skipped,not confirmed by SMTP probe
+2026-08-05 19:50:28,Andrew Thomas Accountancy,contact@andrew-thomas.org,Skipped,not confirmed by SMTP probe
+2026-08-05 19:50:30,Andrew Thomas Accountancy,careers@andrew-thomas.org,Skipped,not confirmed by SMTP probe
+2026-08-05 19:50:31,Andrew Thomas Accountancy,finance@andrew-thomas.org,Skipped,not confirmed by SMTP probe
+2026-08-05 19:50:32,Andrew Thomas Accountancy,support@andrew-thomas.org,Skipped,not confirmed by SMTP probe
+2026-08-05 19:50:34,Andrew Thomas Accountancy,enquiries@andrew-thomas.org,Skipped,not confirmed by SMTP probe
+2026-08-05 19:50:35,Andrew Thomas Accountancy,enquiry@andrew-thomas.org,Skipped,not confirmed by SMTP probe
+2026-08-05 19:51:09,Michael J Staite & Sons,mail@staiteandsons.co.uk,Sent,
+2026-08-05 19:51:15,Michael J Staite & Sons,info@staiteandsons.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:51:21,Michael J Staite & Sons,accounts@staiteandsons.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:51:27,Michael J Staite & Sons,tax@staiteandsons.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:51:33,Michael J Staite & Sons,admin@staiteandsons.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:51:39,Michael J Staite & Sons,hr@staiteandsons.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:51:45,Michael J Staite & Sons,audit@staiteandsons.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:51:51,Michael J Staite & Sons,contact@staiteandsons.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:51:57,Michael J Staite & Sons,careers@staiteandsons.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:52:03,Michael J Staite & Sons,finance@staiteandsons.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:52:09,Michael J Staite & Sons,support@staiteandsons.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:52:15,Michael J Staite & Sons,enquiries@staiteandsons.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:52:21,Michael J Staite & Sons,enquiry@staiteandsons.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:52:38,GWS Accounts,office@gwsaccounts.co.uk,Sent,
+2026-08-05 19:52:40,GWS Accounts,info@gwsaccounts.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:52:41,GWS Accounts,accounts@gwsaccounts.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:52:43,GWS Accounts,tax@gwsaccounts.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:52:44,GWS Accounts,admin@gwsaccounts.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:52:46,GWS Accounts,hr@gwsaccounts.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:52:47,GWS Accounts,audit@gwsaccounts.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:52:49,GWS Accounts,contact@gwsaccounts.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:52:51,GWS Accounts,careers@gwsaccounts.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:52:53,GWS Accounts,finance@gwsaccounts.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:52:54,GWS Accounts,support@gwsaccounts.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:52:56,GWS Accounts,enquiries@gwsaccounts.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:52:57,GWS Accounts,enquiry@gwsaccounts.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:53:19,JCM Associates,janecmellor@gmail.com,Sent,
+2026-08-05 19:53:40,Philip Atherton,phil@philatherton.co.uk,Sent,
+2026-08-05 19:53:41,Philip Atherton,info@philatherton.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:53:43,Philip Atherton,accounts@philatherton.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:53:44,Philip Atherton,tax@philatherton.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:53:46,Philip Atherton,admin@philatherton.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:53:47,Philip Atherton,hr@philatherton.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:53:49,Philip Atherton,audit@philatherton.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:53:50,Philip Atherton,contact@philatherton.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:53:52,Philip Atherton,careers@philatherton.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:53:53,Philip Atherton,finance@philatherton.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:53:55,Philip Atherton,support@philatherton.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:53:57,Philip Atherton,enquiries@philatherton.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:53:59,Philip Atherton,enquiry@philatherton.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:54:15,CH Jefferson & Co,cphillips@chjefferson.com,Sent,
+2026-08-05 19:54:17,CH Jefferson & Co,info@chjefferson.com,Skipped,not confirmed by SMTP probe
+2026-08-05 19:54:18,CH Jefferson & Co,accounts@chjefferson.com,Skipped,not confirmed by SMTP probe
+2026-08-05 19:54:20,CH Jefferson & Co,tax@chjefferson.com,Skipped,not confirmed by SMTP probe
+2026-08-05 19:54:21,CH Jefferson & Co,admin@chjefferson.com,Skipped,not confirmed by SMTP probe
+2026-08-05 19:54:23,CH Jefferson & Co,hr@chjefferson.com,Skipped,not confirmed by SMTP probe
+2026-08-05 19:54:24,CH Jefferson & Co,audit@chjefferson.com,Skipped,not confirmed by SMTP probe
+2026-08-05 19:54:26,CH Jefferson & Co,contact@chjefferson.com,Skipped,not confirmed by SMTP probe
+2026-08-05 19:54:27,CH Jefferson & Co,careers@chjefferson.com,Skipped,not confirmed by SMTP probe
+2026-08-05 19:54:29,CH Jefferson & Co,finance@chjefferson.com,Skipped,not confirmed by SMTP probe
+2026-08-05 19:54:30,CH Jefferson & Co,support@chjefferson.com,Skipped,not confirmed by SMTP probe
+2026-08-05 19:54:32,CH Jefferson & Co,enquiries@chjefferson.com,Skipped,not confirmed by SMTP probe
+2026-08-05 19:54:33,CH Jefferson & Co,enquiry@chjefferson.com,Skipped,not confirmed by SMTP probe
+2026-08-05 19:54:54,Accounting Links,accountinglinks@hotmail.com,Sent,
+2026-08-05 19:55:10,Jasbir Assi,jazzassi@hotmail.co.uk,Sent,
+2026-08-05 19:55:12,Jasbir Assi,info@hotmail.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:55:13,Jasbir Assi,accounts@hotmail.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:55:14,Jasbir Assi,tax@hotmail.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:55:15,Jasbir Assi,admin@hotmail.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:55:16,Jasbir Assi,hr@hotmail.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:55:17,Jasbir Assi,audit@hotmail.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:55:19,Jasbir Assi,contact@hotmail.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:55:20,Jasbir Assi,careers@hotmail.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:55:21,Jasbir Assi,finance@hotmail.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:55:22,Jasbir Assi,support@hotmail.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:55:23,Jasbir Assi,enquiries@hotmail.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:55:24,Jasbir Assi,enquiry@hotmail.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 19:55:43,J Folman & Co,folmanandco@gmail.com,Sent,
+2026-08-05 19:56:03,S C Hallberg & Co,stephen.hallberg@btconnect.com,Sent,
+2026-08-05 19:56:05,S C Hallberg & Co,info@btconnect.com,Skipped,not confirmed by SMTP probe
+2026-08-05 19:56:06,S C Hallberg & Co,accounts@btconnect.com,Skipped,not confirmed by SMTP probe
+2026-08-05 19:56:08,S C Hallberg & Co,tax@btconnect.com,Skipped,not confirmed by SMTP probe
+2026-08-05 19:56:09,S C Hallberg & Co,admin@btconnect.com,Skipped,not confirmed by SMTP probe
+2026-08-05 19:56:10,S C Hallberg & Co,hr@btconnect.com,Skipped,not confirmed by SMTP probe
+2026-08-05 19:56:12,S C Hallberg & Co,audit@btconnect.com,Skipped,not confirmed by SMTP probe
+2026-08-05 19:56:13,S C Hallberg & Co,contact@btconnect.com,Skipped,not confirmed by SMTP probe
+2026-08-05 19:56:15,S C Hallberg & Co,careers@btconnect.com,Skipped,not confirmed by SMTP probe
+2026-08-05 19:56:16,S C Hallberg & Co,finance@btconnect.com,Skipped,not confirmed by SMTP probe
+2026-08-05 19:56:18,S C Hallberg & Co,support@btconnect.com,Skipped,not confirmed by SMTP probe
+2026-08-05 19:56:20,S C Hallberg & Co,enquiries@btconnect.com,Skipped,not confirmed by SMTP probe
+2026-08-05 19:56:22,S C Hallberg & Co,enquiry@btconnect.com,Skipped,not confirmed by SMTP probe
+2026-08-05 19:56:44,Wasserman Accounting,george@wasserman-cpa.net,Sent,
+2026-08-05 19:56:47,Wasserman Accounting,info@wasserman-cpa.net,Skipped,rejected by mail server
+2026-08-05 19:56:49,Wasserman Accounting,accounts@wasserman-cpa.net,Skipped,rejected by mail server
+2026-08-05 19:56:51,Wasserman Accounting,tax@wasserman-cpa.net,Skipped,rejected by mail server
+2026-08-05 19:56:54,Wasserman Accounting,admin@wasserman-cpa.net,Skipped,not confirmed by SMTP probe
+2026-08-05 19:56:56,Wasserman Accounting,hr@wasserman-cpa.net,Skipped,rejected by mail server
+2026-08-05 19:56:58,Wasserman Accounting,audit@wasserman-cpa.net,Skipped,rejected by mail server
+2026-08-05 19:57:01,Wasserman Accounting,contact@wasserman-cpa.net,Skipped,rejected by mail server
+2026-08-05 19:57:03,Wasserman Accounting,careers@wasserman-cpa.net,Skipped,rejected by mail server
+2026-08-05 19:57:06,Wasserman Accounting,finance@wasserman-cpa.net,Skipped,rejected by mail server
+2026-08-05 19:57:08,Wasserman Accounting,support@wasserman-cpa.net,Skipped,rejected by mail server
+2026-08-05 19:57:11,Wasserman Accounting,enquiries@wasserman-cpa.net,Skipped,rejected by mail server
+2026-08-05 19:57:14,Wasserman Accounting,enquiry@wasserman-cpa.net,Skipped,rejected by mail server
+2026-08-05 19:57:38,Bharmal & Associates,info@bharmalcpas.com,Sent,
+2026-08-05 19:57:38,Bharmal & Associates,info@bharmalcpas.com,Skipped,duplicate / already processed
+2026-08-05 19:57:40,Bharmal & Associates,accounts@bharmalcpas.com,Skipped,rejected by mail server
+2026-08-05 19:58:03,Bharmal & Associates,tax@bharmalcpas.com,Sent,
+2026-08-05 19:58:30,Bharmal & Associates,admin@bharmalcpas.com,Sent,
+2026-08-05 19:58:32,Bharmal & Associates,hr@bharmalcpas.com,Skipped,rejected by mail server
+2026-08-05 19:58:35,Bharmal & Associates,audit@bharmalcpas.com,Skipped,rejected by mail server
+2026-08-05 19:58:38,Bharmal & Associates,contact@bharmalcpas.com,Skipped,rejected by mail server
+2026-08-05 19:58:40,Bharmal & Associates,careers@bharmalcpas.com,Skipped,rejected by mail server
+2026-08-05 19:58:43,Bharmal & Associates,finance@bharmalcpas.com,Skipped,rejected by mail server
+2026-08-05 19:58:46,Bharmal & Associates,support@bharmalcpas.com,Skipped,rejected by mail server
+2026-08-05 19:58:49,Bharmal & Associates,enquiries@bharmalcpas.com,Skipped,rejected by mail server
+2026-08-05 19:58:51,Bharmal & Associates,enquiry@bharmalcpas.com,Skipped,rejected by mail server
+2026-08-05 19:59:16,Darshi Kasotia CPA,darshi.kasotia@houstontxcpa.com,Sent,
+2026-08-05 19:59:18,Darshi Kasotia CPA,info@houstontxcpa.com,Skipped,rejected by mail server
+2026-08-05 19:59:20,Darshi Kasotia CPA,accounts@houstontxcpa.com,Skipped,rejected by mail server
+2026-08-05 19:59:22,Darshi Kasotia CPA,tax@houstontxcpa.com,Skipped,rejected by mail server
+2026-08-05 19:59:24,Darshi Kasotia CPA,admin@houstontxcpa.com,Skipped,rejected by mail server
+2026-08-05 19:59:26,Darshi Kasotia CPA,hr@houstontxcpa.com,Skipped,rejected by mail server
+2026-08-05 19:59:29,Darshi Kasotia CPA,audit@houstontxcpa.com,Skipped,rejected by mail server
+2026-08-05 19:59:31,Darshi Kasotia CPA,contact@houstontxcpa.com,Skipped,rejected by mail server
+2026-08-05 19:59:33,Darshi Kasotia CPA,careers@houstontxcpa.com,Skipped,rejected by mail server
+2026-08-05 19:59:35,Darshi Kasotia CPA,finance@houstontxcpa.com,Skipped,rejected by mail server
+2026-08-05 19:59:37,Darshi Kasotia CPA,support@houstontxcpa.com,Skipped,rejected by mail server
+2026-08-05 19:59:40,Darshi Kasotia CPA,enquiries@houstontxcpa.com,Skipped,rejected by mail server
+2026-08-05 19:59:42,Darshi Kasotia CPA,enquiry@houstontxcpa.com,Skipped,rejected by mail server
+2026-08-05 20:00:05,Graham + Jones,info@graham.cpa,Sent,
+2026-08-05 20:00:05,Graham + Jones,info@graham.cpa,Skipped,duplicate / already processed
+2026-08-05 20:00:07,Graham + Jones,accounts@graham.cpa,Skipped,not confirmed by SMTP probe
+2026-08-05 20:00:09,Graham + Jones,tax@graham.cpa,Skipped,not confirmed by SMTP probe
+2026-08-05 20:00:10,Graham + Jones,admin@graham.cpa,Skipped,not confirmed by SMTP probe
+2026-08-05 20:00:12,Graham + Jones,hr@graham.cpa,Skipped,not confirmed by SMTP probe
+2026-08-05 20:00:14,Graham + Jones,audit@graham.cpa,Skipped,not confirmed by SMTP probe
+2026-08-05 20:00:16,Graham + Jones,contact@graham.cpa,Skipped,not confirmed by SMTP probe
+2026-08-05 20:00:18,Graham + Jones,careers@graham.cpa,Skipped,not confirmed by SMTP probe
+2026-08-05 20:00:20,Graham + Jones,finance@graham.cpa,Skipped,not confirmed by SMTP probe
+2026-08-05 20:00:22,Graham + Jones,support@graham.cpa,Skipped,not confirmed by SMTP probe
+2026-08-05 20:00:24,Graham + Jones,enquiries@graham.cpa,Skipped,not confirmed by SMTP probe
+2026-08-05 20:00:26,Graham + Jones,enquiry@graham.cpa,Skipped,not confirmed by SMTP probe
+2026-08-05 20:00:52,SBNG Certified Public Accountants,info@sbngcpa.com,Sent,
+2026-08-05 20:00:52,SBNG Certified Public Accountants,info@sbngcpa.com,Skipped,duplicate / already processed
+2026-08-05 20:00:54,SBNG Certified Public Accountants,accounts@sbngcpa.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:00:55,SBNG Certified Public Accountants,tax@sbngcpa.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:00:57,SBNG Certified Public Accountants,admin@sbngcpa.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:00:59,SBNG Certified Public Accountants,hr@sbngcpa.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:01:01,SBNG Certified Public Accountants,audit@sbngcpa.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:01:03,SBNG Certified Public Accountants,contact@sbngcpa.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:01:05,SBNG Certified Public Accountants,careers@sbngcpa.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:01:07,SBNG Certified Public Accountants,finance@sbngcpa.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:01:09,SBNG Certified Public Accountants,support@sbngcpa.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:01:11,SBNG Certified Public Accountants,enquiries@sbngcpa.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:01:13,SBNG Certified Public Accountants,enquiry@sbngcpa.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:01:35,Prime Book Accounting,accounts@primebookuae.com,Sent,
+2026-08-05 20:01:47,Prime Book Accounting,info@primebookuae.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:01:47,Prime Book Accounting,accounts@primebookuae.com,Skipped,duplicate / already processed
+2026-08-05 20:01:59,Prime Book Accounting,tax@primebookuae.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:02:11,Prime Book Accounting,admin@primebookuae.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:02:23,Prime Book Accounting,hr@primebookuae.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:02:35,Prime Book Accounting,audit@primebookuae.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:02:47,Prime Book Accounting,contact@primebookuae.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:02:59,Prime Book Accounting,careers@primebookuae.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:03:11,Prime Book Accounting,finance@primebookuae.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:03:23,Prime Book Accounting,support@primebookuae.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:03:36,Prime Book Accounting,enquiries@primebookuae.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:03:47,Prime Book Accounting,enquiry@primebookuae.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:04:05,Conex Accounting,support@conexaccounting.ae,Sent,
+2026-08-05 20:04:08,Conex Accounting,info@conexaccounting.ae,Skipped,rejected by mail server
+2026-08-05 20:04:10,Conex Accounting,accounts@conexaccounting.ae,Skipped,rejected by mail server
+2026-08-05 20:04:12,Conex Accounting,tax@conexaccounting.ae,Skipped,rejected by mail server
+2026-08-05 20:04:15,Conex Accounting,admin@conexaccounting.ae,Skipped,rejected by mail server
+2026-08-05 20:04:17,Conex Accounting,hr@conexaccounting.ae,Skipped,rejected by mail server
+2026-08-05 20:04:19,Conex Accounting,audit@conexaccounting.ae,Skipped,rejected by mail server
+2026-08-05 20:08:03,VK Accountancy,info@vkaccountancy.co.uk,Skipped,duplicate / already processed
+2026-08-05 20:08:05,VK Accountancy,accounts@vkaccountancy.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:08:06,VK Accountancy,tax@vkaccountancy.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:08:08,VK Accountancy,admin@vkaccountancy.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:08:13,VK Accountancy,hr@vkaccountancy.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:08:14,VK Accountancy,audit@vkaccountancy.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:08:16,VK Accountancy,contact@vkaccountancy.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:08:18,VK Accountancy,careers@vkaccountancy.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:08:19,VK Accountancy,finance@vkaccountancy.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:08:20,VK Accountancy,support@vkaccountancy.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:08:22,VK Accountancy,enquiries@vkaccountancy.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:08:23,VK Accountancy,enquiry@vkaccountancy.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:08:25,Clark Hearsey,info@clarkhearsey.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:08:26,Clark Hearsey,accounts@clarkhearsey.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:08:28,Clark Hearsey,tax@clarkhearsey.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:08:29,Clark Hearsey,admin@clarkhearsey.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:08:32,Clark Hearsey,hr@clarkhearsey.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:08:35,Clark Hearsey,audit@clarkhearsey.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:08:41,Clark Hearsey,contact@clarkhearsey.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:08:43,Clark Hearsey,careers@clarkhearsey.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:08:45,Clark Hearsey,finance@clarkhearsey.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:08:47,Clark Hearsey,support@clarkhearsey.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:08:51,Clark Hearsey,enquiries@clarkhearsey.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:08:55,Clark Hearsey,enquiry@clarkhearsey.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:08:55,Andrew Thomas Accountancy,info@andrew-thomas.org,Skipped,duplicate / already processed
+2026-08-05 20:08:57,Andrew Thomas Accountancy,accounts@andrew-thomas.org,Skipped,not confirmed by SMTP probe
+2026-08-05 20:08:58,Andrew Thomas Accountancy,tax@andrew-thomas.org,Skipped,not confirmed by SMTP probe
+2026-08-05 20:08:59,Andrew Thomas Accountancy,admin@andrew-thomas.org,Skipped,not confirmed by SMTP probe
+2026-08-05 20:09:01,Andrew Thomas Accountancy,hr@andrew-thomas.org,Skipped,not confirmed by SMTP probe
+2026-08-05 20:09:02,Andrew Thomas Accountancy,audit@andrew-thomas.org,Skipped,not confirmed by SMTP probe
+2026-08-05 20:09:03,Andrew Thomas Accountancy,contact@andrew-thomas.org,Skipped,not confirmed by SMTP probe
+2026-08-05 20:09:05,Andrew Thomas Accountancy,careers@andrew-thomas.org,Skipped,not confirmed by SMTP probe
+2026-08-05 20:09:06,Andrew Thomas Accountancy,finance@andrew-thomas.org,Skipped,not confirmed by SMTP probe
+2026-08-05 20:09:07,Andrew Thomas Accountancy,support@andrew-thomas.org,Skipped,not confirmed by SMTP probe
+2026-08-05 20:09:09,Andrew Thomas Accountancy,enquiries@andrew-thomas.org,Skipped,not confirmed by SMTP probe
+2026-08-05 20:09:10,Andrew Thomas Accountancy,enquiry@andrew-thomas.org,Skipped,not confirmed by SMTP probe
+2026-08-05 20:09:15,Michael J Staite & Sons,info@staiteandsons.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:09:19,Michael J Staite & Sons,accounts@staiteandsons.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:09:22,Michael J Staite & Sons,tax@staiteandsons.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:09:26,Michael J Staite & Sons,admin@staiteandsons.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:09:29,Michael J Staite & Sons,hr@staiteandsons.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:09:33,Michael J Staite & Sons,audit@staiteandsons.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:09:37,Michael J Staite & Sons,contact@staiteandsons.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:09:40,Michael J Staite & Sons,careers@staiteandsons.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:09:44,Michael J Staite & Sons,finance@staiteandsons.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:09:48,Michael J Staite & Sons,support@staiteandsons.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:09:52,Michael J Staite & Sons,enquiries@staiteandsons.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:09:55,Michael J Staite & Sons,enquiry@staiteandsons.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:09:57,GWS Accounts,info@gwsaccounts.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:09:59,GWS Accounts,accounts@gwsaccounts.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:00,GWS Accounts,tax@gwsaccounts.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:02,GWS Accounts,admin@gwsaccounts.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:04,GWS Accounts,hr@gwsaccounts.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:06,GWS Accounts,audit@gwsaccounts.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:07,GWS Accounts,contact@gwsaccounts.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:09,GWS Accounts,careers@gwsaccounts.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:11,GWS Accounts,finance@gwsaccounts.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:12,GWS Accounts,support@gwsaccounts.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:14,GWS Accounts,enquiries@gwsaccounts.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:15,GWS Accounts,enquiry@gwsaccounts.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:17,Philip Atherton,info@philatherton.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:18,Philip Atherton,accounts@philatherton.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:20,Philip Atherton,tax@philatherton.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:21,Philip Atherton,admin@philatherton.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:23,Philip Atherton,hr@philatherton.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:25,Philip Atherton,audit@philatherton.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:26,Philip Atherton,contact@philatherton.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:28,Philip Atherton,careers@philatherton.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:29,Philip Atherton,finance@philatherton.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:31,Philip Atherton,support@philatherton.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:32,Philip Atherton,enquiries@philatherton.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:34,Philip Atherton,enquiry@philatherton.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:36,CH Jefferson & Co,info@chjefferson.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:37,CH Jefferson & Co,accounts@chjefferson.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:39,CH Jefferson & Co,tax@chjefferson.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:41,CH Jefferson & Co,admin@chjefferson.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:43,CH Jefferson & Co,hr@chjefferson.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:45,CH Jefferson & Co,audit@chjefferson.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:47,CH Jefferson & Co,contact@chjefferson.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:48,CH Jefferson & Co,careers@chjefferson.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:49,CH Jefferson & Co,finance@chjefferson.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:51,CH Jefferson & Co,support@chjefferson.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:52,CH Jefferson & Co,enquiries@chjefferson.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:54,CH Jefferson & Co,enquiry@chjefferson.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:56,Jasbir Assi,info@hotmail.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:57,Jasbir Assi,accounts@hotmail.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:58,Jasbir Assi,tax@hotmail.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:10:59,Jasbir Assi,admin@hotmail.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:11:01,Jasbir Assi,hr@hotmail.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:11:02,Jasbir Assi,audit@hotmail.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:11:03,Jasbir Assi,contact@hotmail.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:11:04,Jasbir Assi,careers@hotmail.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:11:05,Jasbir Assi,finance@hotmail.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:11:06,Jasbir Assi,support@hotmail.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:11:07,Jasbir Assi,enquiries@hotmail.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:11:08,Jasbir Assi,enquiry@hotmail.co.uk,Skipped,not confirmed by SMTP probe
+2026-08-05 20:11:10,S C Hallberg & Co,info@btconnect.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:11:12,S C Hallberg & Co,accounts@btconnect.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:11:14,S C Hallberg & Co,tax@btconnect.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:11:16,S C Hallberg & Co,admin@btconnect.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:11:17,S C Hallberg & Co,hr@btconnect.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:11:19,S C Hallberg & Co,audit@btconnect.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:11:21,S C Hallberg & Co,contact@btconnect.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:11:22,S C Hallberg & Co,careers@btconnect.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:11:23,S C Hallberg & Co,finance@btconnect.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:11:25,S C Hallberg & Co,support@btconnect.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:11:26,S C Hallberg & Co,enquiries@btconnect.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:11:27,S C Hallberg & Co,enquiry@btconnect.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:11:30,Wasserman Accounting,info@wasserman-cpa.net,Skipped,rejected by mail server
+2026-08-05 20:11:32,Wasserman Accounting,accounts@wasserman-cpa.net,Skipped,rejected by mail server
+2026-08-05 20:11:35,Wasserman Accounting,tax@wasserman-cpa.net,Skipped,rejected by mail server
+2026-08-05 20:11:37,Wasserman Accounting,admin@wasserman-cpa.net,Skipped,not confirmed by SMTP probe
+2026-08-05 20:11:40,Wasserman Accounting,hr@wasserman-cpa.net,Skipped,rejected by mail server
+2026-08-05 20:11:42,Wasserman Accounting,audit@wasserman-cpa.net,Skipped,rejected by mail server
+2026-08-05 20:11:44,Wasserman Accounting,contact@wasserman-cpa.net,Skipped,rejected by mail server
+2026-08-05 20:11:46,Wasserman Accounting,careers@wasserman-cpa.net,Skipped,rejected by mail server
+2026-08-05 20:11:49,Wasserman Accounting,finance@wasserman-cpa.net,Skipped,rejected by mail server
+2026-08-05 20:11:51,Wasserman Accounting,support@wasserman-cpa.net,Skipped,rejected by mail server
+2026-08-05 20:11:53,Wasserman Accounting,enquiries@wasserman-cpa.net,Skipped,rejected by mail server
+2026-08-05 20:11:55,Wasserman Accounting,enquiry@wasserman-cpa.net,Skipped,rejected by mail server
+2026-08-05 20:11:55,Bharmal & Associates,info@bharmalcpas.com,Skipped,duplicate / already processed
+2026-08-05 20:11:58,Bharmal & Associates,accounts@bharmalcpas.com,Skipped,rejected by mail server
+2026-08-05 20:11:58,Bharmal & Associates,tax@bharmalcpas.com,Skipped,duplicate / already processed
+2026-08-05 20:11:58,Bharmal & Associates,admin@bharmalcpas.com,Skipped,duplicate / already processed
+2026-08-05 20:12:00,Bharmal & Associates,hr@bharmalcpas.com,Skipped,rejected by mail server
+2026-08-05 20:12:03,Bharmal & Associates,audit@bharmalcpas.com,Skipped,rejected by mail server
+2026-08-05 20:12:06,Bharmal & Associates,contact@bharmalcpas.com,Skipped,rejected by mail server
+2026-08-05 20:12:08,Bharmal & Associates,careers@bharmalcpas.com,Skipped,rejected by mail server
+2026-08-05 20:12:11,Bharmal & Associates,finance@bharmalcpas.com,Skipped,rejected by mail server
+2026-08-05 20:12:13,Bharmal & Associates,support@bharmalcpas.com,Skipped,rejected by mail server
+2026-08-05 20:12:16,Bharmal & Associates,enquiries@bharmalcpas.com,Skipped,rejected by mail server
+2026-08-05 20:12:18,Bharmal & Associates,enquiry@bharmalcpas.com,Skipped,rejected by mail server
+2026-08-05 20:12:20,Darshi Kasotia CPA,info@houstontxcpa.com,Skipped,rejected by mail server
+2026-08-05 20:12:23,Darshi Kasotia CPA,accounts@houstontxcpa.com,Skipped,rejected by mail server
+2026-08-05 20:12:25,Darshi Kasotia CPA,tax@houstontxcpa.com,Skipped,rejected by mail server
+2026-08-05 20:12:27,Darshi Kasotia CPA,admin@houstontxcpa.com,Skipped,rejected by mail server
+2026-08-05 20:12:29,Darshi Kasotia CPA,hr@houstontxcpa.com,Skipped,rejected by mail server
+2026-08-05 20:12:31,Darshi Kasotia CPA,audit@houstontxcpa.com,Skipped,rejected by mail server
+2026-08-05 20:12:34,Darshi Kasotia CPA,contact@houstontxcpa.com,Skipped,rejected by mail server
+2026-08-05 20:12:36,Darshi Kasotia CPA,careers@houstontxcpa.com,Skipped,rejected by mail server
+2026-08-05 20:12:38,Darshi Kasotia CPA,finance@houstontxcpa.com,Skipped,rejected by mail server
+2026-08-05 20:12:40,Darshi Kasotia CPA,support@houstontxcpa.com,Skipped,rejected by mail server
+2026-08-05 20:12:42,Darshi Kasotia CPA,enquiries@houstontxcpa.com,Skipped,rejected by mail server
+2026-08-05 20:12:44,Darshi Kasotia CPA,enquiry@houstontxcpa.com,Skipped,rejected by mail server
+2026-08-05 20:12:44,Graham + Jones,info@graham.cpa,Skipped,duplicate / already processed
+2026-08-05 20:12:47,Graham + Jones,accounts@graham.cpa,Skipped,not confirmed by SMTP probe
+2026-08-05 20:12:49,Graham + Jones,tax@graham.cpa,Skipped,not confirmed by SMTP probe
+2026-08-05 20:12:51,Graham + Jones,admin@graham.cpa,Skipped,not confirmed by SMTP probe
+2026-08-05 20:12:52,Graham + Jones,hr@graham.cpa,Skipped,not confirmed by SMTP probe
+2026-08-05 20:12:54,Graham + Jones,audit@graham.cpa,Skipped,not confirmed by SMTP probe
+2026-08-05 20:12:56,Graham + Jones,contact@graham.cpa,Skipped,not confirmed by SMTP probe
+2026-08-05 20:12:58,Graham + Jones,careers@graham.cpa,Skipped,not confirmed by SMTP probe
+2026-08-05 20:13:00,Graham + Jones,finance@graham.cpa,Skipped,not confirmed by SMTP probe
+2026-08-05 20:13:02,Graham + Jones,support@graham.cpa,Skipped,not confirmed by SMTP probe
+2026-08-05 20:13:04,Graham + Jones,enquiries@graham.cpa,Skipped,not confirmed by SMTP probe
+2026-08-05 20:13:06,Graham + Jones,enquiry@graham.cpa,Skipped,not confirmed by SMTP probe
+2026-08-05 20:13:06,SBNG Certified Public Accountants,info@sbngcpa.com,Skipped,duplicate / already processed
+2026-08-05 20:13:09,SBNG Certified Public Accountants,accounts@sbngcpa.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:13:11,SBNG Certified Public Accountants,tax@sbngcpa.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:13:13,SBNG Certified Public Accountants,admin@sbngcpa.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:13:15,SBNG Certified Public Accountants,hr@sbngcpa.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:13:17,SBNG Certified Public Accountants,audit@sbngcpa.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:13:19,SBNG Certified Public Accountants,contact@sbngcpa.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:13:21,SBNG Certified Public Accountants,careers@sbngcpa.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:13:23,SBNG Certified Public Accountants,finance@sbngcpa.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:13:25,SBNG Certified Public Accountants,support@sbngcpa.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:13:26,SBNG Certified Public Accountants,enquiries@sbngcpa.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:13:28,SBNG Certified Public Accountants,enquiry@sbngcpa.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:13:40,Prime Book Accounting,info@primebookuae.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:13:40,Prime Book Accounting,accounts@primebookuae.com,Skipped,duplicate / already processed
+2026-08-05 20:13:52,Prime Book Accounting,tax@primebookuae.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:14:04,Prime Book Accounting,admin@primebookuae.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:14:17,Prime Book Accounting,hr@primebookuae.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:14:29,Prime Book Accounting,audit@primebookuae.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:14:41,Prime Book Accounting,contact@primebookuae.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:14:53,Prime Book Accounting,careers@primebookuae.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:15:05,Prime Book Accounting,finance@primebookuae.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:15:17,Prime Book Accounting,support@primebookuae.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:15:29,Prime Book Accounting,enquiries@primebookuae.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:15:40,Prime Book Accounting,enquiry@primebookuae.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:15:43,Conex Accounting,info@conexaccounting.ae,Skipped,rejected by mail server
+2026-08-05 20:15:45,Conex Accounting,accounts@conexaccounting.ae,Skipped,rejected by mail server
+2026-08-05 20:15:47,Conex Accounting,tax@conexaccounting.ae,Skipped,rejected by mail server
+2026-08-05 20:15:49,Conex Accounting,admin@conexaccounting.ae,Skipped,rejected by mail server
+2026-08-05 20:15:51,Conex Accounting,hr@conexaccounting.ae,Skipped,rejected by mail server
+2026-08-05 20:15:53,Conex Accounting,audit@conexaccounting.ae,Skipped,rejected by mail server
+2026-08-05 20:15:56,Conex Accounting,contact@conexaccounting.ae,Skipped,rejected by mail server
+2026-08-05 20:15:58,Conex Accounting,careers@conexaccounting.ae,Skipped,rejected by mail server
+2026-08-05 20:16:00,Conex Accounting,finance@conexaccounting.ae,Skipped,rejected by mail server
+2026-08-05 20:16:00,Conex Accounting,support@conexaccounting.ae,Skipped,duplicate / already processed
+2026-08-05 20:16:02,Conex Accounting,enquiries@conexaccounting.ae,Skipped,rejected by mail server
+2026-08-05 20:16:04,Conex Accounting,enquiry@conexaccounting.ae,Skipped,rejected by mail server
+2026-08-05 20:16:47,MH Solution FZE,info@mhsolutionuae.com,Sent,
+2026-08-05 20:16:47,MH Solution FZE,info@mhsolutionuae.com,Skipped,duplicate / already processed
+2026-08-05 20:16:59,MH Solution FZE,accounts@mhsolutionuae.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:17:10,MH Solution FZE,tax@mhsolutionuae.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:17:17,MH Solution FZE,admin@mhsolutionuae.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:17:28,MH Solution FZE,hr@mhsolutionuae.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:17:35,MH Solution FZE,audit@mhsolutionuae.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:17:43,MH Solution FZE,contact@mhsolutionuae.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:17:50,MH Solution FZE,careers@mhsolutionuae.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:17:57,MH Solution FZE,finance@mhsolutionuae.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:18:05,MH Solution FZE,support@mhsolutionuae.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:18:11,MH Solution FZE,enquiries@mhsolutionuae.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:18:18,MH Solution FZE,enquiry@mhsolutionuae.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:18:38,Singiri & Co,singiriandco@gmail.com,Sent,
+2026-08-05 20:19:01,Depoltz Accounting,info@depoltzaccounting.com.au,Sent,
+2026-08-05 20:19:01,Depoltz Accounting,info@depoltzaccounting.com.au,Skipped,duplicate / already processed
+2026-08-05 20:19:16,Depoltz Accounting,accounts@depoltzaccounting.com.au,Sent,
+2026-08-05 20:19:37,Depoltz Accounting,tax@depoltzaccounting.com.au,Sent,
+2026-08-05 20:19:54,Depoltz Accounting,admin@depoltzaccounting.com.au,Sent,
+2026-08-05 20:20:18,Depoltz Accounting,hr@depoltzaccounting.com.au,Sent,
+2026-08-05 20:20:44,Dale Fan & Associates,hello@dalefancpa.ca,Sent,
+2026-08-05 20:21:09,Dale Fan & Associates,info@dalefancpa.ca,Sent,
+2026-08-05 20:21:12,Dale Fan & Associates,accounts@dalefancpa.ca,Skipped,rejected by mail server
+2026-08-05 20:21:14,Dale Fan & Associates,tax@dalefancpa.ca,Skipped,rejected by mail server
+2026-08-05 20:21:16,Dale Fan & Associates,admin@dalefancpa.ca,Skipped,rejected by mail server
+2026-08-05 20:21:19,Dale Fan & Associates,hr@dalefancpa.ca,Skipped,rejected by mail server
+2026-08-05 20:21:21,Dale Fan & Associates,audit@dalefancpa.ca,Skipped,rejected by mail server
+2026-08-05 20:21:24,Dale Fan & Associates,contact@dalefancpa.ca,Skipped,rejected by mail server
+2026-08-05 20:21:26,Dale Fan & Associates,careers@dalefancpa.ca,Skipped,rejected by mail server
+2026-08-05 20:21:29,Dale Fan & Associates,finance@dalefancpa.ca,Skipped,rejected by mail server
+2026-08-05 20:21:54,Dale Fan & Associates,support@dalefancpa.ca,Sent,
+2026-08-05 20:21:57,Dale Fan & Associates,enquiries@dalefancpa.ca,Skipped,rejected by mail server
+2026-08-05 20:21:59,Dale Fan & Associates,enquiry@dalefancpa.ca,Skipped,rejected by mail server
+2026-08-05 20:22:25,Sandhu & Company,info@sandhutax.com,Sent,
+2026-08-05 20:22:25,Sandhu & Company,info@sandhutax.com,Skipped,duplicate / already processed
+2026-08-05 20:22:31,Sandhu & Company,accounts@sandhutax.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:22:37,Sandhu & Company,tax@sandhutax.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:22:44,Sandhu & Company,admin@sandhutax.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:22:50,Sandhu & Company,hr@sandhutax.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:22:56,Sandhu & Company,audit@sandhutax.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:23:03,Sandhu & Company,contact@sandhutax.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:23:09,Sandhu & Company,careers@sandhutax.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:23:16,Sandhu & Company,finance@sandhutax.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:23:22,Sandhu & Company,support@sandhutax.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:23:28,Sandhu & Company,enquiries@sandhutax.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:23:35,Sandhu & Company,enquiry@sandhutax.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:23:57,Ratnayake T A & Co,samansrilalrta@gmail.com,Sent,
+2026-08-05 20:24:14,SS Associates,ssassociates7474@gmail.com,Sent,
+2026-08-05 20:24:35,Keerthi Mihiripenna & Company,info@kmaudit.lk,Sent,
+2026-08-05 20:24:35,Keerthi Mihiripenna & Company,info@kmaudit.lk,Skipped,duplicate / already processed
+2026-08-05 20:24:53,Keerthi Mihiripenna & Company,accounts@kmaudit.lk,Sent,
+2026-08-05 20:25:11,Keerthi Mihiripenna & Company,tax@kmaudit.lk,Sent,
+2026-08-05 20:25:28,Keerthi Mihiripenna & Company,admin@kmaudit.lk,Sent,
+2026-08-05 20:25:47,Keerthi Mihiripenna & Company,hr@kmaudit.lk,Sent,
+2026-08-05 20:26:10,Haqque Martin & Company,martinco@gmail.com,Sent,
+2026-08-05 20:26:29,Jawaamil Associates,ja@amjawaamil.com,Sent,
+2026-08-05 20:26:29,Jawaamil Associates,info@amjawaamil.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:26:30,Jawaamil Associates,accounts@amjawaamil.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:26:30,Jawaamil Associates,tax@amjawaamil.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:26:31,Jawaamil Associates,admin@amjawaamil.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:26:31,Jawaamil Associates,hr@amjawaamil.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:26:31,Jawaamil Associates,audit@amjawaamil.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:26:32,Jawaamil Associates,contact@amjawaamil.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:26:32,Jawaamil Associates,careers@amjawaamil.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:26:32,Jawaamil Associates,finance@amjawaamil.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:26:33,Jawaamil Associates,support@amjawaamil.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:26:33,Jawaamil Associates,enquiries@amjawaamil.com,Skipped,not confirmed by SMTP probe
+2026-08-05 20:26:33,Jawaamil Associates,enquiry@amjawaamil.com,Skipped,not confirmed by SMTP probe
+2026-08-11 22:33:24,Brander & Co,info@Branderco.ca,Sent,
+2026-08-11 22:33:24,Brander & Co,info@branderco.ca,Skipped,duplicate / already processed
+2026-08-11 22:33:26,Brander & Co,accounts@branderco.ca,Skipped,rejected by mail server
+2026-08-11 22:33:28,Brander & Co,tax@branderco.ca,Skipped,rejected by mail server
+2026-08-11 22:33:30,Brander & Co,admin@branderco.ca,Skipped,rejected by mail server
+2026-08-11 22:33:33,Brander & Co,hr@branderco.ca,Skipped,rejected by mail server
+2026-08-11 22:33:35,Brander & Co,audit@branderco.ca,Skipped,rejected by mail server
+2026-08-11 22:33:38,Brander & Co,contact@branderco.ca,Skipped,rejected by mail server
+2026-08-11 22:33:40,Brander & Co,careers@branderco.ca,Skipped,rejected by mail server
+2026-08-11 22:33:42,Brander & Co,finance@branderco.ca,Skipped,rejected by mail server
+2026-08-11 22:33:44,Brander & Co,support@branderco.ca,Skipped,rejected by mail server
+2026-08-11 22:33:46,Brander & Co,enquiries@branderco.ca,Skipped,rejected by mail server
+2026-08-11 22:33:48,Brander & Co,enquiry@branderco.ca,Skipped,rejected by mail server
+2026-08-11 22:34:11,Asrani CPA,info@asranicpa.ca,Sent,
+2026-08-11 22:34:11,Asrani CPA,info@asranicpa.ca,Skipped,duplicate / already processed
+2026-08-11 22:34:18,Asrani CPA,accounts@asranicpa.ca,Skipped,not confirmed by SMTP probe
+2026-08-11 22:34:24,Asrani CPA,tax@asranicpa.ca,Skipped,not confirmed by SMTP probe
+2026-08-11 22:34:30,Asrani CPA,admin@asranicpa.ca,Skipped,not confirmed by SMTP probe
+2026-08-11 22:34:39,Asrani CPA,hr@asranicpa.ca,Skipped,not confirmed by SMTP probe
+2026-08-11 22:34:46,Asrani CPA,audit@asranicpa.ca,Skipped,not confirmed by SMTP probe
+2026-08-11 22:34:53,Asrani CPA,contact@asranicpa.ca,Skipped,not confirmed by SMTP probe
+2026-08-11 22:34:59,Asrani CPA,careers@asranicpa.ca,Skipped,not confirmed by SMTP probe
+2026-08-11 22:35:05,Asrani CPA,finance@asranicpa.ca,Skipped,not confirmed by SMTP probe
+2026-08-11 22:35:12,Asrani CPA,support@asranicpa.ca,Skipped,not confirmed by SMTP probe
+2026-08-11 22:35:19,Asrani CPA,enquiries@asranicpa.ca,Skipped,not confirmed by SMTP probe
+2026-08-11 22:35:25,Asrani CPA,enquiry@asranicpa.ca,Skipped,not confirmed by SMTP probe
+2026-08-11 22:35:47,Morley CPA,theresa@morleycpa.ca,Sent,
+2026-08-11 22:35:49,Morley CPA,info@morleycpa.ca,Skipped,not confirmed by SMTP probe
+2026-08-11 22:35:51,Morley CPA,accounts@morleycpa.ca,Skipped,not confirmed by SMTP probe
+2026-08-11 22:35:54,Morley CPA,tax@morleycpa.ca,Skipped,not confirmed by SMTP probe
+2026-08-11 22:35:57,Morley CPA,admin@morleycpa.ca,Skipped,not confirmed by SMTP probe
+2026-08-11 22:36:01,Morley CPA,hr@morleycpa.ca,Skipped,not confirmed by SMTP probe
+2026-08-11 22:36:04,Morley CPA,audit@morleycpa.ca,Skipped,not confirmed by SMTP probe
+2026-08-11 22:36:07,Morley CPA,contact@morleycpa.ca,Skipped,not confirmed by SMTP probe
+2026-08-11 22:36:10,Morley CPA,careers@morleycpa.ca,Skipped,not confirmed by SMTP probe
+2026-08-11 22:36:13,Morley CPA,finance@morleycpa.ca,Skipped,not confirmed by SMTP probe
+2026-08-11 22:36:15,Morley CPA,support@morleycpa.ca,Skipped,not confirmed by SMTP probe
+2026-08-11 22:36:17,Morley CPA,enquiries@morleycpa.ca,Skipped,not confirmed by SMTP probe
+2026-08-11 22:36:19,Morley CPA,enquiry@morleycpa.ca,Skipped,not confirmed by SMTP probe
+2026-08-11 22:36:42,MTG Accounting,toni@mtgaccounting.co.nz,Sent,
+2026-08-11 22:36:43,MTG Accounting,info@mtgaccounting.co.nz,Skipped,not confirmed by SMTP probe
+2026-08-11 22:36:45,MTG Accounting,accounts@mtgaccounting.co.nz,Skipped,not confirmed by SMTP probe
+2026-08-11 22:36:46,MTG Accounting,tax@mtgaccounting.co.nz,Skipped,not confirmed by SMTP probe
+2026-08-11 22:36:47,MTG Accounting,admin@mtgaccounting.co.nz,Skipped,not confirmed by SMTP probe
+2026-08-11 22:36:48,MTG Accounting,hr@mtgaccounting.co.nz,Skipped,not confirmed by SMTP probe
+2026-08-11 22:36:49,MTG Accounting,audit@mtgaccounting.co.nz,Skipped,not confirmed by SMTP probe
+2026-08-11 22:36:51,MTG Accounting,contact@mtgaccounting.co.nz,Skipped,not confirmed by SMTP probe
+2026-08-11 22:36:52,MTG Accounting,careers@mtgaccounting.co.nz,Skipped,not confirmed by SMTP probe
+2026-08-11 22:36:54,MTG Accounting,finance@mtgaccounting.co.nz,Skipped,not confirmed by SMTP probe
+2026-08-11 22:36:55,MTG Accounting,support@mtgaccounting.co.nz,Skipped,not confirmed by SMTP probe
+2026-08-11 22:36:56,MTG Accounting,enquiries@mtgaccounting.co.nz,Skipped,not confirmed by SMTP probe
+2026-08-11 22:36:57,MTG Accounting,enquiry@mtgaccounting.co.nz,Skipped,not confirmed by SMTP probe
+2026-08-11 22:37:21,CB Solutions,corinna@cbsolutions.nz,Sent,
+2026-08-11 22:37:23,CB Solutions,info@cbsolutions.nz,Skipped,not confirmed by SMTP probe
+2026-08-11 22:37:24,CB Solutions,accounts@cbsolutions.nz,Skipped,not confirmed by SMTP probe
+2026-08-11 22:37:25,CB Solutions,tax@cbsolutions.nz,Skipped,not confirmed by SMTP probe
+2026-08-11 22:37:27,CB Solutions,admin@cbsolutions.nz,Skipped,not confirmed by SMTP probe
+2026-08-11 22:37:28,CB Solutions,hr@cbsolutions.nz,Skipped,not confirmed by SMTP probe
+2026-08-11 22:37:30,CB Solutions,audit@cbsolutions.nz,Skipped,not confirmed by SMTP probe
+2026-08-11 22:37:31,CB Solutions,contact@cbsolutions.nz,Skipped,not confirmed by SMTP probe
+2026-08-11 22:37:32,CB Solutions,careers@cbsolutions.nz,Skipped,not confirmed by SMTP probe
+2026-08-11 22:37:34,CB Solutions,finance@cbsolutions.nz,Skipped,not confirmed by SMTP probe
+2026-08-11 22:37:36,CB Solutions,support@cbsolutions.nz,Skipped,not confirmed by SMTP probe
+2026-08-11 22:37:37,CB Solutions,enquiries@cbsolutions.nz,Skipped,not confirmed by SMTP probe
+2026-08-11 22:37:38,CB Solutions,enquiry@cbsolutions.nz,Skipped,not confirmed by SMTP probe
+2026-08-11 22:38:04,Thornton & Associates,practice@thorntonassociates.com.au,Sent,
+2026-08-11 22:38:07,Thornton & Associates,info@thorntonassociates.com.au,Skipped,rejected by mail server
+2026-08-11 22:38:10,Thornton & Associates,accounts@thorntonassociates.com.au,Skipped,rejected by mail server
+2026-08-11 22:38:13,Thornton & Associates,tax@thorntonassociates.com.au,Skipped,rejected by mail server
+2026-08-11 22:38:16,Thornton & Associates,admin@thorntonassociates.com.au,Skipped,rejected by mail server
+2026-08-11 22:38:18,Thornton & Associates,hr@thorntonassociates.com.au,Skipped,rejected by mail server
+2026-08-11 22:38:20,Thornton & Associates,audit@thorntonassociates.com.au,Skipped,rejected by mail server
+2026-08-11 22:38:23,Thornton & Associates,contact@thorntonassociates.com.au,Skipped,rejected by mail server
+2026-08-11 22:38:25,Thornton & Associates,careers@thorntonassociates.com.au,Skipped,rejected by mail server
+2026-08-11 22:38:27,Thornton & Associates,finance@thorntonassociates.com.au,Skipped,rejected by mail server
+2026-08-11 22:38:30,Thornton & Associates,support@thorntonassociates.com.au,Skipped,rejected by mail server

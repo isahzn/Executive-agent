@@ -1,0 +1,492 @@
+COMPANY: VK Accountancy
+SUBJECT: Quick thought for VK Accountancy
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I was on your site and noticed you handle everything from self-assessment to payroll for small clients around London.
+
+That spread of services usually means someone is still copying client details out of emails and PDFs into the books by hand — quiet work, but it eats hours every month.
+
+I build small automations that pull client documents in and do that sorting automatically. I can also set up an automatic reply agent so you never miss a lead or client message, plus automatic follow-ups so nothing goes stale.
+
+Would it be worth a quick look? I'm doing this for the experience, so any price works — even free.
+
+Best,
+Isa
+---
+COMPANY: Clark Hearsey
+SUBJECT: An idea for Clark Hearsey
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I came across Clark Hearsey while looking at practices in the Louth area and saw the range of work you take on — accounts, tax, and advisory for local businesses.
+
+Practices your size usually find the yearly accounts crunch involves a lot of manual document chasing: chasing clients for receipts, bank statements, invoices.
+
+I build a small automated document processor that handles that intake and data entry for you — and I can add an automatic reply agent so no enquiry or lead ever slips through, with follow-ups sent automatically.
+
+Open to seeing what I found? I'm doing this to build experience, so it can be free or whatever you think is fair.
+
+Best,
+Isa
+---
+COMPANY: Andrew Thomas Accountancy
+SUBJECT: Question for Andrew Thomas Accountancy
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I noticed Andrew Thomas Accountancy serves the Scunthorpe area with a fairly hands-on approach to accounts and tax.
+
+With a small team, the manual side — entering client records, reconciling paperwork, chasing missing documents — tends to take up a disproportionate chunk of your time.
+
+I've been building an automated document processor that takes that manual load off small practices, plus an automatic reply agent so you never miss a lead, with automatic follow-ups built in.
+
+Would you like me to send over the idea? I'm doing it for the experience and would work for any price — even free.
+
+Best,
+Isa
+---
+COMPANY: Michael J Staite & Sons
+SUBJECT: A thought for Michael J Staite & Sons
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I saw that Michael J Staite & Sons has been a family practice in Bourne for years — that kind of long-standing firm usually runs on trust and a lot of careful manual work.
+
+A lot of that careful work is still done by hand: client paperwork, bookkeeping entries, document filing.
+
+I build automations that process those documents automatically so the work still gets done carefully — just without the manual hours. I can also add an automatic reply agent so you don't miss a single lead, plus automatic follow-ups.
+
+Worth a quick look? I'm doing this to build my portfolio, so I'll do it for any price you think is fair, even free.
+
+Best,
+Isa
+---
+COMPANY: GWS Accounts
+SUBJECT: Quick question for GWS Accounts
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I was looking at GWS Accounts and noticed you cover bookkeeping, accounts, and tax for businesses in the Cleethorpes/Grimsby area.
+
+Bookkeeping-heavy practices often spend a surprising share of the week on manual data entry from client documents — receipts, invoices, bank PDFs.
+
+I make a document processor that reads those and does the entry automatically, so your team can focus on the actual advisory work. I can also build an automatic reply agent so no lead or client query is ever missed, with automatic follow-ups on top.
+
+Would it be worth showing you what I found? I'm doing this for experience — any price works, even free.
+
+Best,
+Isa
+---
+COMPANY: JCM Associates
+SUBJECT: An observation about JCM Associates
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I came across JCM Associates while researching Grantham practices and noticed the breadth of compliance work you handle for small businesses.
+
+Small firms like yours tend to lose the most hours to client document intake — chasing paperwork, organising it, re-entering data.
+
+I build an automated document processor that handles that intake and sorting for you. I can also set up an automatic reply agent so you never miss a lead, and automatic follow-ups so enquiries get chased without you lifting a finger.
+
+Open to seeing what I've built? I'm doing this for the experience and will do it for any price — or free.
+
+Best,
+Isa
+---
+COMPANY: Philip Atherton
+SUBJECT: Idea for Philip Atherton
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I noticed Philip Atherton provides accounts and tax services around the Grantham area, run by a small focused team.
+
+When a practice runs lean, the admin-heavy parts — entering client documents, reconciling, filing — quietly steal time from client-facing work.
+
+I build automations that process those documents automatically, cutting the manual load. I can also add an automatic reply agent so no lead or message is missed, plus automatic follow-ups that keep things moving.
+
+Would you like me to send over the idea? I'm doing this to build experience, so any price works — even free.
+
+Best,
+Isa
+---
+COMPANY: CH Jefferson & Co
+SUBJECT: A quick thought for CH Jefferson & Co
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I was looking at CH Jefferson & Co and noticed the range of audit and accountancy work you do for local businesses in Scunthorpe.
+
+Audit and accounts work means a constant flow of client documents — and a lot of that handling is still manual.
+
+I build a small automated document processor that handles that flow for you, from intake to organised records. I can also build an automatic reply agent so you never miss a lead, with automatic follow-ups included.
+
+Worth a quick look? I'm doing this for the experience — any price, even free.
+
+Best,
+Isa
+---
+COMPANY: Accounting Links
+SUBJECT: Noticed you don't have a website yet
+HAS_WEBSITE: no
+BODY:
+Hi,
+
+While looking up Accounting Links I noticed you don't have a website yet — which for a practice like yours likely means you're relying on referrals and word of mouth.
+
+Two things I do: build websites, and build automated document processors for accountants.
+
+I've attached a quick demo of a website I built so you can see the style, and I can also automate your document work, add an automatic reply agent so no lead is ever missed, and send automatic follow-ups for you.
+
+Would it be worth a quick look? I'm doing this for the experience, so any price works — even free.
+
+Best,
+Isa
+---
+COMPANY: Jasbir Assi
+SUBJECT: Noticed you don't have a website yet
+HAS_WEBSITE: no
+BODY:
+Hi,
+
+I was researching practices around Barrow upon Humber and noticed Jasbir Assi doesn't have a website — most clients likely find you by referral.
+
+I do two things: I build websites, and I build automated document processors for accountants.
+
+I've attached a demo of a website I made so you can see what I mean. I can also automate your document processing, set up an automatic reply agent so you don't miss leads, and handle automatic follow-ups.
+
+Open to seeing what I found? I'm doing this for the experience — any price works, even free.
+
+Best,
+Isa
+---
+COMPANY: J Folman & Co
+SUBJECT: Quick question for J Folman & Co
+HAS_WEBSITE: no
+BODY:
+Hi,
+
+I noticed J Folman & Co doesn't have a website, which means new clients probably come in through referrals and local reputation.
+
+I build two things: websites, and automated document processors that handle the manual paperwork side of accountancy.
+
+I've attached a demo of a website I built. I can also automate your document handling, add an automatic reply agent so no lead slips through, and set up automatic follow-ups.
+
+Would you like me to show you what I found? I'm doing this to build experience, so any price works, even free.
+
+Best,
+Isa
+---
+COMPANY: S C Hallberg & Co
+SUBJECT: An idea for S C Hallberg & Co
+HAS_WEBSITE: no
+BODY:
+Hi,
+
+While looking at practices in Grimsby I noticed S C Hallberg & Co has no website — you're likely running on referrals and long-standing client relationships.
+
+I do two things: I build websites, and I build automated document processors for accountants.
+
+I've attached a demo of a website I made so you can see the style. I can also automate your document work, build an automatic reply agent so you never miss a lead, and send automatic follow-ups.
+
+Worth a quick look? I'm doing this for the experience — any price, even free.
+
+Best,
+Isa
+---
+COMPANY: Wasserman Accounting
+SUBJECT: Quick question for Wasserman Accounting
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I saw your practice has a great rating around South Jersey, and noticed you focus on small businesses and individuals.
+
+Firms your size usually tell me the biggest time sink isn't the tax work — it's the manual handling of client documents and data entry around it.
+
+I build a small automated document processor that does that part automatically. I can also set up an automatic reply agent so no lead or client message is ever missed, plus automatic follow-ups.
+
+Would it be worth showing you what I found? I'm doing this for the experience, so any price works — even free.
+
+Best,
+Isa
+---
+COMPANY: Bharmal & Associates
+SUBJECT: A thought for Bharmal & Associates
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I noticed Bharmal & Associates has built a strong reputation in the Irvine area over 25 years, and that clients really value the team approach.
+
+Practices that grow by word of mouth often find the client-document side — intake, data entry, filing — grows too, and still gets done manually.
+
+I build automations that process those documents automatically, so the team focus stays on clients. I can also add an automatic reply agent so you never miss a lead, plus automatic follow-ups that handle the chasing.
+
+Open to seeing what I've built? I'm doing this for the experience — any price you think is fair, even free.
+
+Best,
+Isa
+---
+COMPANY: Darshi Kasotia CPA
+SUBJECT: Quick question for Darshi Kasotia CPA
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I noticed Darshi Kasotia CPA works with small businesses across the Houston metro and prides itself on real answers rather than runaround.
+
+Working with a lean team, the manual data-entry and document handling for clients can quietly eat into that responsiveness.
+
+I build an automated document processor that handles that side automatically. I can also build an automatic reply agent so no enquiry ever slips through, with automatic follow-ups included.
+
+Would it be worth a quick look? I'm doing this for the experience, so any price works — even free.
+
+Best,
+Isa
+---
+COMPANY: Graham + Jones
+SUBJECT: An observation for Graham + Jones
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I saw that Graham + Jones describes itself as a small, nimble team of experienced CPAs in Fort Worth.
+
+Small nimble teams are exactly where the manual document work — client intake, data entry, records — takes up the most relative time.
+
+I build a document processor that automates that intake and entry for you. I can also set up an automatic reply agent so you never miss a lead, plus automatic follow-ups that keep enquiries moving.
+
+Worth a quick look? I'm doing this to build experience — any price, even free.
+
+Best,
+Isa
+---
+COMPANY: SBNG Certified Public Accountants
+SUBJECT: Quick thought for SBNG
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I noticed SBNG serves clients across West Texas and New Mexico with a small local team.
+
+Serving a wide area with a small team usually means a lot of document back-and-forth with clients — and a lot of manual handling in between.
+
+I build automated document processors that handle that intake and processing for you. I can also add an automatic reply agent so no lead is missed, and automatic follow-ups so nothing falls through the cracks.
+
+Would you like me to show you what I found? I'm doing this for the experience — any price works, even free.
+
+Best,
+Isa
+---
+COMPANY: Prime Book Accounting
+SUBJECT: An idea for Prime Book
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I noticed Prime Book positions itself as digital-first and cloud-based in Dubai — which is exactly where automation belongs.
+
+But even digital-first firms usually still have manual gaps: client documents arriving as emails, PDFs and photos that get keyed in by hand.
+
+I build an automated document processor that closes those gaps and feeds your cloud books automatically. I can also set up an automatic reply agent so you never miss a lead or client message, plus automatic follow-ups.
+
+Would it be worth a quick look? I'm doing this for the experience — any price, even free.
+
+Best,
+Isa
+---
+COMPANY: Conex Accounting
+SUBJECT: Quick question for Conex Accounting
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I saw Conex Accounting works with startups and SMEs across the UAE, handling tax, finance, and business consultancy.
+
+Startup clients in particular send documents in every format imaginable — and someone has to sort and enter them all manually.
+
+I build a document processor that does that intake automatically. I can also build an automatic reply agent so no lead or enquiry is ever missed, with automatic follow-ups on top.
+
+Open to seeing what I've built? I'm doing this to build experience — any price works, even free.
+
+Best,
+Isa
+---
+COMPANY: MH Solution FZE
+SUBJECT: A thought for MH Solution FZE
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I noticed MH Solution handles company setup, accounting, and tax for businesses in Sharjah — with a small team doing a lot of moving parts.
+
+When a small team juggles setup plus ongoing accounting, the manual document handling usually gets pushed to evenings and weekends.
+
+I build automations that process those documents automatically. I can also add an automatic reply agent so you don't miss leads, plus automatic follow-ups that chase enquiries for you.
+
+Would it be worth showing you what I found? I'm doing this for the experience — any price, even free.
+
+Best,
+Isa
+---
+COMPANY: Singiri & Co
+SUBJECT: Quick question for Singiri & Co
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I saw Singiri & Co has offices in Dubai and Deira and covers audit and accounting for clients across the region.
+
+With a growing client base, the document flow — intake, sorting, entry — tends to scale up manually, one email at a time.
+
+I build an automated document processor that scales that side for you. I can also set up an automatic reply agent so you never miss a lead, and automatic follow-ups that keep things moving.
+
+Worth a quick look? I'm doing this for the experience — any price works, even free.
+
+Best,
+Isa
+---
+COMPANY: Depoltz Accounting
+SUBJECT: An idea for Depoltz Accounting
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I noticed Depoltz has a strong 4.9 rating in Brisbane and a team of around ten — including senior accountants, bookkeepers, and admin staff.
+
+With that mix, the bookkeeping data entry from client documents is still largely manual — and it's exactly the part that can be automated.
+
+I build a document processor that reads client documents and does that entry automatically. I can also build an automatic reply agent so no lead or client message is missed, plus automatic follow-ups.
+
+Open to seeing what I found? I'm doing this for the experience — any price you think is fair, even free.
+
+Best,
+Isa
+---
+COMPANY: Dale Fan & Associates
+SUBJECT: Quick thought for Dale Fan & Associates
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I noticed Dale Fan & Associates runs as an online-first CPA practice in Vancouver — a model that suits automated workflows well.
+
+Even online practices handle client documents manually: files arrive by email and portal, and someone enters the data.
+
+I build a document processor that automates that intake and entry for online-first firms. I can also add an automatic reply agent so no lead ever slips through, with automatic follow-ups included.
+
+Would it be worth a quick look? I'm doing this for the experience — any price, even free.
+
+Best,
+Isa
+---
+COMPANY: Sandhu & Company
+SUBJECT: An observation for Sandhu & Company
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I noticed Sandhu & Company has been an established Vancouver practice for years, focused on tax and accounting for businesses and individuals.
+
+Established firms like yours carry a long tail of manual client document handling that nobody really notices until tax season.
+
+I build automations that process those documents automatically — no more manual intake. I can also set up an automatic reply agent so you never miss a lead, and automatic follow-ups so enquiries get answered fast.
+
+Would you like me to send over the idea? I'm doing this for the experience — any price works, even free.
+
+Best,
+Isa
+---
+COMPANY: Ratnayake T A & Co
+SUBJECT: Quick question for Ratnayake T A & Co
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I noticed Ratnayake T A & Co is a chartered accountancy practice in Colombo with a strong audit and tax side.
+
+Audit-heavy practices handle huge volumes of client documents — and most of that intake and organising is manual.
+
+I build an automated document processor that handles that flow for audit and tax teams. I can also build an automatic reply agent so no lead or client message is ever missed, plus automatic follow-ups.
+
+Worth a quick look? I'm doing this for the experience — any price, even free.
+
+Best,
+Isa
+---
+COMPANY: SS Associates
+SUBJECT: A thought for SS Associates
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I saw SS Associates in Borella works with a team of around six, including consultants with 15-25 years in tax and industry.
+
+A team that size handling tax assessments and compliance means a constant stream of client documents to process by hand.
+
+I build a document processor that automates that intake and data entry. I can also add an automatic reply agent so you don't miss any leads, with automatic follow-ups handled for you.
+
+Open to seeing what I've built? I'm doing this for the experience — any price works, even free.
+
+Best,
+Isa
+---
+COMPANY: Keerthi Mihiripenna & Company
+SUBJECT: Quick thought for Keerthi Mihiripenna & Company
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I noticed Keerthi Mihiripenna & Company has been practising in Colombo for over 30 years with multiple CA partners.
+
+After three decades, the client base generates a large document flow — and the handling side of it still runs manually.
+
+I build automated document processors that take that load off established firms like yours. I can also set up an automatic reply agent so no lead is missed, plus automatic follow-ups that chase replies.
+
+Would it be worth showing you what I found? I'm doing this for the experience — any price, even free.
+
+Best,
+Isa
+---
+COMPANY: Haqque Martin & Company
+SUBJECT: An idea for Haqque Martin & Company
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I noticed Haqque Martin & Company in Dehiwala handles audit, tax planning, and compliance for clients across Sri Lanka.
+
+Tax planning and compliance work means documents coming in all year round — and a lot of manual processing in between.
+
+I build a document processor that automates that intake and preparation. I can also build an automatic reply agent so you never miss a lead or client message, plus automatic follow-ups.
+
+Worth a quick look? I'm doing this for the experience — any price works, even free.
+
+Best,
+Isa
+---
+COMPANY: Jawaamil Associates
+SUBJECT: Quick question for Jawaamil Associates
+HAS_WEBSITE: yes
+BODY:
+Hi,
+
+I noticed Jawaamil Associates has been running since 1996 with branches across the country — Colombo, Kandy, Trincomalee and more.
+
+With that footprint, every branch is handling client documents manually and reporting back — a lot of duplicated effort.
+
+I build automated document processors that handle intake and processing centrally. I can also add an automatic reply agent so no lead slips through at any branch, with automatic follow-ups on top.
+
+Would you like me to show you what I found? I'm doing this for the experience — any price, even free.
+
+Best,
+Isa
