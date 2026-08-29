@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABC Accounting — Practice Management</title>
+<style>
+:root{
+  --purple:#6d3df5; --purple2:#7b4ff7; --blue:#3478f6; --green:#35b85a;
+  --orange:#f59d25; --red:#e85b61; --ink:#171922; --muted:#697087;
+  --line:#e8eaf1; --bg:#f8f9fc; --card:#fff;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink);font-size:13px}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.app{display:flex;min-height:100vh}
+.sidebar{width:216px;background:#fff;border-right:1px solid var(--line);padding:24px 18px;position:fixed;inset:0 auto 0 0}
+.brand{display:flex;align-items:center;gap:11px;margin:0 2px 30px}
+.logo{width:36px;height:36px;border-radius:11px;background:#f0eaff;display:grid;place-items:center;color:var(--purple);font-weight:800;font-size:18px}
+.brand strong{font-size:16px}.brand span{display:block;color:#7a8194;font-size:11px;margin-top:2px}
+.nav{display:grid;gap:5px}.nav button{border:0;background:transparent;text-align:left;padding:10px 11px;border-radius:9px;color:#4f5870;display:flex;gap:12px;align-items:center}
+.nav button.active{background:#f0eaff;color:#5b35dc;font-weight:700}.nav button:hover{background:#f5f3fb}
+.ico{width:18px;text-align:center;color:inherit}
+.sidebar-bottom{position:absolute;left:18px;right:18px;bottom:18px}
+.plan{border:1px solid var(--line);border-radius:12px;padding:13px;background:#fff;margin-bottom:12px}
+.plan b{font-size:12px}.plan p{margin:6px 0;color:var(--muted);font-size:11px}.progress{height:5px;background:#eeeafc;border-radius:5px;overflow:hidden}.progress i{display:block;width:72%;height:100%;background:var(--purple)}
+.user{border:1px solid var(--line);border-radius:12px;padding:11px;display:flex;gap:9px;align-items:center}.avatar{width:32px;height:32px;border-radius:50%;background:#e9e1ff;color:#5e35dc;display:grid;place-items:center;font-weight:700}.user small{display:block;color:var(--muted);margin-top:2px}
+
+.main{margin-left:216px;width:calc(100% - 216px);padding:24px 26px 34px}
+.topbar{display:flex;align-items:center;gap:18px;margin-bottom:20px}
+.title{min-width:205px}.title h1{font-size:24px;margin:0 0 4px}.title p{margin:0;color:var(--muted)}
+.selector{border:1px solid var(--line);background:#fff;border-radius:9px;padding:10px 13px;color:#303548}
+.search{margin-left:auto;width:330px;border:1px solid var(--line);background:#fff;border-radius:9px;padding:10px 13px;outline:0}
+.top-icons{display:flex;gap:15px;align-items:center;font-size:18px}.notify{position:relative}.badge{position:absolute;right:-7px;top:-8px;background:#e9434b;color:#fff;font-size:9px;border-radius:10px;padding:2px 5px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:17px}
+.kpi-head{display:flex;justify-content:space-between;align-items:center;color:#626a7d;font-size:12px}.kpi-icon{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;font-size:17px}
+.kpi-icon.p{background:#eee8ff;color:var(--purple)}.kpi-icon.b{background:#eaf2ff;color:var(--blue)}.kpi-icon.g{background:#e9f8ec;color:var(--green)}.kpi-icon.o{background:#fff1df;color:var(--orange)}
+.kpi-value{font-size:22px;font-weight:700;margin:9px 0}.trend{font-size:11px}.up{color:#21a34b}.down{color:#d64c55}.muted{color:var(--muted)}
+.grid-main{display:grid;grid-template-columns:1.55fr 1fr;gap:12px;margin-bottom:12px}
+.card-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.card-title h3{font-size:14px;margin:0}.link{color:#4e2fd0;border:0;background:transparent;font-size:11px}
+.chart{height:220px;position:relative;padding:8px 8px 28px 36px}
+.gridline{position:absolute;left:36px;right:10px;border-top:1px solid #eff0f4}.gridline span{position:absolute;left:-31px;top:-7px;color:#858b9b;font-size:9px}
+svg{width:100%;height:100%;overflow:visible}
+.legend{display:flex;gap:18px;font-size:10px;color:#677087;margin-top:8px}.dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:5px}
+.donut-wrap{display:flex;align-items:center;gap:24px;height:220px}.donut{width:170px;height:170px;border-radius:50%;background:conic-gradient(var(--purple) 0 36%,var(--blue) 36% 58%,var(--green) 58% 75%,var(--orange) 75% 90%,#ef6b72 90% 100%);position:relative}.donut:after{content:"";position:absolute;inset:43px;border-radius:50%;background:#fff}.donut-label{position:absolute;inset:0;display:grid;place-items:center;z-index:2;font-weight:700;font-size:20px}.donut-label small{display:block;font-size:9px;color:var(--muted);font-weight:400;text-align:center}
+.legend-list{display:grid;gap:12px;flex:1}.legend-row{display:flex;justify-content:space-between}.legend-name{display:flex;align-items:center;gap:7px}.legend-row b{font-size:11px}
+.tables{display:grid;grid-template-columns:1.45fr 1fr;gap:12px;margin-bottom:12px}
+table{width:100%;border-collapse:collapse}th{text-align:left;color:#7a8192;font-weight:600;font-size:10px;padding:9px 8px;border-bottom:1px solid var(--line)}td{padding:10px 8px;border-bottom:1px solid #f0f1f5;font-size:11px}tr:last-child td{border-bottom:0}.status{padding:4px 7px;border-radius:7px;font-size:9px}.ok{background:#eaf8ee;color:#188b3c}.warn{background:#fff3df;color:#b66b00}.bad{background:#fdebed;color:#c4474d}
+.bottom{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}.mini-chart{height:120px}.barrow{display:flex;align-items:center;gap:8px;margin:9px 0}.barrow span{width:65px;font-size:10px;color:#697087}.bar{height:9px;border-radius:5px;background:#eceef4;flex:1}.bar i{display:block;height:100%;border-radius:5px;background:var(--purple)}
+.snapshot{display:grid;grid-template-columns:1fr 1fr;gap:8px}.metric{border:1px solid #edf0f5;border-radius:9px;padding:11px}.metric small{color:var(--muted);font-size:9px}.metric b{display:block;font-size:15px;margin-top:5px}
+.activity{display:grid;gap:12px}.activity-item{display:flex;gap:10px;align-items:flex-start}.activity-icon{width:28px;height:28px;border-radius:8px;background:#f0eaff;color:var(--purple);display:grid;place-items:center}.activity-item b{font-size:11px}.activity-item small{display:block;color:var(--muted);margin-top:3px;font-size:9px}
+
+.page{display:none}.page.active{display:block}
+.report-toolbar{display:flex;gap:8px;align-items:center;margin-bottom:12px}.report-toolbar input,.report-toolbar select{border:1px solid var(--line);background:#fff;border-radius:8px;padding:9px 10px}.report-toolbar input{width:220px}.report-toolbar .spacer{flex:1}.primary{background:var(--purple);color:#fff;border:0;border-radius:8px;padding:9px 13px;font-weight:700}
+.report-layout{display:grid;grid-template-columns:185px 1fr;gap:12px}.report-groups{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px}.report-groups h4{margin:7px 8px 12px;font-size:11px;color:#7a8192}.report-groups button{width:100%;border:0;background:transparent;text-align:left;padding:9px;border-radius:7px;color:#5c6477;font-size:11px}.report-groups button.active{background:#f0eaff;color:#5b35dc;font-weight:700}.report-content{display:grid;gap:12px}.report-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:15px}.report-head{display:flex;justify-content:space-between;align-items:center}.report-head h3{margin:0;font-size:14px}.report-actions button{border:1px solid var(--line);background:#fff;border-radius:7px;padding:6px 9px;font-size:10px}.report-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}.report-kpi{background:#fafbfe;border:1px solid #eef0f5;border-radius:9px;padding:11px}.report-kpi small{color:var(--muted);font-size:9px}.report-kpi b{display:block;font-size:17px;margin-top:5px}.note{font-size:10px;color:var(--muted);margin-top:10px}
+
+.clients-toolbar{display:flex;gap:8px;margin-bottom:12px}.clients-toolbar input{width:280px;border:1px solid var(--line);border-radius:8px;padding:10px}.client-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:0;overflow:hidden}.client-name{font-weight:700}.client-sub{font-size:9px;color:var(--muted);margin-top:3px}
+@media(max-width:1100px){.sidebar{width:180px}.main{margin-left:180px;width:calc(100% - 180px)}.kpis{grid-template-columns:repeat(2,1fr)}.grid-main,.tables{grid-template-columns:1fr}.bottom{grid-template-columns:1fr}.search{width:220px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="logo">A</div><div><strong>ABC Accounting</strong><span>Practice Management</span></div></div>
+  <nav class="nav">
+    <button class="active" data-page="dashboard"><span class="ico">⌂</span>Dashboard</button>
+    <button data-page="clients"><span class="ico">♙</span>Clients</button>
+    <button data-page="accounting"><span class="ico">▣</span>Accounting</button>
+    <button data-page="tax"><span class="ico">%</span>Tax</button>
+    <button data-page="documents"><span class="ico">□</span>Documents</button>
+    <button data-page="invoices"><span class="ico">▤</span>Invoices</button>
+    <button data-page="expenses"><span class="ico">◌</span>Expenses</button>
+    <button data-page="reports"><span class="ico">▥</span>Reports</button>
+    <button data-page="tasks"><span class="ico">✓</span>Tasks</button>
+    <button data-page="team"><span class="ico">♧</span>Team</button>
+    <button data-page="integrations"><span class="ico">⌘</span>Integrations</button>
+    <button data-page="settings"><span class="ico">⚙</span>Settings</button>
+  </nav>
+  <div class="sidebar-bottom">
+    <div class="plan"><b>Professional</b><p>128 active clients</p><div class="progress"><i></i></div><p>72% of client capacity</p></div>
+    <div class="user"><div class="avatar">AP</div><div><b style="font-size:11px">Admin User</b><small>Administrator</small></div></div>
+  </div>
+</aside>
+
+<main class="main">
+<header class="topbar">
+  <div class="title"><h1 id="pageTitle">Dashboard</h1><p id="pageSub">Firm-wide overview of ABC Accounting</p></div>
+  <select class="selector"><option>All Clients</option><option>Companies</option><option>Individuals</option></select>
+  <input class="search" placeholder="Search clients, reports, documents...">
+  <div class="top-icons"><span>☼</span><span class="notify">♧<i class="badge">3</i></span><div class="avatar">AP</div><span style="font-size:12px">⌄</span></div>
+</header>
+
+<section class="page active" id="dashboard">
+  <div class="kpis">
+    <div class="card"><div class="kpi-head">Total Clients <div class="kpi-icon p">♙</div></div><div class="kpi-value">128</div><div class="trend up">↑ 8.4% <span class="muted">vs last month</span></div></div>
+    <div class="card"><div class="kpi-head">Monthly Revenue <div class="kpi-icon b">Rs</div></div><div class="kpi-value">Rs. 2.85M</div><div class="trend up">↑ 12.6% <span class="muted">vs last month</span></div></div>
+    <div class="card"><div class="kpi-head">Tax Due This Month <div class="kpi-icon o">%</div></div><div class="kpi-value">Rs. 1.24M</div><div class="trend down">↑ 6.2% <span class="muted">across 23 clients</span></div></div>
+    <div class="card"><div class="kpi-head">Pending Tasks <div class="kpi-icon g">✓</div></div><div class="kpi-value">37</div><div class="trend up">↓ 14.8% <span class="muted">vs last week</span></div></div>
+  </div>
+
+  <div class="grid-main">
+    <div class="card">
+      <div class="card-title"><h3>Firm Revenue</h3><button class="link">View report</button></div>
+      <div class="chart">
+        <div class="gridline" style="top:18%"><span>3M</span></div><div class="gridline" style="top:43%"><span>2M</span></div><div class="gridline" style="top:68%"><span>1M</span></div><div class="gridline" style="top:93%"><span>0</span></div>
+        <svg viewBox="0 0 600 190" preserveAspectRatio="none">
+          <path d="M0 160 L85 139 L170 146 L255 112 L340 126 L425 91 L510 69 L595 38 L595 190 L0 190 Z" fill="#eee8ff"/>
+          <path d="M0 160 L85 139 L170 146 L255 112 L340 126 L425 91 L510 69 L595 38" fill="none" stroke="#6d3df5" stroke-width="3"/>
+          <g fill="#fff" stroke="#6d3df5" stroke-width="2"><circle cx="0" cy="160" r="4"/><circle cx="85" cy="139" r="4"/><circle cx="170" cy="146" r="4"/><circle cx="255" cy="112" r="4"/><circle cx="340" cy="126" r="4"/><circle cx="425" cy="91" r="4"/><circle cx="510" cy="69" r="4"/><circle cx="595" cy="38" r="4"/></g>
+        </svg>
+      </div>
+      <div class="legend"><span><i class="dot" style="background:var(--purple)"></i>Revenue</span><span class="muted">Jan – Aug 2026</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><h3>Client Portfolio</h3><button class="link">View clients</button></div>
+      <div class="donut-wrap"><div class="donut"><div class="donut-label">128<small>clients</small></div></div>
+        <div class="legend-list">
+          <div class="legend-row"><span class="legend-name"><i class="dot" style="background:var(--purple)"></i>Companies</span><b>46%</b></div>
+          <div class="legend-row"><span class="legend-name"><i class="dot" style="background:var(--blue)"></i>SMEs</span><b>22%</b></div>
+          <div class="legend-row"><span class="legend-name"><i class="dot" style="background:var(--green)"></i>Individuals</span><b>17%</b></div>
+          <div class="legend-row"><span class="legend-name"><i class="dot" style="background:var(--orange)"></i>Partnerships</span><b>15%</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tables">
+    <div class="card">
+      <div class="card-title"><h3>Clients Requiring Attention</h3><button class="link" onclick="go('clients')">View all</button></div>
+      <table><thead><tr><th>CLIENT</th><th>ISSUE</th><th>DUE</th><th>STATUS</th></tr></thead><tbody>
+        <tr><td><b>Greenline Services</b><div class="client-sub">Business</div></td><td>VAT return</td><td>Sep 03</td><td><span class="status bad">Action required</span></td></tr>
+        <tr><td><b>Nova Retail</b><div class="client-sub">Company</div></td><td>Bank reconciliation</td><td>Sep 04</td><td><span class="status warn">Pending</span></td></tr>
+        <tr><td><b>Silva Holdings</b><div class="client-sub">Company</div></td><td>Tax review</td><td>Sep 07</td><td><span class="status warn">Review</span></td></tr>
+        <tr><td><b>Perera Trading</b><div class="client-sub">SME</div></td><td>Documents missing</td><td>Sep 10</td><td><span class="status bad">Action required</span></td></tr>
+      </tbody></table>
+    </div>
+    <div class="card">
+      <div class="card-title"><h3>Upcoming Tax Deadlines</h3><button class="link" onclick="go('tax')">View calendar</button></div>
+      <table><thead><tr><th>CLIENT</th><th>RETURN</th><th>DUE</th></tr></thead><tbody>
+        <tr><td>Greenline Services</td><td>VAT</td><td><b>Sep 03</b></td></tr>
+        <tr><td>Nova Retail</td><td>PAYE</td><td><b>Sep 10</b></td></tr>
+        <tr><td>Silva Holdings</td><td>VAT</td><td><b>Sep 15</b></td></tr>
+        <tr><td>Perera Trading</td><td>Income Tax</td><td><b>Sep 30</b></td></tr>
+      </tbody></table>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div class="card"><div class="card-title"><h3>Workload by Team</h3><button class="link">Details</button></div>
+      <div class="barrow"><span>Tax</span><div class="bar"><i style="width:82%"></i></div><b>82%</b></div>
+      <div class="barrow"><span>Accounts</span><div class="bar"><i style="width:67%"></i></div><b>67%</b></div>
+      <div class="barrow"><span>Audit</span><div class="bar"><i style="width:51%"></i></div><b>51%</b></div>
+      <div class="barrow"><span>Payroll</span><div class="bar"><i style="width:38%"></i></div><b>38%</b></div>
+    </div>
+    <div class="card"><div class="card-title"><h3>Firm Snapshot</h3><button class="link" onclick="go('reports')">View report</button></div>
+      <div class="snapshot"><div class="metric"><small>Average Client Value</small><b>Rs. 22,265</b><span class="trend up">↑ 7.1%</span></div><div class="metric"><small>Reports Generated</small><b>486</b><span class="trend up">↑ 11.4%</span></div><div class="metric"><small>Documents Processed</small><b>3,842</b><span class="trend up">↑ 18.2%</span></div><div class="metric"><small>Open Issues</small><b>19</b><span class="trend down">↓ 9.5%</span></div></div>
+    </div>
+    <div class="card"><div class="card-title"><h3>Recent Activity</h3><button class="link">View all</button></div>
+      <div class="activity">
+        <div class="activity-item"><div class="activity-icon">✓</div><div><b>VAT return reviewed</b><small>Silva Holdings · 12 min ago</small></div></div>
+        <div class="activity-item"><div class="activity-icon">□</div><div><b>24 documents processed</b><small>Nova Retail · 31 min ago</small></div></div>
+        <div class="activity-item"><div class="activity-icon">♙</div><div><b>New client added</b><small>Oceanic Foods · 1 hr ago</small></div></div>
+        <div class="activity-item"><div class="activity-icon">▥</div><div><b>Monthly report generated</b><small>ABC Construction · 2 hrs ago</small></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="clients">
+  <div class="clients-toolbar"><input placeholder="Search clients..."><select class="selector"><option>All statuses</option><option>Active</option><option>Action required</option></select><div style="flex:1"></div><button class="primary">+ Add Client</button></div>
+  <div class="client-card"><table><thead><tr><th>CLIENT</th><th>TYPE</th><th>REVENUE</th><th>TAX POSITION</th><th>LAST ACTIVITY</th><th>STATUS</th></tr></thead><tbody>
+  <tr><td><div class="client-name">Silva Holdings Ltd</div><div class="client-sub">C-01024 · Colombo</div></td><td>Company</td><td>Rs. 18.4M</td><td>Rs. 1.24M due</td><td>12 min ago</td><td><span class="status ok">Active</span></td></tr>
+  <tr><td><div class="client-name">Nova Retail</div><div class="client-sub">C-01019 · Dehiwala</div></td><td>Company</td><td>Rs. 31.8M</td><td>Rs. 860K due</td><td>31 min ago</td><td><span class="status warn">Review</span></td></tr>
+  <tr><td><div class="client-name">Greenline Services</div><div class="client-sub">C-01011 · Kotte</div></td><td>Business</td><td>Rs. 4.6M</td><td>Return overdue</td><td>48 min ago</td><td><span class="status bad">Action required</span></td></tr>
+  <tr><td><div class="client-name">Perera Trading</div><div class="client-sub">C-01007 · Gampaha</div></td><td>SME</td><td>Rs. 7.2M</td><td>Filed</td><td>1 hr ago</td><td><span class="status ok">Active</span></td></tr>
+  </tbody></table></div>
+</section>
+
+<section class="page" id="reports">
+  <div class="report-toolbar"><input placeholder="Search reports..."><select><option>All clients</option><option>Silva Holdings</option><option>Nova Retail</option></select><select><option>Last 30 days</option><option>Last 90 days</option><option>Year to date</option></select><div class="spacer"></div><button class="primary">+ Create Report</button></div>
+  <div class="report-layout">
+    <aside class="report-groups"><h4>REPORT GROUPS</h4><button class="active">Overview</button><button>Financial</button><button>Tax</button><button>Clients</button><button>Documents</button><button>Team & Workload</button><h4>MY REPORTS</h4><button>Monthly Firm Pack</button><button>Tax Exposure</button><button>Client Profitability</button></aside>
+    <div class="report-content">
+      <div class="report-card"><div class="report-head"><h3>Financial Overview</h3><div class="report-actions"><button>Export PDF</button> <button>Export CSV</button></div></div>
+        <div class="report-kpis"><div class="report-kpi"><small>Revenue YTD</small><b>Rs. 21.6M</b></div><div class="report-kpi"><small>Client Fees</small><b>Rs. 18.9M</b></div><div class="report-kpi"><small>Outstanding</small><b>Rs. 2.7M</b></div><div class="report-kpi"><small>Collection Rate</small><b>91.4%</b></div></div>
+        <div style="height:220px"><svg viewBox="0 0 800 220" preserveAspectRatio="none"><path d="M0 180 L100 155 L200 164 L300 130 L400 142 L500 104 L600 82 L700 92 L800 48" fill="none" stroke="#6d3df5" stroke-width="3"/><path d="M0 190 L100 175 L200 181 L300 158 L400 169 L500 145 L600 132 L700 138 L800 115" fill="none" stroke="#3478f6" stroke-width="2"/><line x1="0" y1="190" x2="800" y2="190" stroke="#e8eaf1"/></svg></div>
+        <div class="legend"><span><i class="dot" style="background:var(--purple)"></i>Revenue</span><span><i class="dot" style="background:var(--blue)"></i>Collected</span></div>
+        <div class="note">Reporting is designed around selectable report groups, filters, export actions and drill-downs. This follows the useful reporting principles seen in ManageEngine products without copying their interface.</div>
+      </div>
+      <div class="report-card"><div class="report-head"><h3>Scheduled Reports</h3><button class="link">Manage schedules</button></div><table><thead><tr><th>REPORT</th><th>RECIPIENT</th><th>FREQUENCY</th><th>NEXT RUN</th><th>STATUS</th></tr></thead><tbody><tr><td>Monthly Client Pack</td><td>Management</td><td>Monthly</td><td>Sep 01, 08:00</td><td><span class="status ok">Scheduled</span></td></tr><tr><td>Tax Exposure Report</td><td>Tax Team</td><td>Weekly</td><td>Aug 31, 07:30</td><td><span class="status ok">Scheduled</span></td></tr><tr><td>Outstanding Fees</td><td>Finance</td><td>Weekly</td><td>Sep 01, 09:00</td><td><span class="status ok">Scheduled</span></td></tr></tbody></table></div>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="accounting"><div class="card"><div class="card-title"><h3>Accounting Overview</h3><button class="link">View ledger</button></div><div class="report-kpis"><div class="report-kpi"><small>Transactions</small><b>18,420</b></div><div class="report-kpi"><small>Reconciled</small><b>96.8%</b></div><div class="report-kpi"><small>Receivables</small><b>Rs. 8.4M</b></div><div class="report-kpi"><small>Payables</small><b>Rs. 4.1M</b></div></div><p class="muted">Demo accounting workspace. Select a client from the top selector to drill into their ledger, reconciliations and financial statements.</p></div></section>
+<section class="page" id="tax"><div class="card"><div class="card-title"><h3>Tax Center</h3><button class="primary">Generate Tax Report</button></div><div class="report-kpis"><div class="report-kpi"><small>Tax Due</small><b>Rs. 1.24M</b></div><div class="report-kpi"><small>Returns Due</small><b>23</b></div><div class="report-kpi"><small>Filed</small><b>87%</b></div><div class="report-kpi"><small>At Risk</small><b>4 clients</b></div></div><table><thead><tr><th>CLIENT</th><th>RETURN</th><th>PERIOD</th><th>AMOUNT</th><th>DUE</th><th>STATUS</th></tr></thead><tbody><tr><td>Silva Holdings</td><td>VAT</td><td>Aug 2026</td><td>Rs. 1.24M</td><td>Sep 15</td><td><span class="status warn">Review</span></td></tr><tr><td>Greenline Services</td><td>VAT</td><td>Aug 2026</td><td>Rs. 340K</td><td>Sep 03</td><td><span class="status bad">Action required</span></td></tr><tr><td>Perera Trading</td><td>PAYE</td><td>Aug 2026</td><td>Rs. 126K</td><td>Sep 10</td><td><span class="status ok">Ready</span></td></tr></tbody></table></div></section>
+<section class="page" id="documents"><div class="card"><div class="card-title"><h3>Documents</h3><button class="primary">Upload Documents</button></div><div class="report-kpis"><div class="report-kpi"><small>Processed</small><b>3,842</b></div><div class="report-kpi"><small>Needs Review</small><b>46</b></div><div class="report-kpi"><small>Missing</small><b>18</b></div><div class="report-kpi"><small>Processing</small><b>12</b></div></div><p class="muted">Centralized client document workspace for invoices, bank statements, receipts and tax records.</p></div></section>
+<section class="page" id="invoices"><div class="card"><div class="card-title"><h3>Invoices</h3><button class="primary">Create Invoice</button></div><p class="muted">Invoice management demo. Track issued, paid, overdue and recurring client invoices.</p></div></section>
+<section class="page" id="expenses"><div class="card"><div class="card-title"><h3>Expenses</h3><button class="primary">Add Expense</button></div><p class="muted">Firm and client expense tracking workspace.</p></div></section>
+<section class="page" id="tasks"><div class="card"><div class="card-title"><h3>Tasks</h3><button class="primary">Create Task</button></div><p class="muted">37 open tasks across tax, accounting, audit and client requests.</p></div></section>
+<section class="page" id="team"><div class="card"><div class="card-title"><h3>Team</h3><button class="primary">Invite Member</button></div><p class="muted">Manage accountants, reviewers and administrators.</p></div></section>
+<section class="page" id="integrations"><div class="card"><div class="card-title"><h3>Integrations</h3><button class="primary">Add Integration</button></div><p class="muted">Connect banking, payroll, invoicing, storage and tax data sources.</p></div></section>
+<section class="page" id="settings"><div class="card"><div class="card-title"><h3>Settings</h3></div><p class="muted">Firm profile, roles, permissions, notifications and reporting preferences.</p></div></section>
+</main>
+</div>
+
+<script>
+const titles={
+ dashboard:["Dashboard","Firm-wide overview of ABC Accounting"],
+ clients:["Clients","Manage your client portfolio"],
+ accounting:["Accounting","Financial records and reconciliations"],
+ tax:["Tax Center","Tax obligations, returns and deadlines"],
+ documents:["Documents","Centralized client document workspace"],
+ invoices:["Invoices","Issue and track client invoices"],
+ expenses:["Expenses","Track firm and client expenses"],
+ reports:["Reports","Generate, filter and schedule management reports"],
+ tasks:["Tasks","Work assigned across the firm"],
+ team:["Team","People, roles and workload"],
+ integrations:["Integrations","Connected financial data sources"],
+ settings:["Settings","Firm configuration and permissions"]
+};
+function go(id){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+ document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));
+ document.getElementById("pageTitle").textContent=titles[id][0];
+ document.getElementById("pageSub").textContent=titles[id][1];
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+document.querySelectorAll(".nav button").forEach(b=>b.addEventListener("click",()=>go(b.dataset.page)));
+</script>
+</body>
+</html>

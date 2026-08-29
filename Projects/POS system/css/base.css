@@ -1,0 +1,17 @@
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--font);font-size:var(--fs);background:var(--bg);color:var(--ink);
+  line-height:1.45;-webkit-font-smoothing:antialiased;
+}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+a{color:var(--purple-ink);text-decoration:none}
+ul,ol{margin:0;padding:0;list-style:none}
+h1,h2,h3,h4,h5,p{margin:0}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--purple);outline-offset:2px;border-radius:4px}
+::selection{background:var(--purple-soft);color:var(--purple-ink)}
+
+.muted{color:var(--muted)}
+.hidden{display:none!important}
