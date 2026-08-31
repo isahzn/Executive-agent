@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+/* Professional financial product palette — restrained, semantic colour only.
+   Colour communicates status/money, not decoration. */
+
+@theme {
+  --color-canvas: #f7f8f8; /* page background */
+  --color-surface: #ffffff; /* card / panel */
+  --color-surface-dim: #fbfbfb;
+  --color-ink: #16201f; /* primary text */
+  --color-ink-soft: #55605f; /* secondary text */
+  --color-ink-faint: #8b9291; /* tertiary / muted */
+  --color-line: #e6e8e8; /* borders, dividers */
+  --color-line-strong: #d5d9d9;
+  --color-navy: #16324a; /* brand / primary emphasis */
+  --color-navy-soft: #1e4263;
+  --color-accent: #0f6b4f; /* positive / confirm / money-positive */
+  --color-accent-soft: #e6f2ee;
+  --color-warn: #9a5b00; /* warning */
+  --color-warn-soft: #faf1e2;
+  --color-danger: #b3261e; /* negative / error */
+  --color-danger-soft: #f9e9e8;
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Numeric alignment for financial figures. */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Default link style. */
+a {
+  color: inherit;
+}
+
+/* Solid, plain focus state for accessibility. */
+:focus-visible {
+  outline: 2px solid var(--color-navy-soft);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
