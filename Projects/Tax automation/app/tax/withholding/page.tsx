@@ -39,7 +39,7 @@ export default function WithholdingTaxPage() {
       <div>
         <PageHeader
           title="Withholding Tax"
-          subtitle="Sri Lanka · Year of Assessment 2025/2026."
+          subtitle="Sri Lanka, year of assessment 2025/2026."
         />
         <Card>
           <CardHeader title="No verified rules" />
@@ -58,7 +58,7 @@ export default function WithholdingTaxPage() {
     <div>
       <PageHeader
         title="Withholding Tax"
-        subtitle={`Sri Lanka · Year of Assessment ${taxYear}. Rates and thresholds come from the versioned rules engine — AI never computes tax.`}
+        subtitle={`Sri Lanka, year of assessment ${taxYear}. Rates and thresholds come from the versioned rules engine — AI never computes tax.`}
         action={<RulesetBadge verified={verified} taxYear={taxYear} />}
       />
       <WithholdingCalculator

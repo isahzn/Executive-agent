@@ -1,28 +1,41 @@
 @import "tailwindcss";
 
-/* Professional financial product palette — restrained, semantic colour only.
-   Colour communicates status/money, not decoration. */
+/* Tax Desk design system — "plain-language ledger".
+   Grounded in the subject: official Sri Lankan tax figures you can defend.
+   True blue (the color of officialdom, gazettes and bank statements), plain
+   sans type at every size, and table rules only where they carry meaning.
+   No serif, no cream, no gold, no decoration. */
 
 @theme {
-  --color-canvas: #f7f8f8; /* page background */
-  --color-surface: #ffffff; /* card / panel */
-  --color-surface-dim: #fbfbfb;
-  --color-ink: #16201f; /* primary text */
-  --color-ink-soft: #55605f; /* secondary text */
-  --color-ink-faint: #8b9291; /* tertiary / muted */
-  --color-line: #e6e8e8; /* borders, dividers */
-  --color-line-strong: #d5d9d9;
-  --color-navy: #16324a; /* brand / primary emphasis */
-  --color-navy-soft: #1e4263;
-  --color-accent: #0f6b4f; /* positive / confirm / money-positive */
-  --color-accent-soft: #e6f2ee;
-  --color-warn: #9a5b00; /* warning */
-  --color-warn-soft: #faf1e2;
-  --color-danger: #b3261e; /* negative / error */
-  --color-danger-soft: #f9e9e8;
+  /* Surfaces */
+  --color-canvas: #f2f4f6; /* page background — cool, flat, unremarkable */
+  --color-surface: #ffffff; /* cards, panels, forms */
+  --color-surface-dim: #f7f8fa; /* recessed areas: sidebar, table headers */
 
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Text */
+  --color-ink: #1e3a5f; /* primary text — deep official blue, not black */
+  --color-ink-soft: #46617f; /* secondary text */
+  --color-ink-faint: #6d8199; /* tertiary / muted */
+
+  /* Lines */
+  --color-line: #d8dfe6; /* borders, dividers */
+  --color-line-strong: #bfcad6; /* emphasized rules, hover borders */
+
+  /* Brand / action — true blue */
+  --color-navy: #185a9d; /* primary actions, brand, active nav */
+  --color-navy-soft: #11497f; /* hover / pressed */
+  --color-navy-tint: #e7eff7; /* selected tints, info fills */
+
+  /* Semantic */
+  --color-accent: #116149; /* money-positive / confirm only */
+  --color-accent-soft: #e3f0ea;
+  --color-warn: #8a5200; /* caution, amounts payable */
+  --color-warn-soft: #f7efdf;
+  --color-danger: #a92e24; /* errors, negative */
+  --color-danger-soft: #f8e9e7;
+
+  --font-sans: var(--font-body);
+  --font-display: var(--font-heading);
 }
 
 :root {
@@ -53,7 +66,7 @@ a {
 
 /* Solid, plain focus state for accessibility. */
 :focus-visible {
-  outline: 2px solid var(--color-navy-soft);
+  outline: 2px solid var(--color-navy);
   outline-offset: 2px;
   border-radius: 2px;
 }

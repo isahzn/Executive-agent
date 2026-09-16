@@ -98,7 +98,7 @@ describe("Sri Lanka Individual Income Tax — 2025/2026", () => {
   });
 
   it("rejects negative input", () => {
-    expect(validateIndividualIncomeInput({ employmentIncome: -5 })).toContain("employmentIncome cannot be negative.");
+    expect(validateIndividualIncomeInput({ employmentIncome: -5 })).toContain("Employment income cannot be negative.");
     expect(() => run({ employmentIncome: -1 })).toThrow(/Invalid input/);
   });
 
@@ -226,14 +226,14 @@ describe("coverage: relief, bands, boundaries, rounding, high income, invalid in
 
   it("rejects fractional (non-whole) rupees", () => {
     expect(validateIndividualIncomeInput({ employmentIncome: 1000.5 })).toContain(
-      "employmentIncome must be a whole number of rupees."
+      "Employment income must be a whole number of rupees."
     );
     expect(() => run({ employmentIncome: 1000.5 })).toThrow(/Invalid input/);
   });
 
   it("rejects non-finite number input", () => {
     expect(validateIndividualIncomeInput({ businessIncome: Number.NaN })).toContain(
-      "businessIncome must be a number."
+      "Business income must be a number."
     );
   });
 

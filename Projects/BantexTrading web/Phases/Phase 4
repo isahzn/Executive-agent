@@ -1,0 +1,340 @@
+PHASE 4 — PRODUCT DETAIL PAGES + PRODUCT OPTIONS
+
+Continue ONLY with Phase 4.
+
+IMPORTANT:
+Phases 1–3 are complete. Do NOT redesign them.
+
+Do NOT start Phase 5 or any later phase.
+
+==================================================
+1. GOAL
+==================================================
+
+Now build the actual product-detail system.
+
+When a customer clicks a product from:
+
+/stationery
+
+or
+
+/electrical
+
+they should be taken to that product's own page.
+
+The experience should feel like a real ecommerce website.
+
+Example:
+
+/stationery/product-name
+
+or an equivalent clean dynamic route.
+
+Use a proper dynamic product route rather than creating a separate hard-coded page for every product.
+
+==================================================
+2. PRODUCT PAGE
+==================================================
+
+Create a polished product detail layout containing:
+
+- Product image/gallery
+- Product name
+- Price
+- Description
+- Availability
+- Product options/variants
+- Quantity selector
+- Add to Cart button
+- Order Now button
+
+Keep the visual design consistent with the existing Bantex Trading website.
+
+Do NOT create a completely different product-page design.
+
+==================================================
+3. PRODUCT IMAGES
+==================================================
+
+Build the image/gallery architecture so a product can eventually have:
+
+- Main image
+- Additional images
+- Multiple product views
+
+Allow the product data to determine which images are displayed.
+
+Do NOT invent product images.
+
+If there are no real products yet, make sure the product system works with properly structured placeholder/test data without presenting fabricated products as real inventory.
+
+==================================================
+4. PRODUCT OPTIONS / VARIANTS
+==================================================
+
+This is important.
+
+Products must NOT be restricted to one fixed option type.
+
+The Admin system in a later phase should be able to define options such as:
+
+- Colour
+- Size
+- Model
+- Capacity
+- Pack size
+- Specification
+- Other custom options
+
+For example:
+
+Product A:
+Colour → Black / Blue / Red
+
+Product B:
+Size → A4 / A5
+
+Product C:
+Model → Model 1 / Model 2
+Colour → Black / White
+
+The product page should dynamically render whatever options the product contains.
+
+Do NOT hard-code only a colour selector.
+
+==================================================
+5. VARIANT LOGIC
+==================================================
+
+A selected variant must be treated as part of the product being purchased.
+
+The system should be able to identify:
+
+Product
++
+Selected options
++
+Quantity
+
+as a unique cart item later.
+
+Do not build the full cart yet, but make the product selection architecture compatible with the future cart.
+
+If different variants eventually have different prices, the data architecture should be capable of supporting that.
+
+==================================================
+6. QUANTITY
+==================================================
+
+Add a polished quantity selector.
+
+Customers should be able to:
+
+- Increase quantity
+- Decrease quantity
+- See the current quantity
+
+Prevent invalid quantities such as zero or negative values.
+
+==================================================
+7. ADD TO CART
+==================================================
+
+Create the Add to Cart interaction/UI.
+
+For this phase, establish the frontend interaction and cart integration point.
+
+The full persistent cart system belongs to Phase 5.
+
+Do not build the complete cart system yet.
+
+The product page should still be architected so Phase 5 can connect the button to the real cart.
+
+==================================================
+8. ORDER NOW
+==================================================
+
+Create an Order Now button.
+
+The eventual flow will be:
+
+Product
+→ Select options
+→ Order Now
+→ Checkout
+→ Stripe
+→ Order
+
+For Phase 4, establish the button and navigation/integration point.
+
+Do NOT implement Stripe or checkout yet.
+
+==================================================
+9. PRODUCT VALIDATION
+==================================================
+
+The page must correctly handle:
+
+- Product not found
+- Missing image
+- Missing optional description
+- Products with no variants
+- Products with one option
+- Products with multiple options
+- Invalid variant combinations
+
+Do not allow customers to add a product with a required option left unselected.
+
+Provide clear feedback when an option must be selected.
+
+==================================================
+10. PRODUCT ROUTING
+==================================================
+
+Use clean dynamic URLs.
+
+For example:
+
+/stationery/[slug]
+
+/electrical/[slug]
+
+Do not create separate manually coded pages for every product.
+
+The same product-detail component should power both categories.
+
+==================================================
+11. DESIGN
+==================================================
+
+Follow the established Bantex Trading design.
+
+Keep:
+
+- Typography
+- Spacing
+- Buttons
+- Cards
+- Borders
+- Image treatment
+- Navbar
+- Footer
+- Animation style
+- Responsive behavior
+
+The product page should feel premium and polished without becoming visually complicated.
+
+Use subtle transitions when:
+
+- changing images
+- selecting variants
+- changing quantity
+- interacting with buttons
+
+Respect:
+
+prefers-reduced-motion
+
+==================================================
+12. MOBILE
+==================================================
+
+The product page must be fully responsive.
+
+On mobile:
+
+- Images should remain prominent
+- Options should be easy to select
+- Quantity controls should be usable
+- Add to Cart should be easy to access
+- Order Now should be easy to access
+- No horizontal overflow
+
+==================================================
+13. DO NOT BUILD YET
+==================================================
+
+DO NOT implement:
+
+- Full cart
+- Persistent cart storage
+- Cookies/local storage cart logic
+- Checkout
+- Stripe
+- Payment processing
+- Admin dashboard
+- Order database
+- Email notifications
+
+Those belong to later phases.
+
+==================================================
+14. IMPORTANT — NO FABRICATION
+==================================================
+
+Do not invent real Bantex products.
+
+Do not invent:
+
+- Product names
+- Prices
+- Brands
+- Specifications
+- Stock
+- Reviews
+- Ratings
+
+If actual product data has not yet been supplied, use controlled development/test data only where necessary to demonstrate the product-page functionality, and clearly structure it so it can be replaced by real admin-managed products later.
+
+==================================================
+15. QUALITY CHECK
+==================================================
+
+Before finishing:
+
+- Test a stationery product route.
+- Test an electrical product route.
+- Test dynamic routing.
+- Test products with no options.
+- Test products with one option.
+- Test products with multiple options.
+- Test required option validation.
+- Test quantity controls.
+- Test image gallery.
+- Test Add to Cart interaction.
+- Test Order Now interaction.
+- Test mobile.
+- Test desktop.
+- Check TypeScript.
+- Check console errors.
+- Check broken routes.
+- Check responsive layout.
+
+==================================================
+16. PREVIEW + STOP
+==================================================
+
+When Phase 4 is complete:
+
+1. Run the development server.
+2. Open a real product-detail page.
+3. Demonstrate the product image/gallery.
+4. Demonstrate product options.
+5. Demonstrate quantity selection.
+6. Demonstrate Add to Cart interaction.
+7. Demonstrate Order Now interaction.
+8. Test desktop.
+9. Test mobile.
+10. Fix obvious issues.
+11. Show me a working preview.
+
+THEN STOP.
+
+Do NOT start Phase 5.
+
+Do NOT implement the persistent cart yet.
+
+Wait for my explicit instruction to continue.
+
+PHASE 4 = PRODUCT DETAIL PAGES + PRODUCT OPTIONS ONLY.

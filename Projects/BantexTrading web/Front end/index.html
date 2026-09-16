@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bantex Trading (Pvt) Ltd — Wholesale &amp; Retail Stationery and Electrical Goods</title>
+<meta name="description" content="Bantex Trading (Pvt) Ltd — wholesale and retail stationery and electrical goods in Colombo." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><span class="logo-mark">BT</span><span class="logo-text">Bantex Trading<small>Pvt Ltd</small></span></a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="stationery.html">Stationery</a></li>
+      <li><a href="electrical-goods.html">Electrical Goods</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="contact.html" class="btn btn-ghost btn-sm">Contact Us</a>
+      <a href="stationery.html" class="btn btn-primary btn-sm">Shop Now</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-drawer" id="mobileDrawer">
+    <a href="index.html">Home</a>
+    <a href="stationery.html">Stationery</a>
+    <a href="electrical-goods.html">Electrical Goods</a>
+    <a href="contact.html">Contact</a>
+    <a href="contact.html" class="btn btn-primary btn-block">Contact Us</a>
+  </div>
+</nav>
+
+<main id="top">
+
+  <!-- HERO -->
+  <header class="hero wrap">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="hero-eyebrow">Wholesale &amp; retail stationery and electrical goods</p>
+        <h1>Everyday essentials, <em>trusted</em><br/>and always in stock.</h1>
+        <p class="lead">Bantex Trading (Pvt) Ltd supplies stationery and electrical goods for homes, offices, and businesses across Colombo — wholesale and retail.</p>
+        <div class="hero-actions">
+          <a href="stationery.html" class="btn btn-primary">Shop Stationery</a>
+          <a href="electrical-goods.html" class="btn btn-ghost">Shop Electrical Goods</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><b>Wholesale</b><span>&amp; Retail</span></div>
+          <div class="stat"><b>Stationery</b><span>Essentials</span></div>
+          <div class="stat"><b>Electrical</b><span>Goods</span></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="badge-dot"><span class="pulse"></span>Now in stock</div>
+        <div class="plate plate-main">
+          <img src="https://images.unsplash.com/photo-1517842645767-c639042777db?q=80&w=1200&auto=format&fit=crop" alt="Desk arranged with stationery and everyday office essentials" />
+        </div>
+        <div class="plate plate-float">
+          <img src="https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?q=80&w=600&auto=format&fit=crop" alt="Ballpoint pen close-up" />
+          <div class="plate-float-label">
+            <b>Ballpoint Pen</b>
+            <span>Rs. 60</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- FEATURED CATEGORIES -->
+  <section id="categories" class="cat-strip">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2>Shop by category</h2>
+        <p>Stationery and electrical goods, organised the way you need them.</p>
+      </div>
+      <div class="cat-grid">
+        <a class="cat-card reveal" href="stationery.html">
+          <img src="https://images.unsplash.com/photo-1585336455983-2c0f38c9de3d?q=80&w=800&auto=format&fit=crop" alt="Pens and stationery essentials" loading="lazy"/>
+          <div class="cat-label">
+            <div><b>Stationery</b><span>Pens &amp; everyday essentials</span></div>
+            <span class="cat-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+          </div>
+        </a>
+        <a class="cat-card reveal" href="electrical-goods.html">
+          <img src="https://images.unsplash.com/photo-1587145820266-a5951ee6f620?q=80&w=800&auto=format&fit=crop" alt="Calculator and electrical goods" loading="lazy"/>
+          <div class="cat-label">
+            <div><b>Electrical Goods</b><span>Calculators, chargers &amp; more</span></div>
+            <span class="cat-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED PRODUCTS -->
+  <section id="products">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2>Featured products</h2>
+        <p>A few of the everyday items we supply, wholesale and retail.</p>
+      </div>
+      <div class="product-grid" data-product-grid="pen,calculator,charger"></div>
+    </div>
+  </section>
+
+  <!-- WHY THIS SHOP -->
+  <section id="why" class="why">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2>Why businesses order from us</h2>
+        <p>The basics, done reliably.</p>
+      </div>
+      <div class="why-list">
+        <div class="why-row reveal">
+          <h3>Wholesale &amp; retail</h3>
+          <p>We supply both individual customers and businesses looking to stock up on stationery and electrical goods.</p>
+          <div class="metric"><b>Both</b><span>order types welcome</span></div>
+        </div>
+        <div class="why-row reveal">
+          <h3>Stationery essentials</h3>
+          <p>Everyday stationery items kept in stock for schools, offices, and homes.</p>
+          <div class="metric"><b>Stationery</b><span>always stocked</span></div>
+        </div>
+        <div class="why-row reveal">
+          <h3>Electrical goods</h3>
+          <p>Practical electrical items for everyday use, from calculators to chargers.</p>
+          <div class="metric"><b>Electrical</b><span>goods available</span></div>
+        </div>
+        <div class="why-row reveal">
+          <h3>Based in Colombo</h3>
+          <p>Located on New Moor Street, Colombo 12 — reach out any time to place an order.</p>
+          <div class="metric"><b>Colombo 12</b><span>New Moor Street</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="wrap">
+      <p class="tag reveal">Ready when you are</p>
+      <h2 class="reveal">Get in touch to place an order.</h2>
+      <a href="contact.html" class="btn btn-primary reveal">Contact Bantex Trading</a>
+    </div>
+  </section>
+
+</main>
+
+<footer id="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <div class="footer-logo"><span class="logo-mark" style="width:28px;height:28px;font-size:11px;">BT</span>Bantex&nbsp;Trading&nbsp;(Pvt)&nbsp;Ltd</div>
+        <p>Wholesale and retail stationery and electrical goods, based in Colombo 12.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Shop</h5>
+        <ul>
+          <li><a href="stationery.html">Stationery</a></li>
+          <li><a href="electrical-goods.html">Electrical Goods</a></li>
+          <li><a href="index.html#products">Featured Products</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="mailto:bantexsupplies@gamil.com">bantexsupplies@gamil.com</a></li>
+          <li><a href="tel:+94777400401">077 740 0401</a></li>
+          <li><a href="tel:+94769865898">076 986 5898</a></li>
+          <li><a href="contact.html">49/12, New Moor Street, Colombo 12</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Bantex Trading (Pvt) Ltd. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

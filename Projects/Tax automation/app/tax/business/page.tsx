@@ -22,7 +22,7 @@ export default function BusinessTaxPage() {
     <div>
       <PageHeader
         title="Business Tax"
-        subtitle={`Sri Lanka · Year of Assessment ${taxYear}. Taxable profit is computed deterministically; tax payable derives from the versioned rules engine — AI never computes tax.`}
+        subtitle={`Sri Lanka, year of assessment ${taxYear}. Taxable profit is computed deterministically; tax payable derives from the versioned rules engine — AI never computes tax.`}
         action={<RulesetBadge verified={verified} taxYear={taxYear} />}
       />
       <BusinessCalculator

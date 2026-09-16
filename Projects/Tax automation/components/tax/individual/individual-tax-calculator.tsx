@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useRef, useEffect } from "react";
 import { calculateIndividualTax } from "@/app/actions";
 import { Card, CardHeader, CardBody } from "@/components/ui/card";
 import { Field } from "@/components/ui/field";
@@ -23,6 +23,14 @@ export function IndividualTaxCalculator({
   verified: boolean;
 }) {
   const [state, formAction, pending] = useActionState(calculateIndividualTax, EMPTY_STATE);
+  const resultRef = useRef<HTMLDivElement>(null);
+
+  // Auto-scroll to result when calculation completes
+  useEffect(() => {
+    if (state.result && resultRef.current) {
+      resultRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [state.result]);
 
   return (
     <div className="flex flex-col gap-6">
@@ -74,8 +82,8 @@ export function IndividualTaxCalculator({
 
             <div className="flex items-center justify-between gap-4">
               <p className="text-xs text-ink-faint">
-                Tax year <span className="font-medium text-ink-soft">{taxYear}</span> ·
-                Sri Lanka · {verified ? "IRD verified" : "Unverified rules"}.
+                Tax year {taxYear}, Sri Lanka.{" "}
+                {verified ? "Verified against IRD publications." : "Unverified rules."}
               </p>
               <Button type="submit" disabled={pending} className="min-w-36">
                 {pending ? "Calculating…" : "Calculate tax"}
@@ -85,7 +93,11 @@ export function IndividualTaxCalculator({
         </CardBody>
       </Card>
 
-      {state.result ? <TaxResult result={state.result} /> : null}
+      {state.result ? (
+        <div ref={resultRef}>
+          <TaxResult result={state.result} />
+        </div>
+      ) : null}
     </div>
   );
 }

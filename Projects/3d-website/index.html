@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SMOKIN' FLAMES — Premium Burgers</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              black: '#0A0A0A',
+              charcoal: '#111111',
+              dark: '#161616',
+              smoke: '#1E1E1E',
+              ash: '#2A2A2A',
+              orange: '#E85D26',
+              flame: '#F07030',
+              ember: '#F5A623',
+              gold: '#FFD166',
+              cream: '#FAF3EB',
+              warm: '#E8DDD0',
+            },
+          },
+          fontFamily: {
+            display: ['"Bebas Neue"', 'sans-serif'],
+            body: ['"DM Sans"', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; -webkit-font-smoothing:antialiased; }
+    body { font-family:'DM Sans',sans-serif; background:#0A0A0A; color:#FAF3EB; overflow-x:hidden; }
+    ::selection { background:rgba(232,93,38,.35); color:#fff; }
+    ::-webkit-scrollbar { width:5px; }
+    ::-webkit-scrollbar-track { background:#0A0A0A; }
+    ::-webkit-scrollbar-thumb { background:#2A2A2A; border-radius:9px; }
+    ::-webkit-scrollbar-thumb:hover { background:#E85D26; }
+
+    /* 3D Canvas */
+    #burger-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      cursor: grab;
+    }
+    #burger-canvas:active { cursor: grabbing; }
+
+    /* Loading state */
+    .loader-ring {
+      width:48px; height:48px;
+      border:3px solid rgba(232,93,38,.15);
+      border-top-color:#E85D26;
+      border-radius:50%;
+      animation:spin .8s linear infinite;
+    }
+    @keyframes spin { to{transform:rotate(360deg)} }
+
+    /* CTA buttons */
+    .cta-primary {
+      background: linear-gradient(135deg, #E85D26, #F07030);
+      position:relative; overflow:hidden;
+      transition: transform .25s, box-shadow .3s;
+    }
+    .cta-primary::after {
+      content:''; position:absolute; inset:0;
+      background: linear-gradient(135deg, #F07030, #FFD166);
+      opacity:0; transition: opacity .3s;
+    }
+    .cta-primary:hover { transform:translateY(-2px); box-shadow:0 8px 30px rgba(232,93,38,.35); }
+    .cta-primary:hover::after { opacity:1; }
+    .cta-primary span { position:relative; z-index:1; }
+
+    .cta-ghost {
+      border:1px solid rgba(255,255,255,.12);
+      transition: border-color .3s, color .3s, background .3s;
+    }
+    .cta-ghost:hover {
+      border-color: rgba(232,93,38,.4);
+      color:#E85D26;
+      background: rgba(232,93,38,.06);
+    }
+
+    /* Fade-in */
+    .reveal {
+      opacity:0; transform:translateY(28px);
+      transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
+    }
+    .reveal.vis { opacity:1; transform:translateY(0); }
+
+    /* Menu card */
+    .menu-card {
+      background: #141414;
+      border: 1px solid rgba(255,255,255,.04);
+      transition: border-color .4s, transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s;
+    }
+    .menu-card:hover {
+      border-color: rgba(232,93,38,.2);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(0,0,0,.4), 0 0 40px rgba(232,93,38,.06);
+    }
+    .menu-card:hover .menu-card-img { transform: scale(1.05); }
+    .menu-card-img { transition: transform .6s cubic-bezier(.16,1,.3,1); }
+
+    /* Hero entrance */
+    .hero-el { opacity:0; transform:translateY(32px); }
+
+    /* Glow orb */
+    .glow-orb {
+      position:absolute; border-radius:50%;
+      filter:blur(80px); pointer-events:none;
+    }
+    @keyframes floatSlow{0%,100%{transform:translate(0,0)}50%{transform:translate(15px,-20px)}}
+  </style>
+</head>
+<body>
+
+<!-- ======================== NAV ======================== -->
+<nav id="nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" style="padding:1.5rem 0">
+  <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
+    <a href="#" class="flex items-center gap-2.5 group">
+      <div class="w-9 h-9 rounded-full bg-gradient-to-br from-brand-orange to-brand-flame flex items-center justify-center shadow-lg shadow-brand-orange/20">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="#0A0A0A"><path d="M12 2c-1.5 4-4 6-4 10a4 4 0 0 0 8 0c0-4-2.5-6-4-10z"/></svg>
+      </div>
+      <span class="font-display text-[1.4rem] tracking-[.08em] text-brand-cream group-hover:text-brand-orange transition-colors">SMOKIN' FLAMES</span>
+    </a>
+    <div class="hidden md:flex items-center gap-7">
+      <a href="#hero" class="font-body text-[.8rem] font-medium text-brand-warm/50 hover:text-brand-orange transition-colors uppercase tracking-[.15em]">Home</a>
+      <a href="#menu" class="font-body text-[.8rem] font-medium text-brand-warm/50 hover:text-brand-orange transition-colors uppercase tracking-[.15em]">Menu</a>
+      <a href="#about" class="font-body text-[.8rem] font-medium text-brand-warm/50 hover:text-brand-orange transition-colors uppercase tracking-[.15em]">About</a>
+      <a href="#contact" class="font-body text-[.8rem] font-medium text-brand-warm/50 hover:text-brand-orange transition-colors uppercase tracking-[.15em]">Contact</a>
+      <a href="#menu" class="ml-1 px-5 py-2 bg-brand-orange text-brand-black font-body font-semibold text-[.78rem] uppercase tracking-[.12em] rounded hover:bg-brand-flame transition-colors">Order</a>
+    </div>
+    <button id="mob-toggle" class="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-[5px]" aria-label="Menu">
+      <span class="h-[2px] w-[22px] bg-brand-cream transition-all duration-300 rounded"></span>
+      <span class="h-[2px] w-[22px] bg-brand-cream transition-all duration-300 rounded"></span>
+      <span class="h-[2px] w-[22px] bg-brand-cream transition-all duration-300 rounded"></span>
+    </button>
+  </div>
+  <div id="mob-menu" class="md:hidden absolute top-full left-0 right-0 bg-brand-black/95 backdrop-blur-2xl border-b border-white/5 opacity-0 invisible transition-all duration-300">
+    <div class="px-6 py-6 flex flex-col gap-4">
+      <a href="#hero" class="mob-link font-body text-lg text-brand-warm/70 hover:text-brand-orange transition-colors">Home</a>
+      <a href="#menu" class="mob-link font-body text-lg text-brand-warm/70 hover:text-brand-orange transition-colors">Menu</a>
+      <a href="#about" class="mob-link font-body text-lg text-brand-warm/70 hover:text-brand-orange transition-colors">About</a>
+      <a href="#contact" class="mob-link font-body text-lg text-brand-warm/70 hover:text-brand-orange transition-colors">Contact</a>
+      <a href="#menu" class="mob-link mt-2 px-5 py-3 bg-brand-orange text-brand-black font-body font-semibold text-center uppercase tracking-wider rounded">Order Now</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ======================== HERO ======================== -->
+<section id="hero" class="relative min-h-screen flex items-center overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-br from-brand-black via-brand-charcoal to-brand-black"></div>
+  <div class="glow-orb w-[500px] h-[500px] top-[10%] left-[5%] bg-brand-orange/[.07]" style="animation:floatSlow 8s ease-in-out infinite"></div>
+  <div class="glow-orb w-[350px] h-[350px] bottom-[15%] right-[15%] bg-brand-ember/[.05]" style="animation:floatSlow 10s ease-in-out 2s infinite"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-4 items-center pt-24 pb-16">
+    <!-- Left: Text -->
+    <div class="order-2 lg:order-1 text-center lg:text-left">
+      <p class="hero-el font-body text-[.78rem] uppercase tracking-[.35em] text-brand-orange/80 mb-5 font-medium">Handcrafted since 2024</p>
+      <h1 class="hero-el font-display text-[4rem] sm:text-[5.5rem] md:text-[7rem] lg:text-[8rem] leading-[.88] text-brand-cream mb-6">
+        BITE INTO<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange via-brand-flame to-brand-ember">PERFECTION</span>
+      </h1>
+      <p class="hero-el font-body text-base md:text-lg text-brand-warm/45 max-w-md mx-auto lg:mx-0 leading-relaxed mb-8 font-light">
+        Fire-grilled patties, artisan buns, and bold flavors that hit different. No shortcuts, no frozen patties — just real food done right.
+      </p>
+      <div class="hero-el flex flex-col sm:flex-row items-center lg:items-start gap-3">
+        <a href="#menu" class="cta-primary px-8 py-3.5 rounded font-body font-semibold text-[.82rem] uppercase tracking-[.12em] text-brand-black cursor-pointer"><span>Order Now</span></a>
+        <a href="#menu" class="cta-ghost px-8 py-3.5 rounded font-body font-medium text-[.82rem] uppercase tracking-[.12em] text-brand-cream/70 cursor-pointer">View Menu</a>
+      </div>
+    </div>
+
+    <!-- Right: 3D Burger Scene -->
+    <div class="order-1 lg:order-2 relative flex items-center justify-center" style="min-height:400px">
+      <!-- Glow behind 3D scene -->
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-[60%] rounded-full bg-brand-orange/[.1] blur-[60px] pointer-events-none"></div>
+
+      <!-- Three.js canvas -->
+      <div id="burger-scene" style="width:100%;height:500px;position:relative">
+        <canvas id="burger-canvas"></canvas>
+        <!-- Loading indicator -->
+        <div id="burger-loader" class="absolute inset-0 flex flex-col items-center justify-center gap-4 z-10">
+          <div class="loader-ring"></div>
+          <p class="font-body text-[.75rem] text-brand-warm/30 uppercase tracking-[.15em]">Loading 3D model</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
+    <span class="font-body text-[.65rem] uppercase tracking-[.2em] text-brand-warm/50">Scroll</span>
+    <div class="w-px h-6 bg-gradient-to-b from-brand-orange/50 to-transparent"></div>
+  </div>
+</section>
+
+<!-- ======================== MENU ======================== -->
+<section id="menu" class="relative py-24 md:py-32">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16 reveal">
+      <p class="font-body text-[.75rem] uppercase tracking-[.35em] text-brand-orange/70 mb-3 font-medium">What We Serve</p>
+      <h2 class="font-display text-5xl md:text-6xl lg:text-7xl text-brand-cream">THE MENU</h2>
+      <div class="mt-4 mx-auto w-12 h-[3px] bg-gradient-to-r from-brand-orange to-brand-flame rounded-full"></div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5" id="menu-grid"></div>
+  </div>
+</section>
+
+<!-- ======================== ABOUT ======================== -->
+<section id="about" class="relative py-24 md:py-32">
+  <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[.04] to-transparent"></div>
+  <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center">
+    <div class="reveal relative">
+      <div class="relative rounded-2xl overflow-hidden">
+        <img class="w-full h-[350px] md:h-[450px] object-cover" src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80&auto=format&fit=crop" alt="Restaurant interior" loading="lazy" />
+        <div class="absolute inset-0 bg-gradient-to-t from-brand-black/60 via-transparent to-transparent"></div>
+      </div>
+      <div class="absolute -bottom-6 -right-4 md:right-6 bg-brand-smoke/90 backdrop-blur-xl border border-white/[.06] rounded-xl px-6 py-4 shadow-2xl">
+        <p class="font-display text-3xl text-brand-orange">4.9<span class="text-brand-ember">/5</span></p>
+        <p class="font-body text-[.7rem] text-brand-warm/40 uppercase tracking-wider">2,400+ reviews</p>
+      </div>
+    </div>
+    <div class="reveal">
+      <p class="font-body text-[.75rem] uppercase tracking-[.35em] text-brand-orange/70 mb-3 font-medium">Who We Are</p>
+      <h2 class="font-display text-4xl md:text-5xl lg:text-6xl text-brand-cream mb-6 leading-[.95]">FORGED IN FLAME</h2>
+      <p class="font-body text-base text-brand-warm/45 leading-relaxed mb-5 font-light">
+        Born from a backyard grill and an obsession with getting it right. We grind our patties daily, bake our buns in-house, and sear everything over open flame.
+      </p>
+      <p class="font-body text-base text-brand-warm/45 leading-relaxed mb-8 font-light">
+        No frozen anything. No shortcuts. Just fire, flavor, and a commitment to serving the best burger you've ever had.
+      </p>
+      <div class="grid grid-cols-3 gap-4">
+        <div class="text-center p-4 rounded-xl bg-brand-smoke/50 border border-white/[.04]">
+          <p class="font-display text-2xl md:text-3xl text-brand-orange">12K+</p>
+          <p class="font-body text-[.68rem] text-brand-warm/35 uppercase tracking-wider mt-1">Served</p>
+        </div>
+        <div class="text-center p-4 rounded-xl bg-brand-smoke/50 border border-white/[.04]">
+          <p class="font-display text-2xl md:text-3xl text-brand-orange">100%</p>
+          <p class="font-body text-[.68rem] text-brand-warm/35 uppercase tracking-wider mt-1">Fresh</p>
+        </div>
+        <div class="text-center p-4 rounded-xl bg-brand-smoke/50 border border-white/[.04]">
+          <p class="font-display text-2xl md:text-3xl text-brand-orange">0</p>
+          <p class="font-body text-[.68rem] text-brand-warm/35 uppercase tracking-wider mt-1">Frozen</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== FOOTER ======================== -->
+<footer id="contact" class="relative pt-20 pb-10 border-t border-white/[.04]">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-8 h-8 rounded-full bg-gradient-to-br from-brand-orange to-brand-flame flex items-center justify-center">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#0A0A0A"><path d="M12 2c-1.5 4-4 6-4 10a4 4 0 0 0 8 0c0-4-2.5-6-4-10z"/></svg>
+          </div>
+          <span class="font-display text-lg tracking-[.08em] text-brand-cream">SMOKIN' FLAMES</span>
+        </div>
+        <p class="font-body text-sm text-brand-warm/35 leading-relaxed max-w-[280px]">Fire-grilled burgers crafted with passion. Every bite tells a story of flame and flavor.</p>
+      </div>
+      <div>
+        <h4 class="font-display text-base text-brand-cream mb-4 tracking-wide">HOURS</h4>
+        <div class="space-y-1.5 font-body text-sm text-brand-warm/35">
+          <p>Mon — Thu: 11am — 10pm</p>
+          <p>Fri — Sat: 11am — 12am</p>
+          <p>Sunday: 11am — 9pm</p>
+        </div>
+      </div>
+      <div>
+        <h4 class="font-display text-base text-brand-cream mb-4 tracking-wide">FIND US</h4>
+        <div class="space-y-1.5 font-body text-sm text-brand-warm/35">
+          <p>742 Flame Street</p>
+          <p>Brooklyn, NY 11201</p>
+          <p class="text-brand-orange/80 mt-2">(718) 555-FIRE</p>
+        </div>
+      </div>
+    </div>
+    <div class="pt-6 border-t border-white/[.04] flex flex-col md:flex-row items-center justify-between gap-3">
+      <p class="font-body text-[.7rem] text-brand-warm/20">&copy; 2024 Smokin' Flames. All rights reserved.</p>
+      <div class="flex items-center gap-5">
+        <a href="#" class="text-brand-warm/20 hover:text-brand-orange transition-colors" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="#" class="text-brand-warm/20 hover:text-brand-orange transition-colors" aria-label="Twitter"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg></a>
+        <a href="#" class="text-brand-warm/20 hover:text-brand-orange transition-colors" aria-label="TikTok"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ======================== THREE.JS SCENE ======================== -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.164.1/examples/jsm/"
+  }
+}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+/* ========== NAV SCROLL ========== */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  const s = window.scrollY > 40;
+  nav.style.padding = s ? '.75rem 0' : '1.5rem 0';
+  nav.style.background = s ? 'rgba(10,10,10,.85)' : 'transparent';
+  nav.style.backdropFilter = s ? 'blur(20px)' : 'none';
+  nav.style.borderBottom = s ? '1px solid rgba(255,255,255,.04)' : 'none';
+}, { passive: true });
+
+/* ========== MOBILE MENU ========== */
+const mobToggle = document.getElementById('mob-toggle');
+const mobMenu = document.getElementById('mob-menu');
+let mobOpen = false;
+mobToggle.addEventListener('click', () => {
+  mobOpen = !mobOpen;
+  mobMenu.style.opacity = mobOpen ? '1' : '0';
+  mobMenu.style.visibility = mobOpen ? 'visible' : 'hidden';
+});
+document.querySelectorAll('.mob-link').forEach(l => l.addEventListener('click', () => {
+  mobOpen = false;
+  mobMenu.style.opacity = '0';
+  mobMenu.style.visibility = 'hidden';
+}));
+
+/* ========== HERO ENTRANCE ========== */
+document.querySelectorAll('.hero-el').forEach((el, i) => {
+  setTimeout(() => {
+    el.style.transition = 'opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1)';
+    el.style.opacity = '1';
+    el.style.transform = 'translateY(0)';
+  }, 400 + i * 180);
+});
+
+/* ========== SCROLL REVEAL ========== */
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); revealObs.unobserve(e.target); } });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+/* ========== THREE.JS BURGER SCENE ========== */
+const sceneEl = document.getElementById('burger-scene');
+const canvas = document.getElementById('burger-canvas');
+const loader = document.getElementById('burger-loader');
+
+// Renderer
+const renderer = new THREE.WebGLRenderer({
+  canvas,
+  antialias: true,
+  alpha: true,
+  powerPreference: 'high-performance',
+});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.1;
+
+// Scene
+const scene = new THREE.Scene();
+
+// Camera
+const camera = new THREE.PerspectiveCamera(40, sceneEl.clientWidth / sceneEl.clientHeight, 0.1, 100);
+camera.position.set(0, 2, 6);
+
+// Controls (limited for drag rotation)
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true;
+controls.dampingFactor = 0.05;
+controls.enableZoom = false;
+controls.enablePan = false;
+controls.minPolarAngle = Math.PI * 0.25;
+controls.maxPolarAngle = Math.PI * 0.65;
+controls.autoRotate = true;
+controls.autoRotateSpeed = 1.5;
+controls.target.set(0, 0.5, 0);
+
+/* ---- Lighting ---- */
+// Key light (warm, from top-right)
+const keyLight = new THREE.DirectionalLight(0xFFE4C4, 2.5);
+keyLight.position.set(4, 6, 3);
+scene.add(keyLight);
+
+// Fill light (subtle, from left)
+const fillLight = new THREE.DirectionalLight(0xFFDDBB, 0.8);
+fillLight.position.set(-3, 3, -1);
+scene.add(fillLight);
+
+// Rim light (back, orange tint)
+const rimLight = new THREE.DirectionalLight(0xFF8C42, 1.2);
+rimLight.position.set(-1, 4, -4);
+scene.add(rimLight);
+
+// Bottom fill (subtle uplight)
+const bottomLight = new THREE.DirectionalLight(0xFFE0C0, 0.3);
+bottomLight.position.set(0, -2, 2);
+scene.add(bottomLight);
+
+// Ambient
+scene.add(new THREE.AmbientLight(0xFFF5EB, 0.4));
+
+/* ---- Load GLB Model ---- */
+const gltfLoader = new GLTFLoader();
+let burgerModel = null;
+let modelCenter = new THREE.Vector3(0, 0.5, 0);
+
+gltfLoader.load(
+  'big-burger.glb',
+  (gltf) => {
+    burgerModel = gltf.scene;
+
+    // Compute bounding box to center and scale
+    const box = new THREE.Box3().setFromObject(burgerModel);
+    const size = box.getSize(new THREE.Vector3());
+    const center = box.getCenter(new THREE.Vector3());
+
+    // Scale to fit nicely in view (target ~3 units tall)
+    const targetHeight = 3;
+    const scale = targetHeight / size.y;
+    burgerModel.scale.setScalar(scale);
+
+    // Recompute after scale
+    box.setFromObject(burgerModel);
+    box.getCenter(center);
+    box.getSize(size);
+
+    // Center the model
+    burgerModel.position.sub(center);
+    burgerModel.position.y += size.y * 0.1; // slight lift
+
+    // Apply materials if needed
+    burgerModel.traverse((child) => {
+      if (child.isMesh) {
+        child.material.envMapIntensity = 0.8;
+        if (child.material.roughness !== undefined) child.material.roughness = Math.max(child.material.roughness, 0.3);
+        child.castShadow = true;
+        child.receiveShadow = true;
+      }
+    });
+
+    scene.add(burgerModel);
+    modelCenter.copy(burgerModel.position);
+
+    // Hide loader
+    loader.style.opacity = '0';
+    setTimeout(() => { loader.style.display = 'none'; }, 400);
+
+    console.log('Burger model loaded:', size.x.toFixed(2), 'x', size.y.toFixed(2), 'x', size.z.toFixed(2));
+  },
+  (progress) => {
+    const pct = progress.loaded / (progress.total || 1) * 100;
+    loader.querySelector('p').textContent = `Loading 3D model ${Math.round(pct)}%`;
+  },
+  (error) => {
+    console.error('Failed to load burger model:', error);
+    loader.querySelector('p').textContent = 'Model failed to load';
+    loader.querySelector('.loader-ring').style.display = 'none';
+  }
+);
+
+/* ---- Resize ---- */
+function onResize() {
+  const w = sceneEl.clientWidth;
+  const h = sceneEl.clientHeight;
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+  renderer.setSize(w, h);
+}
+window.addEventListener('resize', onResize);
+onResize();
+
+/* ---- Animation Loop ---- */
+const clock = new THREE.Clock();
+function animate() {
+  requestAnimationFrame(animate);
+  const t = clock.getElapsedTime();
+
+  // Subtle floating motion
+  if (burgerModel) {
+    burgerModel.position.y = modelCenter.y + Math.sin(t * 0.8) * 0.08;
+  }
+
+  controls.update();
+  renderer.render(scene, camera);
+}
+animate();
+
+/* ========== MENU DATA ========== */
+const menuItems = [
+  {
+    name: "The Inferno",
+    desc: "Double smash patty, ghost pepper aioli, caramelized onions, aged cheddar",
+    price: "$14.90",
+    tag: "Signature",
+    img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500&q=80&auto=format&fit=crop"
+  },
+  {
+    name: "Smokin' Classic",
+    desc: "Single patty, smoked bacon, pickles, special sauce, brioche bun",
+    price: "$11.90",
+    tag: null,
+    img: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=500&q=80&auto=format&fit=crop"
+  },
+  {
+    name: "The Flame Garden",
+    desc: "Plant-based patty, avocado, arugula, tomato, herb mayo",
+    price: "$13.90",
+    tag: "Plant Based",
+    img: "https://images.unsplash.com/photo-1520072959219-c595dc778593?w=500&q=80&auto=format&fit=crop"
+  },
+  {
+    name: "Gold Rush",
+    desc: "Wagyu patty, truffle aioli, gruyère, caramelized mushrooms",
+    price: "$19.90",
+    tag: "Premium",
+    img: "https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=500&q=80&auto=format&fit=crop"
+  }
+];
+
+const menuGrid = document.getElementById('menu-grid');
+menuItems.forEach((item, i) => {
+  const card = document.createElement('div');
+  card.className = 'reveal menu-card rounded-2xl overflow-hidden cursor-pointer';
+  card.style.transitionDelay = `${i * 80}ms`;
+  card.innerHTML = `
+    <div class="relative h-52 sm:h-56 overflow-hidden">
+      <img class="menu-card-img w-full h-full object-cover" src="${item.img}" alt="${item.name}" loading="lazy" />
+      <div class="absolute inset-0 bg-gradient-to-t from-brand-black/70 via-transparent to-transparent"></div>
+      ${item.tag ? `<span class="absolute top-3 left-3 px-2.5 py-1 text-[.65rem] font-body font-semibold uppercase tracking-wider bg-brand-orange/90 text-brand-black rounded">${item.tag}</span>` : ''}
+    </div>
+    <div class="p-5">
+      <div class="flex items-start justify-between gap-3 mb-2">
+        <h3 class="font-display text-xl text-brand-cream">${item.name}</h3>
+        <span class="font-display text-xl text-brand-orange whitespace-nowrap">${item.price}</span>
+      </div>
+      <p class="font-body text-[.8rem] text-brand-warm/35 leading-relaxed mb-4">${item.desc}</p>
+      <button class="w-full py-2.5 rounded-lg border border-white/[.08] font-body text-[.75rem] font-medium uppercase tracking-[.12em] text-brand-warm/50 hover:border-brand-orange/30 hover:text-brand-orange hover:bg-brand-orange/[.04] transition-all duration-300 cursor-pointer">Add to Order</button>
+    </div>`;
+  menuGrid.appendChild(card);
+  revealObs.observe(card);
+});
+
+</script>
+
+</body>
+</html>

@@ -38,7 +38,7 @@ export function WithholdingResult({ result }: { result: WithholdingResult }) {
       <Card>
         <CardHeader
           title="Withholding rule applied"
-          subtitle={`${result.ruleset.label} · assessed at ${result.atDate}`}
+          subtitle={`${result.ruleset.label}, assessed at ${result.atDate}`}
           action={
             <Badge tone={subject ? "warn" : "neutral"}>
               {subject ? "Subject to WHT" : "No WHT withheld"}
@@ -49,7 +49,7 @@ export function WithholdingResult({ result }: { result: WithholdingResult }) {
           <div className="flex flex-col gap-1">
             <p className="text-sm font-medium text-ink">{result.categoryLabel}</p>
             <p className="text-xs text-ink-soft">
-              Rate {formatRate(result.rate)} · {result.ruleset.source.authority}
+              Rate {formatRate(result.rate)}, from {result.ruleset.source.authority}
             </p>
           </div>
 
@@ -102,7 +102,7 @@ export function WithholdingResult({ result }: { result: WithholdingResult }) {
           <CardBody>
             <dl className="grid grid-cols-1 gap-1.5 text-sm sm:grid-cols-3">
               <div className="flex flex-col gap-0.5">
-                <dt className="text-xs uppercase tracking-wide text-ink-soft">
+                <dt className="text-xs font-semibold text-ink-soft">
                   Monthly threshold
                 </dt>
                 <dd className="tabular text-ink">
@@ -110,7 +110,7 @@ export function WithholdingResult({ result }: { result: WithholdingResult }) {
                 </dd>
               </div>
               <div className="flex flex-col gap-0.5">
-                <dt className="text-xs uppercase tracking-wide text-ink-soft">
+                <dt className="text-xs font-semibold text-ink-soft">
                   Aggregate this month
                 </dt>
                 <dd className="tabular text-ink">
@@ -120,7 +120,7 @@ export function WithholdingResult({ result }: { result: WithholdingResult }) {
                 </dd>
               </div>
               <div className="flex flex-col gap-0.5">
-                <dt className="text-xs uppercase tracking-wide text-ink-soft">
+                <dt className="text-xs font-semibold text-ink-soft">
                   Result
                 </dt>
                 <dd className={`tabular font-medium ${result.thresholdMet ? "text-warn" : "text-ink"}`}>

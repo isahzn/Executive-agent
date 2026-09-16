@@ -74,29 +74,28 @@ export function validateWithholdingInput(
   const errors: string[] = [];
   if (input.category == null || !VALID_CATEGORIES.has(input.category)) {
     errors.push("A valid payment category must be selected.");
-  } else if (
-    hasMonthlyThreshold(input.category) &&
+  } else if (hasMonthlyThreshold(input.category) &&
     input.monthlyAggregate == null
   ) {
     errors.push(
-      "The monthly aggregate payment is required for this category (to check the LKR 100,000 threshold)."
+      "The total paid to this recipient this month is required for this category (to check the monthly threshold)."
     );
   }
   if (typeof input.gross !== "number" || !Number.isFinite(input.gross)) {
-    errors.push("gross must be a number.");
+    errors.push("Gross payment must be a number.");
   } else if (input.gross < 0) {
-    errors.push("gross cannot be negative.");
+    errors.push("Gross payment cannot be negative.");
   } else if (!Number.isInteger(input.gross)) {
-    errors.push("gross must be a whole number of rupees.");
+    errors.push("Gross payment must be a whole number of rupees.");
   }
   const aggregate = input.monthlyAggregate;
   if (aggregate != null) {
     if (typeof aggregate !== "number" || !Number.isFinite(aggregate)) {
-      errors.push("monthlyAggregate must be a number.");
+      errors.push("Monthly aggregate must be a number.");
     } else if (aggregate < 0) {
-      errors.push("monthlyAggregate cannot be negative.");
+      errors.push("Monthly aggregate cannot be negative.");
     } else if (!Number.isInteger(aggregate)) {
-      errors.push("monthlyAggregate must be a whole number of rupees.");
+      errors.push("Monthly aggregate must be a whole number of rupees.");
     }
   }
   return errors;

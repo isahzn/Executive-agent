@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useRef, useEffect } from "react";
 import { calculateVat, assessVat } from "@/app/actions";
 import type { VatState } from "@/app/actions";
 import { Card, CardHeader, CardBody } from "@/components/ui/card";
@@ -25,6 +25,23 @@ export function VatCalculator({
   const [calcState, calcAction, calcPending] = useActionState(calculateVat, EMPTY);
   const [regState, regAction, regPending] = useActionState(assessVat, EMPTY);
 
+  const calcResultRef = useRef<HTMLDivElement>(null);
+  const regResultRef = useRef<HTMLDivElement>(null);
+
+  // Auto-scroll to calculation result
+  useEffect(() => {
+    if (calcState.result && calcResultRef.current) {
+      calcResultRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [calcState.result]);
+
+  // Auto-scroll to registration result
+  useEffect(() => {
+    if (regState.registration && regResultRef.current) {
+      regResultRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [regState.registration]);
+
   return (
     <div className="flex flex-col gap-6">
       <Card>
@@ -39,7 +56,7 @@ export function VatCalculator({
         <CardBody>
           <form action={calcAction} className="flex flex-col gap-5">
             <div className="flex flex-col gap-3">
-              <p className="text-xs font-medium uppercase tracking-wide text-ink-soft">
+              <p className="text-xs font-semibold text-ink-soft">
                 Output VAT — taxable supplies
               </p>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -68,7 +85,7 @@ export function VatCalculator({
             </div>
 
             <div className="flex flex-col gap-3">
-              <p className="text-xs font-medium uppercase tracking-wide text-ink-soft">
+              <p className="text-xs font-semibold text-ink-soft">
                 Input VAT — how much you may credit
               </p>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -93,8 +110,8 @@ export function VatCalculator({
 
             <div className="flex items-center justify-between gap-4">
               <p className="text-xs text-ink-faint">
-                Tax year <span className="font-medium text-ink-soft">{taxYear}</span> ·
-                Sri Lanka · {verified ? "IRD verified" : "Unverified rules"}.
+                Tax year {taxYear}, Sri Lanka.{" "}
+                {verified ? "Verified against IRD publications." : "Unverified rules."}
               </p>
               <Button type="submit" disabled={calcPending} className="min-w-36">
                 {calcPending ? "Calculating…" : "Calculate VAT"}
@@ -103,6 +120,13 @@ export function VatCalculator({
           </form>
         </CardBody>
       </Card>
+
+      {/* VAT calculation result — immediately below its form */}
+      {calcState.result ? (
+        <div ref={calcResultRef}>
+          <VatResult result={calcState.result} />
+        </div>
+      ) : null}
 
       <Card>
         <CardHeader
@@ -186,7 +210,12 @@ export function VatCalculator({
         </CardBody>
       </Card>
 
-      <VatResult result={calcState.result} registration={regState.registration} />
+      {/* Registration result — immediately below its form for immediate visibility */}
+      {regState.registration ? (
+        <div ref={regResultRef}>
+          <VatResult registration={regState.registration} />
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -222,7 +251,7 @@ function Checkbox({
       <input
         type="checkbox"
         name={name}
-        className="mt-0.5 h-4 w-4 shrink-0 accent-navy"
+        className="mt-0.5 h-4 w-4 shrink-0 cursor-pointer accent-navy"
       />
       <span className="flex flex-col gap-0.5">
         <span className="text-sm font-medium text-ink">{label}</span>

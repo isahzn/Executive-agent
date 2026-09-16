@@ -14,8 +14,11 @@ import type { TaxRuleSet } from "../types";
  * intentionally absent — they must be sourced from official IRD material
  * before being added. Each category carries its own rule so the special-rate
  * categories are explicit variants, and investment-asset gains are separately
- * calculated at their own rate. The declared expense pool is applied only to
- * the ordinary (standard) income; the engine applies no invented allocation.
+ * calculated at their own rate. Expenses are attributed per category (Inland
+ * Revenue Act s60(2) — each differently-taxed activity/source is a separate
+ * business): an expense reduces only the income source it directly relates to,
+ * and shared expenses are never silently allocated (the engine applies no
+ * invented formula).
  */
 export const SL_LK_BUSINESS_2025_26: TaxRuleSet = {
   id: "LK-business-2025-26",
@@ -40,7 +43,7 @@ export const SL_LK_BUSINESS_2025_26: TaxRuleSet = {
     "through a bank at 15%; qualifying foreign-source income in foreign currency remitted through a " +
     "bank at 15%; betting and gaming at 45%; manufacture/import and sale of liquor or tobacco at 45%; " +
     "gains from realisation of investment assets at 30% (separately calculated). Loss carry-forward, " +
-    "and any expense deductibility beyond the declared pool, are not implemented.",
+    "and any expense deductibility rule beyond per-source attribution, are not implemented.",
   rules: [
     {
       id: "LK-2025-26-business-standard-30",

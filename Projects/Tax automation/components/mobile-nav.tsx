@@ -4,24 +4,23 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NAV_SECTIONS } from "./nav-items";
 
-const items = NAV_SECTIONS.flatMap((s) => s.items).filter((i) => !i.soon);
-
 export function MobileNav() {
   const pathname = usePathname();
+
+  // Get non-soon items for the compact mobile view
+  const allItems = NAV_SECTIONS.flatMap((s) => s.items.filter((i) => !i.soon));
+
   return (
     <>
-      {items.map((item) => {
+      {allItems.map((item) => {
         const active = pathname === item.href;
         return (
           <Link
             key={item.href}
             href={item.href}
-            className={[
-              "whitespace-nowrap rounded-md px-3 py-1.5 text-sm",
-              active
-                ? "bg-navy text-white"
-                : "text-ink-soft hover:bg-surface-dim hover:text-ink",
-            ].join(" ")}
+            className={active
+              ? "cursor-pointer whitespace-nowrap rounded-md bg-navy px-3 py-1.5 text-sm font-medium text-white"
+              : "cursor-pointer whitespace-nowrap rounded-md px-3 py-1.5 text-sm text-ink-soft hover:bg-surface-dim hover:text-ink"}
           >
             {item.label}
           </Link>

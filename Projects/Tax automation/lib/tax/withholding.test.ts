@@ -220,22 +220,22 @@ describe("invalid input", () => {
   });
 
   it("rejects a negative gross", () => {
-    expect(validated({ gross: -1 })).toContain("gross cannot be negative.");
+    expect(validated({ gross: -1 })).toContain("Gross payment cannot be negative.");
     expect(() => calc({ gross: -1 })).toThrow(/Invalid input/);
   });
 
   it("rejects a fractional gross", () => {
-    expect(validated({ gross: 10.5 })).toContain("gross must be a whole number of rupees.");
+    expect(validated({ gross: 10.5 })).toContain("Gross payment must be a whole number of rupees.");
   });
 
   it("rejects a non-finite gross", () => {
-    expect(validated({ gross: Number.NaN })).toContain("gross must be a number.");
+    expect(validated({ gross: Number.NaN })).toContain("Gross payment must be a number.");
   });
 
   it("requires monthly aggregate for a threshold category", () => {
     expect(
       validated({ category: "RESIDENT_NON_EMPLOYEE_SERVICE_FEE", gross: 200_000 }).join(" ")
-    ).toContain("The monthly aggregate payment is required for this category");
+    ).toContain("The total paid to this recipient this month is required for this category");
     expect(() =>
       calc({ category: "RESIDENT_NON_EMPLOYEE_SERVICE_FEE", gross: 200_000 })
     ).toThrow(/Invalid input/);
@@ -243,13 +243,13 @@ describe("invalid input", () => {
 
   it("rejects a negative monthly aggregate", () => {
     expect(validated({ category: "RENT_RESIDENT", monthlyAggregate: -5 })).toContain(
-      "monthlyAggregate cannot be negative."
+      "Monthly aggregate cannot be negative."
     );
   });
 
   it("rejects a fractional monthly aggregate", () => {
     expect(validated({ category: "RENT_RESIDENT", monthlyAggregate: 10.5 })).toContain(
-      "monthlyAggregate must be a whole number of rupees."
+      "Monthly aggregate must be a whole number of rupees."
     );
   });
 

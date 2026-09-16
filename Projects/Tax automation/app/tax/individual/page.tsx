@@ -23,7 +23,7 @@ export default function IndividualTaxPage() {
     <div>
       <PageHeader
         title="Individual Income Tax"
-        subtitle={`Sri Lanka · Year of Assessment ${taxYear}. Calculations run through the deterministic rule engine — AI never computes tax.`}
+        subtitle={`Sri Lanka, year of assessment ${taxYear}. Calculations run through the deterministic rule engine — AI never computes tax.`}
         action={<RulesetBadge verified={verified} taxYear={taxYear} />}
       />
       <IndividualTaxCalculator

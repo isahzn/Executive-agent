@@ -73,8 +73,9 @@ docs/           PHASE 1–3 planning docs (the product roadmap)
   `assessVatRegistration`; input-tax eligibility is a declared input, not invented.
 - `lib/tax/calculators/withholding.ts` — `calculateWithholding` (data-driven WHT/AIT)
   + `validateWithholdingInput`; rates/thresholds come from the repository, never the UI.
-- `lib/tax/calculators/business.ts` — `calculateBusinessTax` (category-aware taxable
-  income; expenses reduce ordinary income only; per-category rates) + `validateBusinessTaxInput`.
+- `lib/tax/calculators/business.ts` — `calculateBusinessTax` (per-category taxable
+  income; each expense reduces only its own attributed source; shared expenses force
+  NEEDS_ALLOCATION) + `validateBusinessTaxInput`.
 - `lib/upload/parse.ts` — spreadsheet → headers/rows for import.
 - `app/actions.ts` — server actions: `calculateIndividualTax` (form),
   `calculateIndividualTaxFromInput` (upload), `parseUpload` (file),
@@ -151,17 +152,22 @@ qualifying foreign-currency service income remitted through a bank 15%; qualifyi
 foreign-source income in foreign currency remitted through a bank 15%; betting & gaming
 45%; manufacture/import & sale of liquor or tobacco 45%; gains from realisation of
 investment assets 30% (separately calculated). `calculateBusinessTax` is category-aware:
-income is entered per category, the declared expense pool reduces **ordinary (standard)
-income only** (`max(0, standardIncome − expenses)`, no loss carry-forward), while the
-15%/45% categories and investment-asset gains are computed on **gross** — no expense
-netting and no cross-category allocation (allocation is intentionally not implemented).
-Per-category tax is `roundToRupee(taxable × rate)`, summed to `totalTax`. The tax step is
-`COMPUTED` only when the ruleset is verified and every category with income has an active
-rule; otherwise `NOT_IMPLEMENTED` (no fabricated liability). It emits an AI-free audit
-trail. Inputs: six income fields (`standardIncome`, `foreignCcyServiceIncome`,
-`foreignCcyForeignSourceIncome`, `bettingGamingIncome`, `liquorTobaccoIncome`,
-`investmentAssetGains`) + the five declared expense fields. UI: form + result under
-`/tax/business`, labelled "IRD verified".
+because each differently-taxed activity/source is a separate business (Inland Revenue Act
+s60(2)), expenses are **attributed per category** — an expense reduces only the income
+source it directly relates to (`max(0, gross − attributedExpenses)`, no loss carry-forward).
+Investment-asset gains are computed on **gross** with no expense deduction. Expenses the
+user cannot attribute to one source go in a **shared / unallocated** bucket: they are
+never deducted (the engine applies no invented allocation formula) and the result is
+reported as `NEEDS_ALLOCATION` with no liability figure until attributed. Per-category tax
+is `roundToRupee(taxable × rate)`, summed to `totalTax`. The tax step is `COMPUTED` only
+when the ruleset is verified and every category with income has an active rule; otherwise
+`NEEDS_ALLOCATION` (shared expenses present) or `NOT_IMPLEMENTED` (no fabricated liability).
+It emits an AI-free audit trail. Inputs: six income fields (`standardIncome`,
+`foreignCcyServiceIncome`, `foreignCcyForeignSourceIncome`, `bettingGamingIncome`,
+`liquorTobaccoIncome`, `investmentAssetGains`) + five per-category expense fields
+(`ordinaryExpenses`, `foreignCcyServiceExpenses`, `foreignCcyForeignSourceExpenses`,
+`bettingGamingExpenses`, `liquorTobaccoExpenses`) + `sharedExpenses`. UI: form + result
+under `/tax/business`, labelled "IRD verified".
 
 **Calculation History / persistence (Phase 1 DoD) is implemented.** A `PersistenceAdapter`
 interface in `lib/database/` has two implementations: a file-backed `JsonFileAdapter`
@@ -176,8 +182,8 @@ objects (id, type, taxYear, atDate, rulesetId, input, result, user, createdAt) w
 
 **Verification note:** browser click-throughs of the upload → mapping → calculate,
 the VAT, WHT and Business forms were not run (no Playwright/browser MCP is installed
-in this environment). The engines are covered by 165 unit tests (35 individual, 38 VAT,
-43 withholding, 39 business, 5 database, 5 upload); routes were validated via build +
+in this environment). The engines are covered by 173 unit tests (35 individual, 38 VAT,
+43 withholding, 47 business, 5 database, 5 upload); routes were validated via build +
 dev-server 200s (`/`, `/tax/individual`, `/tax/vat`, `/tax/withholding`, `/tax/business`,
 `/history`, `/history/[id]` all return 200).
 

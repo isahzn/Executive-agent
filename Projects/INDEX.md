@@ -16,7 +16,8 @@ Lightweight index for Freebuff to discover projects without opening every PROJEC
 
 | Project | Description | Status | Location |
 |---------|-------------|--------|----------|
-| _(none yet)_ | | | |
+| 3D Website | 3D interactive website for a burger place | ACTIVE | Projects/3d-website/ |
+| ABC Accounting | Accounting-firm practice-management demo (vanilla JS): firm dashboard, client workspaces, ledger, tax, documents, reports + demo auth/RBAC | ACTIVE | Projects/POS system/ |
 
 ---
 

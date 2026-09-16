@@ -52,7 +52,7 @@ export function TaxResult({ result }: { result: IndividualIncomeResult }) {
       <Card>
         <CardHeader
           title="Calculation breakdown"
-          subtitle={`${result.ruleset.label} · ${result.ruleset.taxYear}`}
+          subtitle={`${result.ruleset.label}, ${result.ruleset.taxYear}`}
           action={
             <Badge tone={result.ruleset.verified ? "positive" : "warn"}>
               {result.ruleset.verified ? "IRD verified" : "Unverified rules"}
@@ -87,7 +87,7 @@ export function TaxResult({ result }: { result: IndividualIncomeResult }) {
           </dl>
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-line text-left text-xs uppercase tracking-wide text-ink-soft">
+              <tr className="border-b border-line text-left text-xs font-semibold text-ink-soft">
                 <th className="px-5 py-2.5 font-medium">Bracket</th>
                 <th className="px-5 py-2.5 text-right font-medium">Rate</th>
                 <th className="px-5 py-2.5 text-right font-medium">Amount</th>
@@ -116,7 +116,7 @@ export function TaxResult({ result }: { result: IndividualIncomeResult }) {
                 ))
               )}
               {result.investmentGainsTax > 0 ? (
-                <tr className="border-t border-line-strong bg-surface-dim">
+                <tr className="border-t-2 border-line-strong font-medium">
                   <td className="px-5 py-2.5">Investment asset gains</td>
                   <td className="px-5 py-2.5 text-right tabular">{formatRate(result.investmentGainsRate)}</td>
                   <td className="px-5 py-2.5 text-right tabular">
@@ -126,9 +126,8 @@ export function TaxResult({ result }: { result: IndividualIncomeResult }) {
                     {formatMoney(result.investmentGainsTax, result.currency)}
                   </td>
                 </tr>
-              ) : null}
-              <tr className="border-t border-line-strong bg-surface-dim font-medium">
-                <td className="px-5 py-2.5">Total tax payable</td>
+              ) : null}              <tr className="border-t-2 border-line-strong font-semibold">
+                  <td className="px-5 py-2.5">Total tax payable</td>
                 <td className="px-5 py-2.5 text-right tabular text-ink-faint">—</td>
                 <td className="px-5 py-2.5 text-right tabular text-ink-faint">—</td>
                 <td className="px-5 py-2.5 text-right font-semibold tabular text-ink">

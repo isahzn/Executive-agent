@@ -21,6 +21,14 @@ const VAT_AMOUNT_FIELDS: Array<keyof VatInput> = [
   "nonDeductibleInputVat",
 ];
 
+const VAT_FIELD_LABELS: Record<keyof VatInput, string> = {
+  standardRatedSales: "Standard-rated supplies",
+  zeroRatedSales: "Zero-rated supplies (exports)",
+  financialServicesSales: "Financial services",
+  deductibleInputVat: "Deductible input VAT",
+  nonDeductibleInputVat: "Non-deductible input VAT",
+};
+
 const REG_AMOUNT_FIELDS: Array<keyof VatRegistrationContext> = [
   "standardQuarterTurnover",
   "standardAnnualTurnover",
@@ -29,6 +37,15 @@ const REG_AMOUNT_FIELDS: Array<keyof VatRegistrationContext> = [
   "platformTurnoverLast3Months",
   "platformTurnoverLast12Months",
 ];
+
+const REG_FIELD_LABELS: Record<string, string> = {
+  standardQuarterTurnover: "Ordinary taxable supplies — quarter",
+  standardAnnualTurnover: "Ordinary taxable supplies — 12 months",
+  financialQuarterTurnover: "Financial services — quarter",
+  financialAnnualTurnover: "Financial services — per annum",
+  platformTurnoverLast3Months: "Non-resident e-platform — last 3 months",
+  platformTurnoverLast12Months: "Non-resident e-platform — last 12 months",
+};
 
 const CATEGORY_LABEL: Record<VatSupplyCategory, string> = {
   STANDARD: "Standard-rated supplies",
@@ -48,11 +65,11 @@ export function validateVatInput(input: Partial<VatInput>): string[] {
   for (const field of VAT_AMOUNT_FIELDS) {
     const value = input[field];
     if (typeof value !== "number" || !Number.isFinite(value)) {
-      errors.push(`${field} must be a number.`);
+      errors.push(`${VAT_FIELD_LABELS[field]} must be a number.`);
     } else if (value < 0) {
-      errors.push(`${field} cannot be negative.`);
+      errors.push(`${VAT_FIELD_LABELS[field]} cannot be negative.`);
     } else if (!Number.isInteger(value)) {
-      errors.push(`${field} must be a whole number of rupees.`);
+      errors.push(`${VAT_FIELD_LABELS[field]} must be a whole number of rupees.`);
     }
   }
   return errors;
@@ -67,11 +84,11 @@ export function validateVatRegistrationContext(
     const value = ctx[field];
     if (value == null) continue;
     if (typeof value !== "number" || !Number.isFinite(value)) {
-      errors.push(`${field} must be a number.`);
+      errors.push(`${REG_FIELD_LABELS[field]} must be a number.`);
     } else if (value < 0) {
-      errors.push(`${field} cannot be negative.`);
+      errors.push(`${REG_FIELD_LABELS[field]} cannot be negative.`);
     } else if (!Number.isInteger(value)) {
-      errors.push(`${field} must be a whole number of rupees.`);
+      errors.push(`${REG_FIELD_LABELS[field]} must be a whole number of rupees.`);
     }
   }
   return errors;

@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vurtex Autonome — Architecture</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{font-family:'Segoe UI',system-ui,-apple-system,Helvetica,Arial,sans-serif;background:#F7F3ED;color:#2C2824;-webkit-font-smoothing:antialiased}
+body{min-height:100vh;display:flex;flex-direction:column;align-items:center;background:#F7F3ED}
+
+/* ── Page wrapper ── */
+.page{width:100%;max-width:1260px;padding:28px 32px 18px;display:flex;flex-direction:column;align-items:center}
+
+/* ── Header ── */
+.header{text-align:center;margin-bottom:6px}
+.header h1{font-size:26px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#2C2824}
+.header p{font-size:13px;color:#7A7168;margin-top:3px;letter-spacing:.4px}
+
+/* ── Diagram area ── */
+.diagram-area{position:relative;width:1160px;height:750px;margin:0 auto}
+.diagram{position:relative;width:1160px;height:750px}
+
+/* ── SVG connections ── */
+#connSvg{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1}
+#connSvg line{stroke:#C4BDB4;stroke-width:1.5;transition:stroke .2s,stroke-width .2s}
+#connSvg line.hl{stroke:#8A827A;stroke-width:2.2}
+
+/* ── Nodes ── */
+.node{position:absolute;z-index:2;display:flex;flex-direction:column;align-items:center;cursor:pointer;transform:translate(-50%,-50%);transition:transform .18s ease,border-color .18s ease}
+.node .circle{border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px solid #3A3630;background:#FFFCF7;transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease;text-align:center;padding:8px}
+.node .label{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#2C2824;line-height:1.25;margin-bottom:2px}
+.node .price{font-size:14px;font-weight:700;color:#2C2824;line-height:1.2}
+.node .desc{font-size:9px;color:#8A827A;margin-top:1px;line-height:1.2}
+.node.large .circle{width:150px;height:150px}
+.node.large .label{font-size:11px}
+.node.large .price{font-size:16px}
+.node.large .desc{font-size:10px}
+.node.small .circle{width:110px;height:110px}
+
+/* hover */
+.node:hover{transform:translate(-50%,-50%) translateY(-6px)}
+.node:hover .circle{border-color:#1A1816;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+
+/* active (panel open) */
+.node.active .circle{border-color:#1A1816;border-width:2.5px;box-shadow:0 0 0 3px rgba(58,54,48,.1)}
+
+/* ── Total cost box ── */
+.cost-box{position:absolute;top:18px;right:22px;z-index:5;background:#FFFCF7;border:2px solid #3A3630;border-radius:10px;padding:14px 20px;text-align:center;cursor:pointer;transition:border-color .18s,box-shadow .18s}
+.cost-box:hover{border-color:#1A1816;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.cost-box:hover{transform:translateY(-2px)}
+.cost-box .cb-label{font-size:9px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:#7A7168;margin-bottom:3px}
+.cost-box .cb-total{font-size:20px;font-weight:700;color:#2C2824}
+.cost-box .cb-budget{font-size:10px;color:#8A827A;margin-top:3px}
+.cost-box .cb-buffer{font-size:10px;color:#6B8C6B;font-weight:600}
+
+/* ── Side panel ── */
+.panel-overlay{position:fixed;inset:0;background:rgba(44,40,36,.08);z-index:90;opacity:0;pointer-events:none;transition:opacity .25s}
+.panel-overlay.open{opacity:1;pointer-events:auto}
+.side-panel{position:fixed;top:0;right:0;bottom:0;width:400px;max-width:92vw;background:#FDFBF8;border-left:1px solid #D6D0C8;z-index:100;transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);overflow-y:auto;-webkit-overflow-scrolling:touch}
+.side-panel.open{transform:translateX(0)}
+.panel-close{position:sticky;top:0;float:right;margin:14px 14px 0 0;width:32px;height:32px;border-radius:50%;border:1.5px solid #C4BDB4;background:#FFFCF7;color:#5A5550;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .15s;z-index:2}
+.panel-close:hover{border-color:#3A3630;color:#2C2824}
+.panel-body{padding:20px 26px 36px}
+.panel-body h2{font-size:16px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#2C2824;margin-bottom:4px}
+.panel-body .panel-desc{font-size:13px;color:#7A7168;margin-bottom:16px}
+.panel-body h3{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8A827A;margin:14px 0 6px}
+.panel-body p,.panel-body li{font-size:13px;line-height:1.65;color:#3A3630}
+.panel-body ul{padding-left:18px;margin-bottom:4px}
+.panel-body li{margin-bottom:2px}
+.panel-body .panel-cost{margin-top:18px;padding:12px 16px;background:#F0ECE4;border-radius:8px;text-align:center}
+.panel-body .panel-cost .pc-label{font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#8A827A}
+.panel-body .panel-cost .pc-value{font-size:22px;font-weight:700;color:#2C2824;margin-top:2px}
+.panel-body .panel-cost .pc-extra{font-size:11px;color:#7A7168;margin-top:4px}
+
+/* cost table in panel */
+.cost-table{width:100%;border-collapse:collapse;margin:10px 0 18px}
+.cost-table td{padding:7px 0;border-bottom:1px solid #E8E3DB;font-size:13px;color:#3A3630}
+.cost-table td:last-child{text-align:right;font-weight:600;white-space:nowrap}
+.cost-table tr.total td{border-top:2px solid #3A3630;border-bottom:none;font-weight:700;font-size:14px;padding-top:10px}
+.panel-highlight{margin-top:16px;padding:14px 16px;background:#F0ECE4;border-radius:8px}
+.panel-highlight .ph-row{display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px;color:#3A3630}
+.panel-highlight .ph-row:last-child{margin-bottom:0}
+.panel-highlight .ph-val{font-weight:700}
+.panel-highlight .ph-green{color:#4A7C4A}
+
+/* ── Footer ── */
+.footer{text-align:center;margin-top:10px;padding:10px 0 20px;font-size:11px;color:#A09890;letter-spacing:.3px}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <h1>Vurtex Autonome</h1>
+    <p>Lean AI business network · estimated monthly operating cost</p>
+  </div>
+
+  <!-- Diagram -->
+  <div class="diagram-area">
+    <div class="diagram" id="diagram">
+
+      <!-- SVG connection lines -->
+      <svg id="connSvg" xmlns="http://www.w3.org/2000/svg">
+        <line id="line-chief-sales"      x1="580" y1="375" x2="580" y2="90"/>
+        <line id="line-chief-outreach"   x1="580" y1="375" x2="870" y2="165"/>
+        <line id="line-chief-marketing"  x1="580" y1="375" x2="950" y2="375"/>
+        <line id="line-chief-hosting"    x1="580" y1="375" x2="870" y2="590"/>
+        <line id="line-chief-coding"     x1="580" y1="375" x2="580" y2="665"/>
+        <line id="line-chief-domain"     x1="580" y1="375" x2="290" y2="590"/>
+        <line id="line-sales-voice"      x1="580" y1="90"  x2="210" y2="375"/>
+        <line id="line-sales-hosting"    x1="580" y1="90"  x2="870" y2="590"/>
+        <line id="line-outreach-hosting" x1="870" y1="165" x2="870" y2="590"/>
+        <line id="line-marketing-hosting"x1="950" y1="375" x2="870" y2="590"/>
+        <line id="line-outreach-email"   x1="870" y1="165" x2="290" y2="165"/>
+      </svg>
+
+      <!-- Nodes (positioned by left/top at their center coords) -->
+
+      <!-- Chief Orchestrator — center -->
+      <div class="node large" id="node-chief" style="left:580px;top:375px" data-id="chief">
+        <div class="circle">
+          <span class="label">Chief<br>Orchestrator</span>
+          <span class="price">₨1,500/mo</span>
+          <span class="desc">AI brain</span>
+        </div>
+      </div>
+
+      <!-- Sales Bot — top -->
+      <div class="node small" id="node-sales" style="left:580px;top:90px" data-id="sales">
+        <div class="circle">
+          <span class="label">Sales<br>Bot</span>
+          <span class="price">₨22,800/mo</span>
+          <span class="desc">Twilio + voice</span>
+        </div>
+      </div>
+
+      <!-- Outreach Bot — upper-right -->
+      <div class="node small" id="node-outreach" style="left:870px;top:165px" data-id="outreach">
+        <div class="circle">
+          <span class="label">Outreach<br>Bot</span>
+          <span class="price">₨1,000/mo</span>
+          <span class="desc">Email + Instagram</span>
+        </div>
+      </div>
+
+      <!-- Marketing Bot — right -->
+      <div class="node small" id="node-marketing" style="left:950px;top:375px" data-id="marketing">
+        <div class="circle">
+          <span class="label">Marketing<br>Bot</span>
+          <span class="price">₨7,000/mo</span>
+          <span class="desc">Images + video</span>
+        </div>
+      </div>
+
+      <!-- Hosting + Database — lower-right -->
+      <div class="node small" id="node-hosting" style="left:870px;top:590px" data-id="hosting">
+        <div class="circle">
+          <span class="label">Hosting +<br>Database</span>
+          <span class="price">₨10,000/mo</span>
+          <span class="desc">Infrastructure</span>
+        </div>
+      </div>
+
+      <!-- Coding Reserve — bottom -->
+      <div class="node small" id="node-coding" style="left:580px;top:665px" data-id="coding">
+        <div class="circle">
+          <span class="label">Coding<br>Reserve</span>
+          <span class="price">₨6,000/mo</span>
+          <span class="desc">On-demand</span>
+        </div>
+      </div>
+
+      <!-- Domain + Misc. — lower-left -->
+      <div class="node small" id="node-domain" style="left:290px;top:590px" data-id="domain">
+        <div class="circle">
+          <span class="label">Domain +<br>Misc.</span>
+          <span class="price">₨1,000/mo</span>
+          <span class="desc">Services</span>
+        </div>
+      </div>
+
+      <!-- AI Voice — left -->
+      <div class="node small" id="node-voice" style="left:210px;top:375px" data-id="voice">
+        <div class="circle">
+          <span class="label">AI<br>Voice</span>
+          <span class="price">₨2,000/mo</span>
+          <span class="desc">ElevenLabs</span>
+        </div>
+      </div>
+
+      <!-- Email Service — upper-left -->
+      <div class="node small" id="node-email" style="left:290px;top:165px" data-id="email">
+        <div class="circle">
+          <span class="label">Email<br>Service</span>
+          <span class="price">₨0/mo</span>
+          <span class="desc">Free tier</span>
+        </div>
+      </div>
+
+    </div><!-- /diagram -->
+
+    <!-- Total cost summary box -->
+    <div class="cost-box" id="costBox" title="Click for breakdown">
+      <div class="cb-label">Estimated Total</div>
+      <div class="cb-total">≈ ₨51,300 / month</div>
+      <div class="cb-budget">Budget ceiling: ₨60,000</div>
+      <div class="cb-buffer">Remaining buffer: ₨8,700</div>
+    </div>
+
+  </div><!-- /diagram-area -->
+
+  <!-- Footer -->
+  <div class="footer">Planning estimate · 5 calls/day · 22 weekdays · 110 calls/month · ~220 conversational minutes/month</div>
+
+</div><!-- /page -->
+
+<!-- Panel overlay -->
+<div class="panel-overlay" id="panelOverlay"></div>
+
+<!-- Side panel -->
+<div class="side-panel" id="sidePanel">
+  <button class="panel-close" id="panelClose" title="Close">&times;</button>
+  <div class="panel-body" id="panelBody"></div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════
+   DATA
+   ═══════════════════════════════════════════ */
+
+const nodes = {
+  chief:    { cx:580, cy:375, el:null },
+  sales:    { cx:580, cy:90,  el:null },
+  outreach: { cx:870, cy:165, el:null },
+  marketing:{ cx:950, cy:375, el:null },
+  hosting:  { cx:870, cy:590, el:null },
+  coding:   { cx:580, cy:665, el:null },
+  domain:   { cx:290, cy:590, el:null },
+  voice:    { cx:210, cy:375, el:null },
+  email:    { cx:290, cy:165, el:null }
+};
+
+/* connections: [id, from, to] */
+const connections = [
+  ['line-chief-sales',      'chief','sales'],
+  ['line-chief-outreach',   'chief','outreach'],
+  ['line-chief-marketing',  'chief','marketing'],
+  ['line-chief-hosting',    'chief','hosting'],
+  ['line-chief-coding',     'chief','coding'],
+  ['line-chief-domain',     'chief','domain'],
+  ['line-sales-voice',      'sales','voice'],
+  ['line-sales-hosting',    'sales','hosting'],
+  ['line-outreach-hosting', 'outreach','hosting'],
+  ['line-marketing-hosting','marketing','hosting'],
+  ['line-outreach-email',   'outreach','email']
+];
+
+/* panel content for each node */
+const panelData = {
+  chief: {
+    title: 'Chief Orchestrator',
+    desc: 'Central decision-making layer',
+    sections: [
+      { heading: 'What it does', body: '<p>The Chief Orchestrator is the central decision-making layer of Vurtex Autonome. It receives the overall business objective, decides what needs to happen, selects the appropriate bot, and coordinates the work.</p>' },
+      { heading: 'How it works', body: '<ol><li>Receives a business objective.</li><li>Understands what needs to be accomplished.</li><li>Breaks the objective into the required actions.</li><li>Routes each action to the correct bot.</li><li>Tracks the returned results.</li><li>Decides what should happen next.</li><li>Escalates important decisions to the human when approval is required.</li></ol>' },
+      { heading: 'Connections', body: '<ul><li>Sales Bot</li><li>Outreach Bot</li><li>Marketing Bot</li><li>Hosting + Database</li><li>Coding Reserve</li><li>Domain + Misc.</li></ul>' }
+    ],
+    cost: '₨1,500/month'
+  },
+  sales: {
+    title: 'Sales Bot',
+    desc: 'Automated outbound phone prospecting',
+    sections: [
+      { heading: 'What it does', body: '<p>The Sales Bot handles automated outbound phone prospecting. It calls selected businesses, gives a short personalized pitch, qualifies interest, records the outcome, and identifies prospects worth pursuing.</p>' },
+      { heading: 'How it works', body: '<ol><li>Receives qualified leads from the lead database.</li><li>Gets the prospect\'s stored personalization information.</li><li>Calls the prospect through Twilio.</li><li>AI voice conducts the conversation.</li><li>Determines whether the prospect is interested.</li><li>Records the result.</li><li>If appropriate, books a meeting or transfers the conversation to a human.</li><li>Stores the outcome for future follow-up.</li></ol>' },
+      { heading: 'Usage assumptions', body: '<ul><li>5 calls/day</li><li>22 weekdays/month</li><li>110 calls/month</li><li>~220 conversational minutes/month</li></ul>' },
+      { heading: 'Connections', body: '<ul><li>Chief Orchestrator</li><li>AI Voice</li><li>Hosting + Database</li></ul>' }
+    ],
+    cost: '₨22,800/month'
+  },
+  outreach: {
+    title: 'Outreach Bot',
+    desc: 'Automated email and Instagram outreach',
+    sections: [
+      { heading: 'What it does', body: '<p>The Outreach Bot handles automated email and Instagram outreach. It sends personalized messages, monitors responses, and follows up with prospects.</p>' },
+      { heading: 'How it works', body: '<ol><li>Receives prospects from the database.</li><li>Uses stored information to personalize the message.</li><li>Sends the email or Instagram DM.</li><li>Monitors replies.</li><li>Classifies the response.</li><li>Replies when appropriate.</li><li>Schedules follow-ups.</li><li>Updates the prospect\'s status.</li></ol>' },
+      { heading: 'Connections', body: '<ul><li>Chief Orchestrator</li><li>Email Service</li><li>Hosting + Database</li></ul>' }
+    ],
+    cost: '₨1,000/month'
+  },
+  marketing: {
+    title: 'Marketing Bot',
+    desc: 'Content production and publishing',
+    sections: [
+      { heading: 'What it does', body: '<p>The Marketing Bot handles Vurtex\'s content production. It decides what content should be created, generates the required assets, prepares captions/copy, and manages the content workflow.</p>' },
+      { heading: 'How it works', body: '<ol><li>Receives a marketing objective.</li><li>Determines the content required.</li><li>Generates images and/or videos.</li><li>Creates captions and supporting copy.</li><li>Prepares the content for publishing.</li><li>Stores the generated assets and campaign information.</li><li>Reports the result back to the Chief Orchestrator.</li></ol>' },
+      { heading: 'Planned usage', body: '<ul><li>~1 image/day</li><li>Up to 3 videos/week</li><li>AI-generated marketing content</li></ul>' },
+      { heading: 'Connections', body: '<ul><li>Chief Orchestrator</li><li>Hosting + Database</li></ul>' }
+    ],
+    cost: '₨7,000/month'
+  },
+  hosting: {
+    title: 'Hosting + Database',
+    desc: 'Shared infrastructure and data storage',
+    sections: [
+      { heading: 'What it does', body: '<p>Provides the infrastructure required for the Vurtex system. All bots share this infrastructure instead of maintaining separate databases.</p>' },
+      { heading: 'Stores', body: '<ul><li>Leads and prospect information</li><li>Call outcomes</li><li>Email conversations</li><li>Instagram conversations</li><li>Follow-up information</li><li>Campaign information</li><li>Generated assets</li><li>System configuration</li><li>Project information</li></ul>' },
+      { heading: 'How it works', body: '<p>The bots use the shared infrastructure instead of maintaining separate databases. This keeps the architecture simple and avoids creating an unnecessary "database bot" or "memory bot."</p>' },
+      { heading: 'Connections', body: '<ul><li>Chief Orchestrator</li><li>Sales Bot</li><li>Outreach Bot</li><li>Marketing Bot</li><li>Coding Reserve</li></ul>' }
+    ],
+    cost: '₨10,000/month'
+  },
+  coding: {
+    title: 'Coding Reserve',
+    desc: 'On-demand development capacity',
+    sections: [
+      { heading: 'What it does', body: '<p>Provides development capacity when Vurtex gets an actual client opportunity requiring software development.</p>' },
+      { heading: 'How it works', body: '<p>Coding is not continuously running. When a serious prospect requires a demo or actual project:</p><ol><li>Chief identifies the development requirement.</li><li>Human approval is obtained when required.</li><li>Coding AI builds the application.</li><li>The code is tested.</li><li>The finished code is uploaded to GitHub.</li><li>Human handles final infrastructure/deployment.</li></ol>' },
+      { heading: 'Important', body: '<p>This is an <strong>on-demand budget</strong>, not a permanent coding department.</p>' }
+    ],
+    cost: '₨6,000/month reserved budget'
+  },
+  domain: {
+    title: 'Domain + Misc.',
+    desc: 'Supporting services',
+    sections: [
+      { heading: 'What it does', body: '<p>Covers smaller supporting services required by the business.</p>' },
+      { heading: 'Examples', body: '<ul><li>Domain-related costs</li><li>Small software services</li><li>Miscellaneous API/service expenses</li></ul>' }
+    ],
+    cost: '₨1,000/month'
+  },
+  voice: {
+    title: 'AI Voice',
+    desc: 'Natural voice for phone conversations',
+    sections: [
+      { heading: 'What it does', body: '<p>AI Voice provides the natural voice used by the Sales Bot during phone conversations.</p>' },
+      { heading: 'How it works', body: '<p>The Sales Bot sends the conversation to the voice system, which handles speech generation and allows the prospect to hear a natural AI voice during the call. The phone infrastructure is handled separately through Twilio.</p>' },
+      { heading: 'Provider', body: '<p><strong>ElevenLabs</strong></p>' },
+      { heading: 'Connections', body: '<ul><li>Sales Bot</li></ul>' }
+    ],
+    cost: '₨2,000/month'
+  },
+  email: {
+    title: 'Email Service',
+    desc: 'Email delivery infrastructure',
+    sections: [
+      { heading: 'What it does', body: '<p>Provides the email delivery infrastructure used by the Outreach Bot.</p>' },
+      { heading: 'How it works', body: '<p>The Outreach Bot generates the message and sends it through the email service.</p>' },
+      { heading: 'Provider', body: '<p>Free-tier email infrastructure.</p>' },
+      { heading: 'Connections', body: '<ul><li>Outreach Bot</li></ul>' }
+    ],
+    cost: '₨0/month'
+  }
+};
+
+/* cost breakdown for the total panel */
+const costBreakdown = [
+  ['Chief Orchestrator',               '₨1,500'],
+  ['Sales Bot + voice infrastructure', '₨22,800'],
+  ['Outreach Bot',                     '₨1,000'],
+  ['Marketing Bot',                    '₨7,000'],
+  ['Hosting + Database',               '₨10,000'],
+  ['Coding Reserve',                   '₨6,000'],
+  ['Domain + Misc.',                   '₨1,000'],
+  ['AI Voice',                         '₨2,000'],
+  ['Email Service',                    '₨0']
+];
+
+/* ═══════════════════════════════════════════
+   INIT
+   ═══════════════════════════════════════════ */
+
+const svg = document.getElementById('connSvg');
+const panel = document.getElementById('sidePanel');
+const overlay = document.getElementById('panelOverlay');
+const panelBody = document.getElementById('panelBody');
+const panelClose = document.getElementById('panelClose');
+const costBox = document.getElementById('costBox');
+
+let activeNode = null;
+
+/* cache node elements */
+Object.keys(nodes).forEach(id => {
+  nodes[id].el = document.getElementById('node-' + id);
+});
+
+/* ═══════════════════════════════════════════
+   HOVER — highlight connected lines
+   ═══════════════════════════════════════════ */
+
+function getConnectedLines(nodeId) {
+  return connections.filter(c => c[1] === nodeId || c[2] === nodeId).map(c => document.getElementById(c[0]));
+}
+
+Object.keys(nodes).forEach(id => {
+  const el = nodes[id].el;
+  el.addEventListener('mouseenter', () => {
+    getConnectedLines(id).forEach(l => l.classList.add('hl'));
+  });
+  el.addEventListener('mouseleave', () => {
+    getConnectedLines(id).forEach(l => l.classList.remove('hl'));
+  });
+});
+
+/* ═══════════════════════════════════════════
+   CLICK — open side panel
+   ═══════════════════════════════════════════ */
+
+function openPanel(html) {
+  panelBody.innerHTML = html;
+  panel.classList.add('open');
+  overlay.classList.add('open');
+}
+
+function closePanel() {
+  panel.classList.remove('open');
+  overlay.classList.remove('open');
+  if (activeNode) {
+    nodes[activeNode].el.classList.remove('active');
+    getConnectedLines(activeNode).forEach(l => l.classList.remove('hl'));
+    activeNode = null;
+  }
+}
+
+function buildNodePanel(id) {
+  const d = panelData[id];
+  let html = `<h2>${d.title}</h2><p class="panel-desc">${d.desc}</p>`;
+  d.sections.forEach(s => {
+    html += `<h3>${s.heading}</h3>${s.body}`;
+  });
+  html += `<div class="panel-cost"><div class="pc-label">Monthly Cost</div><div class="pc-value">${d.cost}</div></div>`;
+  return html;
+}
+
+function buildCostPanel() {
+  let rows = '';
+  costBreakdown.forEach(([name, cost]) => {
+    rows += `<tr><td>${name}</td><td>${cost}</td></tr>`;
+  });
+  rows += `<tr class="total"><td>Total</td><td>₨51,300</td></tr>`;
+
+  return `
+    <h2>Vurtex Monthly Operating Cost</h2>
+    <p class="panel-desc">Full cost breakdown</p>
+    <table class="cost-table">${rows}</table>
+    <div class="panel-highlight">
+      <div class="ph-row"><span>Estimated monthly cost</span><span class="ph-val">₨51,300</span></div>
+      <div class="ph-row"><span>Budget ceiling</span><span class="ph-val">₨60,000</span></div>
+      <div class="ph-row"><span>Remaining buffer</span><span class="ph-val ph-green">₨8,700</span></div>
+    </div>
+  `;
+}
+
+/* node clicks */
+Object.keys(nodes).forEach(id => {
+  nodes[id].el.addEventListener('click', (e) => {
+    e.stopPropagation();
+    /* deactivate previous */
+    if (activeNode && activeNode !== id) {
+      nodes[activeNode].el.classList.remove('active');
+      getConnectedLines(activeNode).forEach(l => l.classList.remove('hl'));
+    }
+    activeNode = id;
+    nodes[id].el.classList.add('active');
+    getConnectedLines(id).forEach(l => l.classList.add('hl'));
+    openPanel(buildNodePanel(id));
+  });
+});
+
+/* cost box click */
+costBox.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (activeNode) {
+    nodes[activeNode].el.classList.remove('active');
+    getConnectedLines(activeNode).forEach(l => l.classList.remove('hl'));
+    activeNode = null;
+  }
+  openPanel(buildCostPanel());
+});
+
+/* close panel */
+panelClose.addEventListener('click', closePanel);
+overlay.addEventListener('click', closePanel);
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePanel(); });
+
+</script>
+</body>
+</html>

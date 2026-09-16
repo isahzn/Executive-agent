@@ -1,0 +1,571 @@
+PHASE 7 — ADMIN DASHBOARD + PRODUCT MANAGEMENT
+
+## Context
+
+This is Phase 7 of the Bantex Trading website rebuild.
+
+All phases are stored inside the `phases` folder.
+
+You must work ONLY on Phase 7.
+
+Do not start Phase 8 or implement features belonging to later phases unless they are strictly required for the admin foundation.
+
+The Bantex Trading frontend design is already approved. Do NOT redesign the public website.
+
+The admin dashboard should have its own clean, professional interface while still feeling like the same Bantex Trading brand.
+
+---
+
+# Goal
+
+Build a real admin dashboard that allows the owner to manage the products and catalogue shown on the public website.
+
+The owner should be able to:
+
+* Add products
+* Edit products
+* Delete products
+* Add/remove categories
+* Manage prices
+* Manage product images
+* Manage product options/variants
+* Control product availability
+* Manage which products appear in each category
+
+The public website should use the managed product data rather than hard-coded product information.
+
+---
+
+# 1. Admin Route
+
+Create a dedicated admin area, for example:
+
+`/admin`
+
+Build a proper dashboard layout with:
+
+* Sidebar/navigation
+* Dashboard header
+* Main content area
+* Responsive mobile navigation
+
+Possible navigation:
+
+* Overview
+* Products
+* Categories
+* Orders
+* Settings
+
+However, ONLY implement the sections required by this phase.
+
+Orders can remain a placeholder/navigation item for a future phase.
+
+Do not build unnecessary dashboard features.
+
+---
+
+# 2. Admin Authentication
+
+The admin area must not be publicly accessible.
+
+Implement a secure authentication approach appropriate for the project's backend architecture.
+
+Do NOT create a fake frontend-only password check such as:
+
+`if (password === "admin123")`
+
+Do not hard-code admin credentials.
+
+Use secure authentication and environment/database-backed credentials where appropriate.
+
+Protect all admin routes server-side.
+
+An unauthenticated user attempting to access `/admin` should be redirected to the appropriate login page.
+
+---
+
+# 3. Product Management
+
+Create a Products section.
+
+The owner must be able to:
+
+* View products
+* Search products
+* Add a product
+* Edit a product
+* Delete a product
+* Enable/disable availability
+* Assign a category
+* Set a price
+* Upload/manage images
+
+Each product should have a proper editable form.
+
+---
+
+# 4. Product Fields
+
+The product model should support at least:
+
+* Product ID
+* Name
+* Slug
+* Description
+* Price
+* Images
+* Category
+* Availability
+* Options/variants
+* Created date
+* Updated date
+
+Do not create unnecessary fields just for the sake of having them.
+
+Keep the data model extensible.
+
+---
+
+# 5. Product Options / Variants
+
+This is important.
+
+The admin must NOT assume every product has the same options.
+
+Allow products to have different option types such as:
+
+* Colour
+* Size
+* Model
+* Capacity
+* Pack size
+* Specification
+* Custom option
+
+The owner should be able to add an option group and define its values.
+
+Example:
+
+Option:
+
+`Colour`
+
+Values:
+
+`Black`
+`Blue`
+`Red`
+
+Another product could have:
+
+`Size`
+
+Values:
+
+`Small`
+`Medium`
+`Large`
+
+Another could have:
+
+`Model`
+
+Values:
+
+`Model A`
+`Model B`
+
+The system must support different combinations for different products.
+
+---
+
+# 6. Variant Pricing
+
+Design the data structure so variants can support their own pricing when necessary.
+
+For example:
+
+Base product:
+
+`Product A`
+
+Variant:
+
+`Large + Black`
+
+could have a different price from:
+
+`Small + Black`
+
+Do not force every product to have variant-specific pricing if it does not need it.
+
+The architecture should support:
+
+* One base price
+* Optional variant-specific price
+
+The authoritative price must ultimately come from the server-side product data.
+
+---
+
+# 7. Product Images
+
+Allow the admin to manage product images.
+
+Support:
+
+* Main product image
+* Additional product images
+* Image ordering
+* Removing images
+* Replacing images
+
+The public product detail page should use these images automatically.
+
+Do not hard-code image URLs into individual product pages.
+
+Use the existing image architecture or create a clean abstraction that can later connect to proper storage.
+
+---
+
+# 8. Categories
+
+Create a Categories management section.
+
+The owner must be able to:
+
+* Create a category
+* Rename a category
+* Delete a category
+* Enable/disable a category
+* Assign products to categories
+
+Do not hard-code the category system so that only Stationery and Electrical Goods can ever exist.
+
+The architecture should allow additional categories later.
+
+However, preserve the existing public Bantex categories and routes.
+
+Do not break:
+
+* `/stationery`
+* `/electrical`
+
+If the public category structure needs mapping between editable categories and routes, create that mapping cleanly.
+
+---
+
+# 9. Public Website Integration
+
+This is one of the most important parts of Phase 7.
+
+Products created or edited in the admin dashboard must appear correctly on the public website.
+
+Changes should affect:
+
+* Stationery catalogue
+* Electrical Goods catalogue
+* Product cards
+* Product detail pages
+* Prices
+* Images
+* Availability
+* Options/variants
+
+Do not maintain separate duplicated product definitions for admin and frontend.
+
+Use one authoritative product data source.
+
+---
+
+# 10. Database / Persistence
+
+Product and category data must persist.
+
+Do not build an admin dashboard where changes disappear after a page refresh.
+
+Use the project's appropriate persistent database/storage architecture.
+
+If a database has already been established in the project, use it rather than introducing a second unnecessary database.
+
+Create proper:
+
+* Product records
+* Category records
+* Option records
+* Variant records where required
+* Image references
+
+Use relationships rather than duplicating large amounts of product data.
+
+---
+
+# 11. Validation
+
+Admin forms must validate data.
+
+Examples:
+
+* Product name required
+* Price must be valid
+* Category must be valid
+* Required option values must be valid
+* Slugs must be valid
+* Invalid variant combinations must be rejected
+* Duplicate category names should be handled appropriately
+
+Show useful validation messages.
+
+Do not allow malformed product data to break the public website.
+
+---
+
+# 12. Delete Protection
+
+Be careful with deletion.
+
+If deleting a category that still contains products, do not silently orphan those products.
+
+Provide an appropriate handling flow, such as:
+
+* Prevent deletion until products are reassigned
+* Or require reassignment before deletion
+
+For products, use appropriate confirmation before permanent deletion.
+
+Do not make destructive actions one-click with no protection.
+
+---
+
+# 13. Availability
+
+The admin should be able to mark a product as:
+
+* Available
+* Unavailable
+
+The public website should reflect this state.
+
+An unavailable product should not incorrectly appear as purchasable.
+
+Do not implement full inventory/stock management in this phase.
+
+Availability is enough for now.
+
+---
+
+# 14. Product Ordering
+
+Allow the admin to control the display order of products where practical.
+
+This should allow the owner to determine which products appear first.
+
+Keep this simple.
+
+Do not build an unnecessarily complex drag-and-drop CMS unless it genuinely improves the implementation.
+
+---
+
+# 15. Dashboard Overview
+
+Create a simple admin overview page showing useful information such as:
+
+* Total products
+* Available products
+* Total categories
+* Recently updated products
+
+Do not fabricate statistics.
+
+Use actual database values.
+
+Do not build analytics, revenue charts, or fake metrics.
+
+---
+
+# 16. Security
+
+Admin operations must be protected server-side.
+
+Verify authorization for:
+
+* Creating products
+* Editing products
+* Deleting products
+* Creating categories
+* Editing categories
+* Deleting categories
+* Uploading/removing images
+
+Do not rely only on hiding buttons from unauthorized users.
+
+Never expose database credentials or private API keys to the browser.
+
+Validate all mutations on the server.
+
+---
+
+# 17. Stripe Compatibility
+
+Do not break Phase 6.
+
+The existing checkout/payment architecture must continue working.
+
+Product prices used by checkout must come from the same authoritative product data managed by the admin system.
+
+Do not allow the admin UI to bypass server-side validation.
+
+Do not modify Stripe payment logic unless necessary to connect it to the new product data source.
+
+---
+
+# 18. Existing Cart Compatibility
+
+Do not break Phase 5.
+
+Existing cart items should continue to work with:
+
+* Product IDs
+* Selected options
+* Quantities
+* Product prices
+
+If the product structure changes, maintain compatibility where reasonably possible.
+
+Remember that the checkout phase must revalidate the authoritative product and price server-side.
+
+---
+
+# 19. UI Requirements
+
+The admin dashboard should be:
+
+* Clean
+* Professional
+* Fast
+* Easy to understand
+* Responsive
+* Suitable for frequent use
+
+Use the Bantex visual language without copying the public homepage unnecessarily.
+
+Avoid:
+
+* Excessive gradients
+* Excessive shadows
+* Generic dashboard templates
+* Fake analytics
+* Decorative charts
+* Unnecessary animations
+* Excessive icons
+
+Prioritize usability.
+
+---
+
+# 20. Empty States
+
+Handle empty states properly.
+
+Examples:
+
+No products:
+
+`No products have been added yet.`
+
+No categories:
+
+`No categories have been created yet.`
+
+Do not fill the admin dashboard with fake products or fake statistics.
+
+---
+
+# 21. Error Handling
+
+Handle:
+
+* Database failures
+* Unauthorized access
+* Invalid product data
+* Invalid category data
+* Image upload failures
+* Duplicate slugs
+* Failed saves
+* Failed deletes
+
+Give the admin a useful error message without exposing internal secrets or stack traces.
+
+---
+
+# 22. Testing
+
+After implementation, test:
+
+1. Admin login.
+2. Unauthorized access to `/admin`.
+3. Product creation.
+4. Product editing.
+5. Product deletion.
+6. Product availability changes.
+7. Product image management.
+8. Category creation.
+9. Category editing.
+10. Category deletion protection.
+11. Product/category assignment.
+12. Product options.
+13. Variant-specific pricing if implemented.
+14. Public catalogue updates.
+15. Public product detail updates.
+16. Cart compatibility.
+17. Checkout compatibility.
+18. Database persistence after refresh.
+19. Mobile admin layout.
+20. Desktop admin layout.
+21. Typecheck.
+22. Lint.
+23. Production build.
+
+Fix issues discovered during testing.
+
+---
+
+# 23. Do NOT Implement Yet
+
+Do NOT build the complete:
+
+* Order management system
+* Order status management
+* Email notification system
+* Customer accounts
+* Advanced analytics
+* Inventory management
+* Discount/coupon system
+* Refund management
+* Shipping management
+
+Those belong to later phases.
+
+Do not start Phase 8.
+
+---
+
+# 24. Final Requirement
+
+When Phase 7 is complete:
+
+1. Run the development server.
+2. Log into the admin dashboard.
+3. Demonstrate creating/editing/deleting a development product.
+4. Demonstrate category management.
+5. Demonstrate product options.
+6. Show the changes appearing on the public website.
+7. Verify persistence after refresh.
+8. Verify the existing cart and checkout have not been broken.
+9. Fix obvious problems.
+10. Show me a working preview.
+
+Then STOP.
+
+Do not continue into Phase 8 until I explicitly tell you to.

@@ -22,7 +22,7 @@ export default function VatPage() {
     <div>
       <PageHeader
         title="Value Added Tax"
-        subtitle={`Sri Lanka · Year of Assessment ${taxYear}. Output VAT, deductible input VAT and registration status all derive from the versioned rules engine — AI never computes tax.`}
+        subtitle={`Sri Lanka, year of assessment ${taxYear}. Output VAT, deductible input VAT and registration status all derive from the versioned rules engine — AI never computes tax.`}
         action={<RulesetBadge verified={verified} taxYear={taxYear} />}
       />
       <VatCalculator

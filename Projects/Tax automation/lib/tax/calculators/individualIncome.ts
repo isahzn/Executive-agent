@@ -16,6 +16,15 @@ const NON_NEGATIVE_FIELDS: Array<keyof IndividualIncomeInput> = [
   "investmentAssetGains",
 ];
 
+const FIELD_LABELS: Record<keyof IndividualIncomeInput, string> = {
+  employmentIncome: "Employment income",
+  businessIncome: "Business income",
+  investmentIncome: "Investment income",
+  otherIncome: "Other income",
+  allowableDeductions: "Allowable deductions",
+  investmentAssetGains: "Investment asset gains",
+};
+
 /** Validate raw input; returns a list of human-readable errors (empty = valid). */
 export function validateIndividualIncomeInput(
   input: Partial<IndividualIncomeInput>
@@ -24,11 +33,11 @@ export function validateIndividualIncomeInput(
   for (const field of NON_NEGATIVE_FIELDS) {
     const value = input[field];
     if (typeof value !== "number" || !Number.isFinite(value)) {
-      errors.push(`${field} must be a number.`);
+      errors.push(`${FIELD_LABELS[field]} must be a number.`);
     } else if (value < 0) {
-      errors.push(`${field} cannot be negative.`);
+      errors.push(`${FIELD_LABELS[field]} cannot be negative.`);
     } else if (!Number.isInteger(value)) {
-      errors.push(`${field} must be a whole number of rupees.`);
+      errors.push(`${FIELD_LABELS[field]} must be a whole number of rupees.`);
     }
   }
   return errors;

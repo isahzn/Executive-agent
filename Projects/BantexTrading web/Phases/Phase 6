@@ -1,0 +1,384 @@
+PHASE 6 — CHECKOUT + STRIPE PAYMENTS
+
+## Context
+
+This is Phase 6 of the Bantex Trading website rebuild.
+
+All phases are stored inside the `phases` folder.
+
+You must work ONLY on Phase 6.
+
+Do not start Phase 7 or implement the admin dashboard, product management system, or other future functionality early.
+
+The website design is already approved. The existing `Frontend.html` was the visual reference, and the previous phases established the Bantex Trading design system.
+
+Do NOT redesign the website.
+
+---
+
+## Goal
+
+Turn the existing cart into a real checkout flow using Stripe.
+
+The customer flow should now be:
+
+Product → Select Options → Add to Cart → Cart → Checkout → Stripe Payment
+
+The customer should be able to complete a real payment securely.
+
+---
+
+## 1. Checkout Page
+
+Create:
+
+`/checkout`
+
+Build a polished checkout page consistent with the existing Bantex Trading design.
+
+Include:
+
+* Customer information
+* Order summary
+* Products being purchased
+* Selected options/variants
+* Quantities
+* Prices
+* Subtotal
+* Final amount
+* Secure payment section
+* Place/Pay button
+
+Do not make the checkout look like a generic Stripe demo.
+
+It should feel like a natural continuation of the existing website.
+
+---
+
+## 2. Customer Information
+
+Collect the information required to fulfil the order.
+
+At minimum include:
+
+* Full name
+* Email address
+* Phone number
+* Delivery/address information if required by the business flow
+
+Validate required fields before allowing payment to begin.
+
+Show clear validation errors.
+
+Do not collect unnecessary sensitive information.
+
+---
+
+## 3. Stripe Integration
+
+Integrate Stripe using the official Stripe payment flow appropriate for the chosen architecture.
+
+Important:
+
+* Never expose the Stripe secret key in client-side code.
+* Use environment variables for Stripe secrets.
+* Never hard-code API keys.
+* Never trust prices supplied by the browser.
+* Never trust the browser cart as the final source of truth.
+
+The server must validate the cart before creating the Stripe payment.
+
+---
+
+## 4. Server-Side Price Validation
+
+Before creating a Stripe payment:
+
+1. Receive the cart from the client.
+2. Validate the products/variants.
+3. Retrieve the authoritative product information from the appropriate server-side source.
+4. Verify that the selected options are valid.
+5. Recalculate quantities and prices server-side.
+6. Calculate the authoritative order total.
+7. Create the Stripe payment using the verified amount.
+
+The client must never be able to change the amount they pay simply by modifying browser storage or frontend JavaScript.
+
+Do NOT build a system where the frontend sends an arbitrary total to Stripe.
+
+---
+
+## 5. Stripe Payment Flow
+
+Use a secure Stripe Checkout/Payment Element architecture appropriate for the application.
+
+The payment flow should:
+
+* Create the payment server-side.
+* Send the customer to/through the Stripe payment interface.
+* Allow the customer to complete payment.
+* Handle successful payment.
+* Handle cancelled payment.
+* Handle payment failure.
+* Return the customer to an appropriate Bantex page.
+
+Do not mark an order as paid merely because the customer reaches a success URL.
+
+Payment confirmation must ultimately be based on Stripe's server-side payment confirmation/webhook flow.
+
+---
+
+## 6. Order Preparation
+
+Create the architecture needed for a proper order record, but do not build the full admin order-management system yet.
+
+The payment flow should have a clear place to associate:
+
+* Order ID
+* Customer information
+* Purchased products
+* Selected options
+* Quantities
+* Authoritative prices
+* Total amount
+* Stripe payment/session identifier
+* Payment status
+
+If the database/order persistence layer is not yet available, create a clean abstraction/interface for it rather than scattering temporary logic throughout the application.
+
+Do not invent a fake production database.
+
+---
+
+## 7. Success Page
+
+Create a polished payment-success page.
+
+Example route:
+
+`/checkout/success`
+
+Show:
+
+* Payment confirmation
+* Order/reference number if available
+* Basic order summary
+* Customer email
+* Clear next-step information
+* Continue Shopping button
+
+Do not claim payment succeeded based only on frontend navigation.
+
+The success state must correspond to a verified payment state.
+
+---
+
+## 8. Cancelled / Failed Payment
+
+Handle payment cancellation and failure gracefully.
+
+The customer should be able to:
+
+* Return to the cart
+* Try payment again
+* Continue shopping
+
+Do not silently lose the cart.
+
+Do not show a false "payment successful" message when Stripe reports failure or cancellation.
+
+---
+
+## 9. Cart Handling
+
+Connect the existing Phase 5 cart to checkout.
+
+The checkout must correctly preserve:
+
+* Products
+* Selected options
+* Quantities
+* Prices displayed to the customer
+
+After successful payment, clear the cart only at the correct point in the completed order flow.
+
+Do not clear the cart merely because the customer opened checkout.
+
+Do not clear the cart after a cancelled payment.
+
+---
+
+## 10. Environment Variables
+
+Create/document the required environment variables using safe placeholders.
+
+For example:
+
+* Stripe publishable key
+* Stripe secret key
+* Stripe webhook secret
+
+Never place real secrets in source code.
+
+Make sure `.env` files containing secrets are not accidentally committed.
+
+Provide an appropriate `.env.example` containing placeholder variable names only.
+
+---
+
+## 11. Stripe Webhook
+
+Implement the webhook foundation required to reliably confirm payments.
+
+The webhook should:
+
+* Verify Stripe's webhook signature.
+* Handle the relevant successful payment event.
+* Update the payment/order state appropriately.
+* Be safe against duplicate webhook delivery.
+* Avoid trusting arbitrary client-side success messages.
+
+Keep the implementation clean so Phase 7/8 can extend the order system without rewriting the payment architecture.
+
+---
+
+## 12. Currency
+
+Use the currency configured for the actual Bantex Trading store.
+
+Do not randomly choose a currency.
+
+If the project's existing configuration already establishes the intended currency, use it consistently.
+
+All displayed amounts and Stripe amounts must use the same currency and correct smallest-unit conversion.
+
+For example, if the currency uses cents, convert the major-unit amount correctly before sending it to Stripe.
+
+---
+
+## 13. Error Handling
+
+Handle:
+
+* Empty cart
+* Invalid product
+* Invalid variant
+* Invalid quantity
+* Price mismatch
+* Stripe API failure
+* Payment failure
+* Payment cancellation
+* Network errors
+* Invalid checkout information
+* Webhook errors
+
+Errors should be understandable to customers without exposing sensitive technical information.
+
+Server logs can contain useful debugging information, but do not expose secrets or payment credentials.
+
+---
+
+## 14. Security Requirements
+
+Follow secure payment architecture throughout.
+
+Never:
+
+* Store card numbers
+* Store CVV
+* Store Stripe secret keys in the browser
+* Trust frontend prices
+* Trust frontend payment-success messages
+* Put secrets in source code
+* Log sensitive payment information
+
+Use Stripe's hosted/official payment components so card information is handled by Stripe rather than the Bantex application.
+
+---
+
+## 15. UI/UX
+
+Keep the existing Bantex Trading visual language.
+
+The checkout should be:
+
+* Clean
+* Professional
+* Easy to understand
+* Mobile friendly
+* Fast
+* Consistent with the rest of the website
+
+Use the existing animation system.
+
+Respect:
+
+`prefers-reduced-motion`
+
+Do not introduce a new visual design system.
+
+---
+
+## 16. Testing
+
+After implementation, test the complete flow.
+
+Test:
+
+1. Add a product to cart.
+2. Select product options.
+3. Open cart.
+4. Proceed to checkout.
+5. Enter customer information.
+6. Verify the order summary.
+7. Verify server-side price calculation.
+8. Start Stripe payment.
+9. Test successful payment using Stripe test mode.
+10. Test cancelled payment.
+11. Test failed payment.
+12. Test invalid/modified cart data.
+13. Test empty cart checkout.
+14. Test webhook handling.
+15. Test duplicate webhook handling.
+16. Test mobile checkout.
+17. Check browser console for errors.
+18. Check server logs for errors.
+19. Run typecheck/lint/build and fix issues.
+
+Use Stripe TEST MODE only during development.
+
+Do not use real payment credentials or real card data during testing.
+
+---
+
+## 17. Scope Restrictions
+
+DO NOT implement the full:
+
+* Admin dashboard
+* Product management
+* Category management
+* Variant management
+* Order management dashboard
+* Customer accounts
+* Advanced analytics
+* Inventory management
+
+Those belong to later phases.
+
+Do not start Phase 7.
+
+---
+
+## 18. Final Requirement
+
+When Phase 6 is complete:
+
+* Run the website.
+* Show me a working preview.
+* Demonstrate the complete cart → checkout → Stripe test payment flow.
+* Make sure the payment architecture is secure and server-validated.
+* Fix obvious issues found during testing.
+* Do not continue into Phase 7.
+
+STOP after Phase 6 and wait for my explicit instruction before doing anything from Phase 7 onward.

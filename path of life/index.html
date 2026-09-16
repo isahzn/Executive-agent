@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Life Architecture — 3D Mind Map</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{overflow:hidden;background:#000;font-family:'Rajdhani',sans-serif;color:#fff;cursor:crosshair}
+canvas{display:block}
+#top-banner{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:12px 30px;background:linear-gradient(180deg,rgba(0,0,0,0.92) 0%,rgba(0,0,0,0) 100%);pointer-events:none}
+.phases{display:flex;gap:8px;align-items:center;font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase}
+.phase{padding:5px 14px;border:1px solid rgba(0,200,255,0.25);border-radius:3px;color:rgba(0,200,255,0.45);background:rgba(0,20,40,0.5);transition:all .5s ease}
+.phase.active{color:#00c8ff;border-color:#00c8ff;background:rgba(0,200,255,0.1);box-shadow:0 0 20px rgba(0,200,255,0.2),inset 0 0 20px rgba(0,200,255,0.05)}
+.phase-arrow{color:rgba(0,200,255,0.25);font-size:9px}
+#bottom-bar{position:fixed;bottom:0;left:0;right:0;z-index:100;padding:18px 40px;background:linear-gradient(0deg,rgba(0,0,0,0.92) 0%,rgba(0,0,0,0) 100%);display:flex;justify-content:space-between;align-items:flex-end;pointer-events:none}
+.motto{font-size:12px;font-weight:300;letter-spacing:4px;color:rgba(0,200,255,0.4);text-transform:uppercase}
+.controls-hint{font-size:10px;color:rgba(255,255,255,0.25);text-align:right;line-height:1.8;font-family:'Space Mono',monospace}
+.hud-corner{position:fixed;z-index:50;width:36px;height:36px;pointer-events:none}
+.hud-corner.tl{top:14px;left:14px;border-top:2px solid rgba(0,200,255,0.25);border-left:2px solid rgba(0,200,255,0.25)}
+.hud-corner.tr{top:14px;right:14px;border-top:2px solid rgba(0,200,255,0.25);border-right:2px solid rgba(0,200,255,0.25)}
+.hud-corner.bl{bottom:14px;left:14px;border-bottom:2px solid rgba(0,200,255,0.25);border-left:2px solid rgba(0,200,255,0.25)}
+.hud-corner.br{bottom:14px;right:14px;border-bottom:2px solid rgba(0,200,255,0.25);border-right:2px solid rgba(0,200,255,0.25)}
+#side-panel{position:fixed;left:18px;top:50%;transform:translateY(-50%);z-index:100;pointer-events:none;max-width:140px}
+.info-block{margin-bottom:14px;padding:10px 14px;border:1px solid rgba(0,200,255,0.1);border-radius:6px;background:rgba(0,10,20,0.7);backdrop-filter:blur(8px)}
+.info-label{font-family:'Orbitron',sans-serif;font-size:8px;letter-spacing:3px;color:rgba(0,200,255,0.4);text-transform:uppercase;margin-bottom:3px}
+.info-value{font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;color:rgba(0,200,255,0.85);line-height:1}
+.info-sub{font-size:10px;color:rgba(255,255,255,0.3);margin-top:2px;font-family:'Space Mono',monospace}
+.info-row{display:flex;gap:10px}
+.info-mini{flex:1;text-align:center;padding:6px;border:1px solid rgba(0,200,255,0.06);border-radius:4px;background:rgba(0,10,20,0.5)}
+.info-mini .val{font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;color:rgba(0,200,255,0.7)}
+.info-mini .lbl{font-size:8px;letter-spacing:2px;color:rgba(0,200,255,0.3);text-transform:uppercase;margin-top:2px}
+.speed-indicator{margin-top:8px;padding:6px 10px;border:1px solid rgba(255,180,0,0.2);border-radius:4px;background:rgba(255,180,0,0.05);font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,180,0,0.5);text-align:center;letter-spacing:1px;transition:all .2s}
+.speed-indicator.boosted{border-color:rgba(255,180,0,0.5);color:rgba(255,180,0,0.9);background:rgba(255,180,0,0.1)}
+#tooltip{position:fixed;z-index:150;padding:7px 14px;background:rgba(0,10,20,0.95);border:1px solid rgba(0,200,255,0.35);border-radius:4px;font-family:'Orbitron',sans-serif;font-size:10px;color:#00c8ff;letter-spacing:2px;pointer-events:none;opacity:0;transition:opacity .15s ease;white-space:nowrap}
+#tooltip.visible{opacity:1}
+#detail-panel{position:fixed;right:-460px;top:70px;width:440px;max-height:calc(100vh - 140px);z-index:200;background:rgba(0,8,16,0.96);border:1px solid rgba(0,200,255,0.15);border-right:none;border-radius:10px 0 0 10px;overflow-y:auto;transition:right .5s cubic-bezier(.16,1,.3,1);backdrop-filter:blur(20px);pointer-events:all}
+#detail-panel.open{right:0}
+#detail-panel .panel-inner{padding:28px 30px 30px}
+#detail-panel .panel-header{font-family:'Orbitron',sans-serif;font-size:15px;font-weight:700;color:#00c8ff;margin-bottom:2px;letter-spacing:2px;display:flex;align-items:center;gap:12px}
+.panel-number{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border:1px solid rgba(0,200,255,0.4);border-radius:50%;font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;color:#00c8ff;flex-shrink:0}
+.panel-status{font-size:10px;font-family:'Space Mono',monospace;margin-bottom:18px;text-transform:uppercase;letter-spacing:2px}
+.status-BUILDING{color:#00ff88}.status-PLANNING{color:#fbbf24}.status-CONCEPT{color:#ff6b35}.status-VISION{color:#c084fc}.status-ACTIVE{color:#00c8ff}.status-TARGET{color:#a78bfa}.status-TRACKING{color:#06b6d4}
+.panel-section{margin-bottom:16px}
+.panel-section h3{font-family:'Orbitron',sans-serif;font-size:9px;font-weight:600;color:rgba(0,200,255,0.6);letter-spacing:3px;text-transform:uppercase;margin-bottom:7px;padding-bottom:5px;border-bottom:1px solid rgba(0,200,255,0.08)}
+.panel-section p,.panel-section li{font-size:13px;color:rgba(255,255,255,0.65);line-height:1.75;font-weight:300}
+.panel-section ul{list-style:none;padding:0}
+.panel-section li::before{content:'▸ ';color:#00c8ff;font-size:11px}
+.panel-close{position:absolute;top:14px;right:14px;width:28px;height:28px;border:1px solid rgba(0,200,255,0.25);border-radius:50%;background:transparent;color:#00c8ff;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;pointer-events:all}
+.panel-close:hover{background:rgba(0,200,255,0.1);border-color:#00c8ff}
+#detail-panel::-webkit-scrollbar{width:3px}#detail-panel::-webkit-scrollbar-track{background:rgba(0,20,40,0.5)}#detail-panel::-webkit-scrollbar-thumb{background:rgba(0,200,255,0.25);border-radius:2px}
+.more-info-btn{width:100%;padding:10px;border:1px solid rgba(0,200,255,0.3);border-radius:6px;background:rgba(0,200,255,0.06);color:#00c8ff;font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;cursor:pointer;transition:all .2s;margin-top:14px}
+.more-info-btn:hover{background:rgba(0,200,255,0.12)}
+.sub-detail{display:none;margin-top:12px;padding:14px;border:1px solid rgba(0,200,255,0.08);border-radius:6px;background:rgba(0,0,20,0.5)}
+#export-bar{position:fixed;top:60px;right:20px;z-index:100;display:flex;gap:8px}
+.export-btn{padding:6px 14px;border:1px solid rgba(0,200,255,0.2);border-radius:4px;background:rgba(0,10,20,0.7);color:rgba(0,200,255,0.6);font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:2px;cursor:pointer;transition:all .2s;backdrop-filter:blur(8px)}
+.export-btn:hover{border-color:#00c8ff;color:#00c8ff;background:rgba(0,200,255,0.08)}
+#flowchart-overlay{display:none}
+.fc-title{font-family:'Orbitron',sans-serif;font-size:24px;font-weight:900;letter-spacing:6px;background:linear-gradient(135deg,#00c8ff,#00ff88,#00c8ff);background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 4s ease infinite}
+.fc-sub{font-size:11px;font-weight:300;letter-spacing:6px;color:rgba(0,200,255,0.35);text-transform:uppercase;margin-bottom:18px}
+.fc-flow{display:flex;align-items:center;gap:4px;justify-content:center;flex-wrap:wrap}
+.fc-node{padding:5px 12px;border:1px solid rgba(0,200,255,0.2);border-radius:4px;font-family:'Orbitron',sans-serif;font-size:8px;letter-spacing:1px;color:rgba(0,200,255,0.5);background:rgba(0,10,20,0.6);white-space:nowrap}
+.fc-node.hl{border-color:rgba(0,255,136,0.4);color:rgba(0,255,136,0.7);background:rgba(0,255,136,0.05)}
+.fc-arrow{color:rgba(0,200,255,0.2);font-size:10px}
+.fc-summary{max-width:520px;margin:14px auto 0;font-size:11px;color:rgba(255,255,255,0.3);line-height:1.7;font-weight:300}
+#ai-toggle{position:fixed;bottom:70px;right:24px;z-index:300;width:52px;height:52px;border-radius:50%;border:2px solid rgba(0,255,136,0.4);background:rgba(0,20,10,0.8);color:#00ff88;font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;backdrop-filter:blur(10px);box-shadow:0 0 30px rgba(0,255,136,0.1)}
+#ai-toggle:hover{border-color:#00ff88;box-shadow:0 0 40px rgba(0,255,136,0.25);transform:scale(1.05)}
+.pulse-ring{position:absolute;width:100%;height:100%;border-radius:50%;border:1px solid rgba(0,255,136,0.2);animation:aiPulse 2s ease infinite}
+#ai-panel{position:fixed;bottom:130px;right:24px;width:400px;max-height:520px;z-index:250;background:rgba(0,10,15,0.97);border:1px solid rgba(0,255,136,0.2);border-radius:12px;display:flex;flex-direction:column;transform:scale(0.9) translateY(20px);opacity:0;pointer-events:none;transition:all .35s cubic-bezier(.16,1,.3,1);backdrop-filter:blur(20px);overflow:hidden}
+#ai-panel.open{transform:scale(1) translateY(0);opacity:1;pointer-events:all}
+.ai-header{padding:16px 20px;border-bottom:1px solid rgba(0,255,136,0.1);display:flex;align-items:center;justify-content:space-between}
+.ai-header-left{display:flex;align-items:center;gap:10px}
+.ai-avatar{width:32px;height:32px;border-radius:50%;border:1px solid rgba(0,255,136,0.4);background:rgba(0,255,136,0.08);display:flex;align-items:center;justify-content:center;font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;color:#00ff88}
+.ai-title{font-family:'Orbitron',sans-serif;font-size:12px;font-weight:600;color:#00ff88;letter-spacing:2px}
+.ai-subtitle{font-size:10px;color:rgba(0,255,136,0.4);letter-spacing:1px}
+.ai-close{width:26px;height:26px;border:1px solid rgba(0,255,136,0.2);border-radius:50%;background:transparent;color:rgba(0,255,136,0.5);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.ai-close:hover{background:rgba(0,255,136,0.1);color:#00ff88}
+.ai-controls{display:flex;gap:6px;padding:0 20px 10px;border-bottom:1px solid rgba(0,255,136,0.06)}
+.ai-ctrl-btn{padding:4px 10px;border:1px solid rgba(0,255,136,0.15);border-radius:4px;background:transparent;color:rgba(0,255,136,0.4);font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;cursor:pointer;transition:all .2s}
+.ai-ctrl-btn:hover{border-color:rgba(0,255,136,0.4);color:rgba(0,255,136,0.7)}
+.ai-ctrl-btn.active{border-color:#00ff88;color:#00ff88;background:rgba(0,255,136,0.08)}
+#ai-messages{flex:1;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:12px;max-height:340px;min-height:200px}
+#ai-messages::-webkit-scrollbar{width:3px}#ai-messages::-webkit-scrollbar-thumb{background:rgba(0,255,136,0.2);border-radius:2px}
+.ai-msg{padding:10px 14px;border-radius:8px;font-size:12px;line-height:1.7;font-weight:300;max-width:95%}
+.ai-msg.system{background:rgba(0,255,136,0.05);border:1px solid rgba(0,255,136,0.1);color:rgba(0,255,136,0.7);align-self:center;text-align:center;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;padding:8px 16px}
+.ai-msg.user{background:rgba(0,200,255,0.08);border:1px solid rgba(0,200,255,0.15);color:rgba(200,230,255,0.8);align-self:flex-end;border-bottom-right-radius:2px}
+.ai-msg.assistant{background:rgba(0,255,136,0.05);border:1px solid rgba(0,255,136,0.12);color:rgba(200,255,220,0.75);align-self:flex-start;border-bottom-left-radius:2px}
+.ai-msg.pending{color:rgba(0,255,136,0.4);font-style:italic}
+.ai-msg.node-added{background:rgba(255,180,0,0.06);border:1px solid rgba(255,180,0,0.2);color:rgba(255,200,100,0.8);font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px}
+#ai-input-area{padding:14px 16px;border-top:1px solid rgba(0,255,136,0.1);display:flex;gap:10px;align-items:center}
+#ai-input{flex:1;background:rgba(0,255,136,0.04);border:1px solid rgba(0,255,136,0.15);border-radius:8px;padding:10px 14px;color:rgba(255,255,255,0.8);font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:300;outline:none;transition:border-color .2s}
+#ai-input:focus{border-color:rgba(0,255,136,0.4)}
+#ai-input::placeholder{color:rgba(0,255,136,0.25)}
+#ai-send{width:38px;height:38px;border-radius:8px;border:1px solid rgba(0,255,136,0.3);background:rgba(0,255,136,0.08);color:#00ff88;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
+#ai-send:hover{background:rgba(0,255,136,0.15);border-color:#00ff88}
+#loading{position:fixed;inset:0;z-index:1000;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .8s ease}
+#loading.done{opacity:0;pointer-events:none}
+.loader-ring{width:60px;height:60px;border:2px solid rgba(0,200,255,0.1);border-top:2px solid #00c8ff;border-radius:50%;animation:spin 1s linear infinite}
+.loader-text{margin-top:18px;font-family:'Orbitron',sans-serif;font-size:10px;color:rgba(0,200,255,0.4);letter-spacing:3px;text-transform:uppercase}
+.loader-status{margin-top:12px;font-family:'Space Mono',monospace;font-size:10px;color:rgba(0,200,255,0.55);letter-spacing:1px;min-height:16px}
+.progress-wrap{width:260px;height:3px;background:rgba(0,200,255,0.08);border-radius:2px;margin-top:14px;overflow:hidden}
+.progress-bar{height:100%;width:0%;background:linear-gradient(90deg,#00c8ff,#00ff88);border-radius:2px;transition:width .4s ease}
+.loader-pct{margin-top:8px;font-family:'Space Mono',monospace;font-size:18px;color:rgba(0,200,255,0.6);letter-spacing:2px}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes shimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes aiPulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.8);opacity:0}}
+@media print{#top-banner,#bottom-bar,#side-panel,#export-bar,#ai-toggle,#ai-panel,#detail-panel,#tooltip,.hud-corner,#flowchart-overlay{display:none!important}body{overflow:visible;background:#000}canvas{width:100vw!important;height:100vh!important}}
+#pwd-gate{position:fixed;inset:0;z-index:9999;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .8s ease}#pwd-gate.hidden{opacity:0;pointer-events:none}#pwd-gate .pwd-icon{width:60px;height:60px;border:2px solid rgba(0,200,255,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:20px;color:#00c8ff}#pwd-gate .pwd-title{font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:5px;color:rgba(0,200,255,0.6);margin-bottom:24px;text-transform:uppercase}#pwd-gate input{width:260px;padding:12px 18px;background:rgba(0,20,40,0.8);border:1px solid rgba(0,200,255,0.25);border-radius:6px;color:#00c8ff;font-family:'Space Mono',monospace;font-size:14px;letter-spacing:3px;text-align:center;outline:none;transition:border-color .3s}#pwd-gate input:focus{border-color:#00c8ff;box-shadow:0 0 20px rgba(0,200,255,0.15)}#pwd-gate input::placeholder{color:rgba(0,200,255,0.25)}#pwd-gate .pwd-btn{margin-top:14px;padding:10px 36px;background:transparent;border:1px solid rgba(0,200,255,0.35);border-radius:4px;color:#00c8ff;font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:3px;cursor:pointer;transition:all .3s;text-transform:uppercase}#pwd-gate .pwd-btn:hover{background:rgba(0,200,255,0.1);border-color:#00c8ff;box-shadow:0 0 20px rgba(0,200,255,0.2)}#pwd-gate .pwd-err{margin-top:12px;font-family:'Space Mono',monospace;font-size:10px;color:#ff4444;letter-spacing:1px;opacity:0;transition:opacity .3s}#pwd-gate .pwd-err.show{opacity:1}
+</style>
+</head>
+<body>
+<div id="pwd-gate"><div class="pwd-icon">🔒</div><div class="pwd-title">Access Required</div><input type="password" id="pwd-input" placeholder="Enter password" autofocus /><button class="pwd-btn" id="pwd-btn">Unlock</button><div class="pwd-err" id="pwd-err">ACCESS DENIED</div></div>
+<div id="loading"><div class="loader-ring"></div><div class="loader-text">JAFFAR LIFE MAP</div><div class="loader-status" id="load-status">Starting...</div><div class="progress-wrap"><div class="progress-bar" id="load-bar"></div></div><div class="loader-pct" id="load-pct">0%</div></div>
+<div id="top-banner"><div class="phases"><div class="phase active">Build</div><div class="phase-arrow">▸</div><div class="phase">Scale</div><div class="phase-arrow">▸</div><div class="phase">Automate</div><div class="phase-arrow">▸</div><div class="phase">Invest</div><div class="phase-arrow">▸</div><div class="phase">Own</div><div class="phase-arrow">▸</div><div class="phase">Legacy</div></div></div>
+<div id="side-panel">
+<div class="info-block"><div class="info-label">AGE</div><div class="info-value" id="user-age">--</div><div class="info-sub" id="user-dob"></div></div>
+<div class="info-block"><div class="info-label">RETIREMENT TARGET</div><div class="info-value">25–30</div><div class="info-sub" id="yrs-ret"></div></div>
+<div class="info-row"><div class="info-mini"><div class="val">12</div><div class="lbl">Nodes</div></div><div class="info-mini"><div class="val">5</div><div class="lbl">Companies</div></div><div class="info-mini"><div class="val">10</div><div class="lbl">Phases</div></div></div>
+<div class="speed-indicator" id="speed-ind">ORBIT: NORMAL</div>
+</div>
+<div id="tooltip"></div>
+<div id="detail-panel"><button class="panel-close" id="panel-close-btn">✕</button><div class="panel-inner"><div class="panel-header" id="panel-header"></div><div class="panel-status" id="panel-status"></div><div id="panel-content"></div></div></div>
+<div id="export-bar"><button class="export-btn" id="btn-export-pdf">EXPORT PDF</button><button class="export-btn" id="btn-export-pptx">EXPORT PPTX</button></div>
+<div class="hud-corner tl"></div><div class="hud-corner tr"></div><div class="hud-corner bl"></div><div class="hud-corner br"></div>
+
+<div id="bottom-bar"><div class="motto">Work becomes optional · Family, faith, freedom and legacy become the objective</div><div class="controls-hint">HOLD SPACE = SPEED UP · SCROLL zoom · DRAG orbit · CLICK nodes · ESC close</div></div>
+<button id="ai-toggle"><span class="pulse-ring"></span>AI</button>
+<div id="ai-panel"><div class="ai-header"><div class="ai-header-left"><div class="ai-avatar">J</div><div><div class="ai-title">JAFFAR</div><div class="ai-subtitle">Executive AI OS · Gemini Flash</div></div></div><button class="ai-close" id="ai-close-btn">✕</button></div><div class="ai-controls"><button class="ai-ctrl-btn active" id="btn-tts">🔊 VOICE</button><button class="ai-ctrl-btn" id="btn-addnode">＋ ADD NODE</button><button class="ai-ctrl-btn" id="btn-stress">⚡ STRESS TEST</button></div><div id="ai-messages"><div class="ai-msg system">JAFFAR ONLINE — GEMINI FLASH</div><div class="ai-msg assistant">I'm Jaffar, your Executive AI. Ask me anything about your life plan — I can stress-test, analyze, add nodes, and speak my analysis.</div></div><div id="ai-input-area"><input type="text" id="ai-input" placeholder="Ask Jaffar anything..." /><button id="ai-send">▸</button></div></div>
+
+<script>!function(){var gate=document.getElementById('pwd-gate');var input=document.getElementById('pwd-input');var btn=document.getElementById('pwd-btn');var err=document.getElementById('pwd-err');function check(){if(input.value==='Isapath'){gate.classList.add('hidden');setTimeout(function(){gate.remove()},900)}else{err.classList.add('show');input.value='';input.focus();setTimeout(function(){err.classList.remove('show')},2000)}}btn.addEventListener('click',check);input.addEventListener('keydown',function(e){if(e.key==='Enter')check()})}();</script>
+<!-- THREE.JS via classic script tags (more reliable than ES modules) -->
+<script>
+// Global error + progress fallback
+window.onerror=function(msg){var s=document.getElementById('load-status');if(s)s.textContent='ERROR: '+msg;var b=document.getElementById('load-bar');if(b)b.style.background='#ff4444';return false};
+var _loadTimer=setTimeout(function(){var b=document.getElementById('load-bar');var s=document.getElementById('load-status');if(b&&b.style.width==='0%'){b.style.width='100%';b.style.background='linear-gradient(90deg,#00c8ff,#00ff88)';if(s)s.textContent='Forcing load - click page if stuck'}} ,15000);
+</script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.145.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.145.0/examples/js/controls/OrbitControls.js"></script>
+
+<script>
+// ── PROGRESS BAR ───────────────────────────────────────────────
+var loadBar=document.getElementById('load-bar');var loadPct=document.getElementById('load-pct');var loadStatus=document.getElementById('load-status');
+function setProgress(pct,msg){if(loadBar)loadBar.style.width=pct+'%';if(loadPct)loadPct.textContent=pct+'%';if(loadStatus)loadStatus.textContent=msg}
+setProgress(5,'Loading fonts...');
+
+(function(){
+"use strict";
+
+setProgress(10,'Calculating age...');
+// ── AGE ────────────────────────────────────────────────────────
+try{
+var BD=new Date(2012,4,29),now=new Date();
+var ay=now.getFullYear()-BD.getFullYear(),am=now.getMonth()-BD.getMonth();
+if(am<0||(am===0&&now.getDate()<BD.getDate())){ay--;am+=12}
+var dd=Math.floor((now-new Date(BD.getFullYear()+ay,BD.getMonth()+am,BD.getDate()))/864e5);
+document.getElementById('user-age').textContent=ay+'y '+am+'m';
+document.getElementById('user-dob').textContent='Born 29 May 2012 · '+ay+'y '+am+'m '+dd+'d';
+var yrsMin=Math.max(0,25-ay),yrsMax=Math.max(0,30-ay);
+document.getElementById('yrs-ret').textContent=yrsMin+'–'+yrsMax+' years to FI target';
+}catch(e){console.error('age err',e)}
+
+setProgress(15,'Loading life data...');
+// ── LIFE DATA ──────────────────────────────────────────────────
+var LD={center:{name:"MY LIFE",tagline:"BUILD FREEDOM, WEALTH, FAMILY & LEGACY"},branches:[
+{num:1,id:"business",name:"BUSINESS EMPIRE",color:0x00c8ff,status:"BUILDING",angle:0,dist:20,desc:"Your portfolio of businesses. BUILD → SCALE → SYSTEMIZE → DELEGATE → SELL.",goal:"Sustained capital generation → business group → financial independence",income:"$5,000–$10,000/month from Floza as Stage 1",risks:["Overextension","Dependency on key people","Premature luxury spending","Revenue concentration","AI tools evolving faster"],milestones:["Floza $5k–$10k/mo","Floza graduation","Vurtex first system","Marketing 3+ retainers","Business group established"],details:["Each business is separate legally","Jaffar has visibility across all","Capital fuels others and investments","AI handles operations and support"],
+children:[
+{name:"FLOZA",color:0x00ff88,status:"ACTIVE",desc:"Stage 1 digital marketing agency. The capital engine.",goal:"$5k–$10k/mo personal income, team handles daily ops",ownership:"You 20% · Ahmed 20% · Abdur 20% · 40% reinvestment",details:["Revenue target: $5k–$10k/mo","Systematic client acquisition","AI automates repetitive work","Team runs without you daily","BUILD → SCALE → SYSTEMIZE → DELEGATE → SELL"]},
+{name:"VURTEX",color:0xff6b35,status:"PLANNING",desc:"AI automation company. Autonomous systems → AI products.",goal:"Build systems that run with minimal humans",details:["Separate from Floza","AI automation → autonomous systems → products","High scalability + recurring revenue","Few humans, AI handles everything"]},
+{name:"MARKETING",color:0xc084fc,status:"PLANNING",desc:"AI + remote designers. Recurring retainers, strong margins.",goal:"High-quality, high-margin marketing",details:["Avoid low-margin content factory","Recurring retainers, standardized packages","Small high-quality remote team","Strong margins, minimal founder involvement"]},
+{name:"ACCOUNTING",color:0x22d3ee,status:"CONCEPT",desc:"AI-powered accounting. Make accountants 10x more productive.",goal:"10x productivity for qualified accountants",details:["AI extraction → categorization → reconciliation","Human accountant reviews all work","Track regulations and liability"]},
+{name:"AI HELMET",color:0xfbbf24,status:"CONCEPT",desc:"AI RIDER SYSTEM — motorcycle helmet ecosystem. Later-stage.",goal:"Validate before committing",details:["360° awareness, blind-spot detection","GPS/voice/HUD, emergency detection","Concept → Prototype → Engineering → Certification → Production"]}
+]},
+{num:2,id:"jaffar",name:"JAFFAR",color:0x00ff88,status:"BUILDING",angle:30,dist:22,desc:"Personal Executive AI OS. Sits above all businesses with full visibility.",goal:"Autonomous executive oversight",details:["Above all businesses","Separate environments per company","Read-level visibility","Must challenge assumptions","Flag risks, dependencies, opportunity costs"],
+children:[{name:"EXECUTIVE OS",color:0x00ff88,status:"BUILDING",desc:"Core OS: memory, agents, files, permissions per company.",details:["Per-company memory","Agent system","File management","Permission model"]},{name:"RULES ENGINE",color:0x34d399,status:"PLANNING",desc:"Analytical framework — must challenge, not agree.",details:["Identify unrealistic assumptions","Flag financial/legal risks","Stress-test under scenarios"]}]},
+{num:3,id:"computing",name:"COMPUTING",color:0x818cf8,status:"PLANNING",angle:60,dist:18,desc:"Central command center — 40TB+ NAS, multiple workstations, AI-monitored.",goal:"Redundant, AI-monitored infrastructure",details:["Central PC/server (eventually two)","40TB+ NAS storage","Separate files, databases, backups","Workstations: Floza, Vurtex, Marketing","Jaffar monitors everything"]},
+{num:4,id:"wealth",name:"WEALTH ENGINE",color:0xfbbf24,status:"BUILDING",angle:90,dist:20,desc:"BUSINESS PROFITS → CAPITAL → ASSETS → CASH FLOW → COMPOUNDING.",goal:"Business income → generational wealth",details:["4 buckets: reinvestment, long-term, high-conviction, real estate","Take-Two/Rockstar thesis example","Never assume stock rise","Compound growth over time"]},
+{num:5,id:"property",name:"DREAM PROPERTY",color:0xf97316,status:"CONCEPT",angle:120,dist:18,desc:"Apartment complex investment. Only when numbers make sense.",goal:"Positive cash flow + long-term appreciation",details:["Evaluate: price, financing, rates","Rent, occupancy, maintenance","NOI, cash-on-cash return","Acquire ONLY when numbers work"]},
+{num:6,id:"house",name:"DREAM HOUSE",color:0x22d3ee,status:"VISION",angle:150,dist:22,desc:"Greater Colombo. 30–40 perches, 6,000–7,000 sq ft.",goal:"Ultimate family home",details:["Battaramulla/Pelawatte/Nawala/Rajagiriya","30–40 perches land","6,000–7,000 sq ft","Gaming room, rooftop bench swings"],
+children:[{name:"OUTDOOR",color:0x10b981,status:"VISION",desc:"Pool, jacuzzi, BBQ, football field, landscaping.",details:["Swimming pool + jacuzzi","BBQ + outdoor lounge","Small football field","Architectural lighting","Privacy & security"]},{name:"HOME TECH",color:0x8b5cf6,status:"PLANNING",desc:"Jaffar-connected smart home. Solar, CCTV, automation.",details:["Centralized automation","CCTV + AI monitoring","Solar + battery + generator","Smart lighting, climate, garage","Fire/water/security detection"]}]}, 
+{num:7,id:"garage",name:"DREAM GARAGE",color:0xef4444,status:"VISION",angle:180,dist:20,desc:"Ferrari 812, Porsche GT3 RS, BMW M4, G-Wagon. UAE $1M–$1.3M.",goal:"World-class vehicle collection with infrastructure",details:["Ferrari 812 Superfast","Porsche 911 GT3 RS","BMW M4 Competition","BYD Seal, Land Rover Defender","Toyota Yaris, Roomy, Drift car, G-Wagon","Underground supercar garage","5 go-karts, 5 e-bikes, 3 superbikes","Total: SL $3.1M–$3.7M"]},
+{num:8,id:"masjid",name:"MASJID / SADAQAH",color:0x34d399,status:"VISION",angle:210,dist:19,desc:"Community masjid. Sadaqah Jariyah — benefits continue after you.",goal:"Build + sustain for generations",details:["Idea → Land → Funding → Design","Construction → Operations → Maintenance","Community services + education","Financially sustainable"]},
+{num:9,id:"family",name:"FAMILY",color:0xf472b6,status:"BUILDING",angle:240,dist:20,desc:"Most important branch. Raise capable, independent children.",goal:"Raise children who build their own legacy",details:["Stable loving home","Strong moral + financial values","Builder mindset, not entitlement","Capability → Responsibility → Ownership","Family comes before business — always"]},
+{num:10,id:"retirement",name:"RETIREMENT",color:0xa78bfa,status:"TARGET",angle:270,dist:19,desc:"Target age 25–30. Work becomes OPTIONAL.",goal:"FI by 25–30 — passive income > expenses + safety",details:["Autonomous businesses generating profit","Investment wealth compounding","Real estate income flowing","AI manages routine operations","FI Number = passive income + assets > lifetime expenses"]},
+{num:11,id:"phases",name:"LIFE PHASES",color:0x06b6d4,status:"TRACKING",angle:300,dist:21,desc:"10 phases from learning to financial independence.",goal:"Move through sequentially",details:["A: Learning","B: Floza $5k–$10k/mo","C: Autonomous Business","D: Business Group","E: Capital Accumulation","F: Hardware","G: Asset Building","H: Dream Home","I: Legacy","J: Financial Independence (25–30)","CRITICAL: Skills→Floza→Revenue→Independence→Capital→Jaffar→Vurtex→Group→Investments→RE→Home→FI→Legacy"]},
+{num:12,id:"personal",name:"PERSONAL DEV",color:0xf9a8d4,status:"ACTIVE",angle:330,dist:18,desc:"The human behind the plan. Skills, health, faith, relationships.",goal:"Continuous growth",details:["Technical skills: coding, AI, business","Health: fitness, mental, stress","Knowledge: learning, reading","Relationships: family, community","Faith: prayer, charity","This branch feeds ALL others"]}
+]};
+
+setProgress(20,'Checking Three.js...');
+// ── THREE.JS ───────────────────────────────────────────────────
+if(typeof THREE==='undefined'){setProgress(0,'ERROR: Three.js failed to load. Check internet connection.');document.getElementById('loading').className='done';return}
+var scene=new THREE.Scene();
+var camera=new THREE.PerspectiveCamera(55,innerWidth/innerHeight,0.1,1000);
+camera.position.set(0,30,50);
+var renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
+renderer.setSize(innerWidth,innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.toneMapping=THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure=1.2;
+document.body.appendChild(renderer.domElement);
+
+var controls=new THREE.OrbitControls(camera,renderer.domElement);
+controls.enableDamping=true;controls.dampingFactor=0.05;
+controls.maxDistance=85;controls.minDistance=12;
+controls.autoRotate=true;controls.autoRotateSpeed=0.25;
+
+setProgress(30,'Creating 3D scene...');
+scene.fog=new THREE.FogExp2(0x000000,0.007);
+scene.add(new THREE.AmbientLight(0x112244,0.5));
+var centerLight=new THREE.PointLight(0x00c8ff,3,60);scene.add(centerLight);
+
+var grid=new THREE.GridHelper(120,60,0x003344,0x001122);grid.position.y=-10;grid.material.opacity=0.25;grid.material.transparent=true;scene.add(grid);
+
+var starGeo=new THREE.BufferGeometry();var starP=new Float32Array(7500);
+for(var i=0;i<7500;i++)starP[i]=(Math.random()-0.5)*350;
+starGeo.setAttribute('position',new THREE.BufferAttribute(starP,3));
+scene.add(new THREE.Points(starGeo,new THREE.PointsMaterial({color:0x334466,size:0.12,transparent:true,opacity:0.5})));
+
+// ── SPACEBAR SPEED ─────────────────────────────────────────────
+document.addEventListener('keydown',function(e){
+  if(e.code==='Space'&&!e.repeat){e.preventDefault();controls.autoRotateSpeed=3;document.getElementById('speed-ind').textContent='ORBIT: BOOSTED ×12';document.getElementById('speed-ind').className='speed-indicator boosted'}
+  if(e.key==='Escape'){closePanel();closeAi()}
+});
+document.addEventListener('keyup',function(e){if(e.code==='Space'){controls.autoRotateSpeed=0.25;document.getElementById('speed-ind').textContent='ORBIT: NORMAL';document.getElementById('speed-ind').className='speed-indicator'}});
+
+// ── CENTRAL NODE ───────────────────────────────────────────────
+var centerGroup=new THREE.Group();scene.add(centerGroup);
+var coreMesh=new THREE.Mesh(new THREE.IcosahedronGeometry(2.8,3),new THREE.MeshPhysicalMaterial({color:0x00c8ff,emissive:0x003355,emissiveIntensity:0.8,metalness:0.9,roughness:0.1,transparent:true,opacity:0.85}));
+centerGroup.add(coreMesh);
+centerGroup.add(new THREE.Mesh(new THREE.IcosahedronGeometry(3.2,2),new THREE.MeshBasicMaterial({color:0x00c8ff,wireframe:true,transparent:true,opacity:0.25})));
+[4.5,5.0,5.5].forEach(function(r,i){var ring=new THREE.Mesh(new THREE.TorusGeometry(r,0.04,16,100),new THREE.MeshBasicMaterial({color:0x00c8ff,transparent:true,opacity:0.3-i*0.07}));ring.rotation.x=Math.PI/2+i*0.3;ring.rotation.z=i*0.5;centerGroup.add(ring)});
+centerGroup.add(new THREE.Mesh(new THREE.SphereGeometry(4,32,32),new THREE.MeshBasicMaterial({color:0x00c8ff,transparent:true,opacity:0.04})));
+
+setProgress(45,'Building 3D models...');
+// ── 3D HOUSE ───────────────────────────────────────────────────
+var hg=new THREE.Group();
+var hx=Math.cos(THREE.MathUtils.degToRad(150))*22,hz=Math.sin(THREE.MathUtils.degToRad(150))*22;
+hg.position.set(hx-5,-4,hz+5);scene.add(hg);
+var hWall=new THREE.Mesh(new THREE.BoxGeometry(3.5,2,2.5),new THREE.MeshPhysicalMaterial({color:0xd4c5a9,roughness:0.8}));hWall.position.set(0,1,0);hg.add(hWall);
+var roof=new THREE.Mesh(new THREE.ConeGeometry(3,1.2,4),new THREE.MeshPhysicalMaterial({color:0x8b4513,roughness:0.6}));roof.position.y=2.6;roof.rotation.y=Math.PI/4;hg.add(roof);
+var winM=new THREE.MeshPhysicalMaterial({color:0x88ccff,emissive:0x224466,emissiveIntensity:0.3,metalness:0.9,roughness:0.05,transparent:true,opacity:0.7});
+[-0.8,0.8].forEach(function(xo){var w=new THREE.Mesh(new THREE.PlaneGeometry(0.5,0.5),winM);w.position.set(xo,1.3,1.26);hg.add(w)});
+var door=new THREE.Mesh(new THREE.PlaneGeometry(0.6,1),new THREE.MeshPhysicalMaterial({color:0x5c3a1e,roughness:0.7}));door.position.set(0,0.5,1.26);hg.add(door);
+var chim=new THREE.Mesh(new THREE.BoxGeometry(0.3,0.8,0.3),new THREE.MeshPhysicalMaterial({color:0x8b4513,roughness:0.7}));chim.position.set(1,2.9,0);hg.add(chim);
+
+// ── 3D GARAGE + CARS ───────────────────────────────────────────
+var gg=new THREE.Group();
+var gx=Math.cos(THREE.MathUtils.degToRad(180))*20,gz=Math.sin(THREE.MathUtils.degToRad(180))*20;
+gg.position.set(gx+3,-4,gz+3);scene.add(gg);
+var gBody=new THREE.Mesh(new THREE.BoxGeometry(5,2.5,3),new THREE.MeshPhysicalMaterial({color:0x555555,roughness:0.6,metalness:0.3}));gBody.position.set(0,1.25,0);gg.add(gBody);
+var gRoof=new THREE.Mesh(new THREE.BoxGeometry(5.4,0.15,3.4),new THREE.MeshPhysicalMaterial({color:0x333333,metalness:0.5,roughness:0.3}));gRoof.position.set(0,2.6,0);gg.add(gRoof);
+var gd=new THREE.Mesh(new THREE.PlaneGeometry(2.5,1.8),new THREE.MeshPhysicalMaterial({color:0x222222,metalness:0.7,roughness:0.3}));gd.position.set(0,1,1.51);gg.add(gd);
+
+function mkCar(col,sx,sy,sz){
+  var c=new THREE.Group();
+  var carBody=new THREE.Mesh(new THREE.BoxGeometry(1.8,0.6,0.9),new THREE.MeshPhysicalMaterial({color:col,metalness:0.8,roughness:0.15}));carBody.position.set(0,0.5,0);c.add(carBody);
+  var carCabin=new THREE.Mesh(new THREE.BoxGeometry(1,0.45,0.8),new THREE.MeshPhysicalMaterial({color:0x112233,metalness:0.9,roughness:0.05,transparent:true,opacity:0.6}));carCabin.position.set(-0.1,1,0);c.add(carCabin);
+  var wm=new THREE.MeshPhysicalMaterial({color:0x111111,roughness:0.9});
+  [[-0.6,0.2,0.45],[-0.6,0.2,-0.45],[0.6,0.2,0.45],[0.6,0.2,-0.45]].forEach(function(p){var w=new THREE.Mesh(new THREE.CylinderGeometry(0.18,0.18,0.1,12),wm);w.rotation.x=Math.PI/2;w.position.set(p[0],p[1],p[2]);c.add(w)});
+  c.scale.set(sx||1,sy||1,sz||1);return c;
+}
+var car1=mkCar(0xff0000,0.7,0.7,0.7);car1.position.set(-1.2,0,0);gg.add(car1);
+var car2=mkCar(0xf0f0f0,0.7,0.7,0.7);car2.position.set(0,0,0);gg.add(car2);
+var car3=mkCar(0x2233aa,0.65,0.65,0.65);car3.position.set(1.2,0,0);gg.add(car3);
+var car4=mkCar(0x2d5a27,0.8,0.8,0.8);car4.position.set(0,0,-2.5);car4.rotation.y=Math.PI;gg.add(car4);
+
+// ── 3D FAMILY ──────────────────────────────────────────────────
+var fg=new THREE.Group();
+var fx=Math.cos(THREE.MathUtils.degToRad(240))*20,fz=Math.sin(THREE.MathUtils.degToRad(240))*20;
+fg.position.set(fx+2,-4,fz+3);scene.add(fg);
+function mkPerson(h,sc){
+  var p=new THREE.Group();
+  var pBody=new THREE.Mesh(new THREE.CylinderGeometry(0.2,0.25,h*0.5,8),new THREE.MeshPhysicalMaterial({color:sc,roughness:0.7}));pBody.position.set(0,h*0.25+0.2,0);p.add(pBody);
+  var pHead=new THREE.Mesh(new THREE.SphereGeometry(0.2,12,12),new THREE.MeshPhysicalMaterial({color:0xf5c8a0,roughness:0.8}));pHead.position.set(0,h*0.5+0.4,0);p.add(pHead);
+  return p;
+}
+var dad=mkPerson(1.2,0x2233aa);dad.position.set(-0.6,0,0);fg.add(dad);
+var mom=mkPerson(1.1,0xc04080);mom.position.set(0.4,0,0);fg.add(mom);
+var kid1=mkPerson(0.7,0x44aa44);kid1.position.set(1.3,0,0);fg.add(kid1);
+var kid2=mkPerson(0.55,0xddaa33);kid2.position.set(-1.3,0,0.3);fg.add(kid2);
+var grass=new THREE.Mesh(new THREE.CircleGeometry(2,24),new THREE.MeshBasicMaterial({color:0x1a3a1a,transparent:true,opacity:0.3}));grass.rotation.x=-Math.PI/2;grass.position.y=0.01;fg.add(grass);
+
+// ── 3D RETIREMENT BED ──────────────────────────────────────────
+var rg=new THREE.Group();
+var rx=Math.cos(THREE.MathUtils.degToRad(270))*19,rz=Math.sin(THREE.MathUtils.degToRad(270))*19;
+rg.position.set(rx+2,-4,rz+3);scene.add(rg);
+var bedFrame=new THREE.Mesh(new THREE.BoxGeometry(2.5,0.3,1.5),new THREE.MeshPhysicalMaterial({color:0x5c3a1e,roughness:0.7}));bedFrame.position.set(0,0.5,0);rg.add(bedFrame);
+var mattress=new THREE.Mesh(new THREE.BoxGeometry(2.3,0.25,1.3),new THREE.MeshPhysicalMaterial({color:0xeeeeff,roughness:0.9}));mattress.position.set(0,0.8,0);rg.add(mattress);
+var pillow=new THREE.Mesh(new THREE.BoxGeometry(0.5,0.15,0.8),new THREE.MeshPhysicalMaterial({color:0xffffff,roughness:0.9}));pillow.position.set(-0.8,1,0);rg.add(pillow);
+var headboard=new THREE.Mesh(new THREE.BoxGeometry(0.15,1,1.5),new THREE.MeshPhysicalMaterial({color:0x3a2010,roughness:0.6}));headboard.position.set(-1.3,1,0);rg.add(headboard);
+var sleeper=new THREE.Mesh(new THREE.CapsuleGeometry(0.15,1.2,4,8),new THREE.MeshPhysicalMaterial({color:0x88aadd,roughness:0.8}));sleeper.rotation.z=Math.PI/2;sleeper.position.set(0,1.05,0);rg.add(sleeper);
+
+setProgress(65,'Creating mind map nodes...');
+// ── BRANCH NODES ───────────────────────────────────────────────
+var branchGroups=[],allInter=[],connLines=[],labelEls=[];
+var lc=document.createElement('div');lc.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:60;';document.body.appendChild(lc);
+
+LD.branches.forEach(function(b){
+  var ang=THREE.MathUtils.degToRad(b.angle);
+  var x=Math.cos(ang)*b.dist,z=Math.sin(ang)*b.dist,y=Math.sin(ang*0.7)*3;
+  var g=new THREE.Group();g.position.set(x,y,z);scene.add(g);
+  var m=new THREE.Mesh(new THREE.IcosahedronGeometry(1.4,2),new THREE.MeshPhysicalMaterial({color:b.color,emissive:b.color,emissiveIntensity:0.4,metalness:0.7,roughness:0.2,transparent:true,opacity:0.85}));
+  m.userData={type:'branch',data:b};g.add(m);allInter.push(m);
+  g.add(new THREE.Mesh(new THREE.SphereGeometry(2,16,16),new THREE.MeshBasicMaterial({color:b.color,transparent:true,opacity:0.06})));
+  var br=new THREE.Mesh(new THREE.TorusGeometry(2,0.025,8,48),new THREE.MeshBasicMaterial({color:b.color,transparent:true,opacity:0.25}));br.rotation.x=Math.PI/2;g.add(br);
+  branchGroups.push({group:g,mesh:m,branch:b,wp:new THREE.Vector3(x,y,z)});
+  var pts=[new THREE.Vector3(0,0,0),new THREE.Vector3(x,y,z)];
+  var lg=new THREE.BufferGeometry().setFromPoints(pts);
+  scene.add(new THREE.Line(lg,new THREE.LineBasicMaterial({color:b.color,transparent:true,opacity:0.12})));
+  var dl=new THREE.Line(lg.clone(),new THREE.LineDashedMaterial({color:b.color,transparent:true,opacity:0.2,dashSize:0.6,gapSize:0.6}));dl.computeLineDistances();scene.add(dl);connLines.push(dl);
+
+  if(b.children){
+    b.children.forEach(function(c,ci){
+      var ca=ang+(ci-(b.children.length-1)/2)*0.22;var cd=4.5+Math.random()*2;
+      var cx=x+Math.cos(ca)*cd,cz=z+Math.sin(ca)*cd,cy=y+(Math.random()-0.5)*3;
+      var cg=new THREE.Group();cg.position.set(cx,cy,cz);scene.add(cg);
+      var cm=new THREE.Mesh(new THREE.OctahedronGeometry(0.65,1),new THREE.MeshPhysicalMaterial({color:c.color,emissive:c.color,emissiveIntensity:0.3,metalness:0.6,roughness:0.3,transparent:true,opacity:0.8}));
+      cm.userData={type:'child',data:c,parentName:b.name,parentNum:b.num};cg.add(cm);allInter.push(cm);
+      cg.add(new THREE.Mesh(new THREE.SphereGeometry(1,12,12),new THREE.MeshBasicMaterial({color:c.color,transparent:true,opacity:0.05})));
+      var clg=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(x,y,z),new THREE.Vector3(cx,cy,cz)]);
+      scene.add(new THREE.Line(clg,new THREE.LineBasicMaterial({color:c.color,transparent:true,opacity:0.1})));connLines.push(scene.children[scene.children.length-1]);
+      branchGroups.push({group:cg,mesh:cm,branch:c,wp:new THREE.Vector3(cx,cy,cz)});
+    });
+  }
+  var lb=document.createElement('div');lb.style.cssText="font-family:'Orbitron',sans-serif;font-size:9px;font-weight:600;color:#fff;text-align:center;pointer-events:none;white-space:nowrap;text-shadow:0 0 8px rgba(0,0,0,0.9),0 0 20px rgba(0,200,255,0.3);letter-spacing:2px;";
+  lb.innerHTML="<div style='font-size:14px;font-weight:900;margin-bottom:2px;color:#"+b.color.toString(16).padStart(6,'0')+"'>"+b.num+"</div>"+b.name;
+  lc.appendChild(lb);labelEls.push({el:lb,pos:new THREE.Vector3(x,y+2.2,z)});
+});
+
+setProgress(78,'Generating particle field...');
+// ── PARTICLES ──────────────────────────────────────────────────
+var pN=600,pG=new THREE.BufferGeometry(),pP=new Float32Array(pN*3),pC=new Float32Array(pN*3);
+for(var i=0;i<pN;i++){var th=Math.random()*Math.PI*2,r=10+Math.random()*28;pP[i*3]=Math.cos(th)*r;pP[i*3+1]=(Math.random()-0.5)*18;pP[i*3+2]=Math.sin(th)*r;var cc=new THREE.Color().setHSL(0.52+Math.random()*0.1,0.8,0.6);pC[i*3]=cc.r;pC[i*3+1]=cc.g;pC[i*3+2]=cc.b}
+pG.setAttribute('position',new THREE.BufferAttribute(pP,3));pG.setAttribute('color',new THREE.BufferAttribute(pC,3));
+scene.add(new THREE.Points(pG,new THREE.PointsMaterial({size:0.07,vertexColors:true,transparent:true,opacity:0.45,blending:THREE.AdditiveBlending})));
+
+// ── LABELS ─────────────────────────────────────────────────────
+function updLabels(){var hW=innerWidth/2,hH=innerHeight/2;labelEls.forEach(function(l){var v=l.pos.clone().project(camera);if(v.z>1){l.el.style.opacity='0';return}var sx=(v.x*hW)+hW,sy=-(v.y*hH)+hH;l.el.style.left=sx+'px';l.el.style.top=sy+'px';l.el.style.transform='translate(-50%,-50%)';var d=camera.position.distanceTo(l.pos);var distFade=THREE.MathUtils.clamp(1-(d-15)/50,0.15,1);var edgeFade=1;if(sx<160)edgeFade=Math.max(0,(sx-20)/140);if(sx>innerWidth-80)edgeFade=Math.min(edgeFade,Math.max(0,(innerWidth-sx-20)/60));if(sy<70)edgeFade=Math.min(edgeFade,Math.max(0,(sy-10)/60));l.el.style.opacity=String(distFade*edgeFade)})}
+
+// ── RAYCASTING ─────────────────────────────────────────────────
+var ray=new THREE.Raycaster(),mouse=new THREE.Vector2(),tooltip=document.getElementById('tooltip'),hovered=null;
+renderer.domElement.addEventListener('mousemove',function(e){mouse.x=(e.clientX/innerWidth)*2-1;mouse.y=-(e.clientY/innerHeight)*2+1;ray.setFromCamera(mouse,camera);var h=ray.intersectObjects(allInter);if(h.length>0){var o=h[0].object;if(hovered!==o){if(hovered){hovered.scale.set(1,1,1);hovered.material.emissiveIntensity=0.4}hovered=o;o.scale.set(1.5,1.5,1.5);o.material.emissiveIntensity=1.2}var d=o.userData.data;tooltip.textContent=d.num?d.num+'. '+d.name:d.name;tooltip.style.left=(e.clientX+15)+'px';tooltip.style.top=(e.clientY-10)+'px';tooltip.classList.add('visible');renderer.domElement.style.cursor='pointer'}else{if(hovered){hovered.scale.set(1,1,1);hovered.material.emissiveIntensity=0.4;hovered=null}tooltip.classList.remove('visible');renderer.domElement.style.cursor='crosshair'}});
+renderer.domElement.addEventListener('click',function(){ray.setFromCamera(mouse,camera);var h=ray.intersectObjects(allInter);if(h.length>0){var d=h[0].object.userData;openPanel(d.data,d.parentName,d.parentNum);controls.autoRotate=false}});
+
+// ── DETAIL PANEL ───────────────────────────────────────────────
+function openPanel(data,pn,pnum){
+  var p=document.getElementById('detail-panel');
+  document.getElementById('panel-header').innerHTML=data.num?'<span class="panel-number">'+data.num+'</span>'+data.name:data.name;
+  var s=document.getElementById('panel-status');s.textContent=data.status||'ACTIVE';s.className='panel-status status-'+(data.status||'ACTIVE');
+  var h='';
+  if(data.desc)h+='<div class="panel-section"><h3>Overview</h3><p>'+data.desc+'</p></div>';
+  if(data.goal)h+='<div class="panel-section"><h3>Goal</h3><p>'+data.goal+'</p></div>';
+  if(data.ownership)h+='<div class="panel-section"><h3>Ownership</h3><p>'+data.ownership+'</p></div>';
+  if(data.income)h+='<div class="panel-section"><h3>Income</h3><p>'+data.income+'</p></div>';
+  if(data.details&&data.details.length){h+='<div class="panel-section"><h3>Key Details</h3><ul>';data.details.forEach(function(d){h+='<li>'+d+'</li>'});h+='</ul></div>'}
+  if(data.risks&&data.risks.length){h+='<div class="panel-section"><h3>Risks</h3><ul>';data.risks.forEach(function(r){h+='<li>'+r+'</li>'});h+='</ul></div>'}
+  if(data.milestones&&data.milestones.length){h+='<div class="panel-section"><h3>Milestones</h3><ul>';data.milestones.forEach(function(m){h+='<li>'+m+'</li>'});h+='</ul></div>'}
+  if(data.children&&data.children.length){
+    h+='<div class="panel-section"><h3>Sub-Components</h3><ul>';data.children.forEach(function(c){h+='<li><strong>'+c.name+'</strong> — '+c.desc+'</li>'});h+='</ul></div>';
+    h+='<div class="panel-section"><button class="more-info-btn" id="more-info-toggle">▸ CLICK FOR MORE INFO</button>';
+    data.children.forEach(function(c){var ch='<div class="sub-detail"><div style="font-family:Orbitron,sans-serif;font-size:11px;font-weight:600;color:#00c8ff;margin-bottom:6px;">'+c.name+' <span style="color:rgba(255,255,255,0.3);font-size:9px;">'+(c.status||'')+'</span></div>';if(c.desc)ch+='<p style="font-size:12px;color:rgba(255,255,255,0.6);line-height:1.7;margin-bottom:8px;">'+c.desc+'</p>';if(c.details){ch+='<ul style="list-style:none;padding:0;">';c.details.forEach(function(d){ch+='<li style="font-size:12px;color:rgba(255,255,255,0.55);line-height:1.7;padding-left:12px;position:relative;"><span style="position:absolute;left:0;color:#00c8ff;font-size:9px;">▸</span>'+d+'</li>'});ch+='</ul>'}if(c.goal)ch+='<p style="font-size:11px;color:rgba(0,255,136,0.5);margin-top:6px;font-style:italic;">Goal: '+c.goal+'</p>';ch+='</div>';h+=ch});h+='</div>'}
+  if(pn)h+='<div class="panel-section"><h3>Parent</h3><p>'+(pnum?pnum+'. ':'')+pn+'</p></div>';
+  document.getElementById('panel-content').innerHTML=h;p.classList.add('open');
+var mb=document.getElementById('more-info-toggle');if(mb)mb.addEventListener('click',function(){document.querySelectorAll('.sub-detail').forEach(function(s){s.style.display=s.style.display==='none'?'block':'none'})})
+}
+document.getElementById('panel-close-btn').addEventListener('click',function(){closePanel()});
+function closePanel(){document.getElementById('detail-panel').classList.remove('open');controls.autoRotate=true}
+
+// ── EXPORT ─────────────────────────────────────────────────────
+document.getElementById('btn-export-pdf').addEventListener('click',function(){window.open('The Life Architecture \u2014 Master Life Map.pdf','_blank')});
+document.getElementById('btn-export-pptx').addEventListener('click',function(){
+  var c='LIFE ARCHITECTURE — MASTER PLAN\n'+'='.repeat(50)+'\n\nGenerated: '+new Date().toLocaleDateString()+'\nAge: '+document.getElementById('user-age').textContent+'\n\nCRITICAL PATH:\nSkills → Floza → Revenue → Independence → Capital → Jaffar → Vurtex → Business Group → Investments → RE → Dream Home → FI → Legacy\n\n';
+  LD.branches.forEach(function(b){c+=('─'.repeat(40))+'\n'+b.num+'. '+b.name+' ['+b.status+']\n'+('─'.repeat(40))+'\n'+b.desc+'\n';if(b.goal)c+='Goal: '+b.goal+'\n';if(b.details)c+=b.details.map(function(d){return '  • '+d}).join('\n')+'\n';if(b.children){b.children.forEach(function(ch){c+='\n  └ '+ch.name+' ['+ch.status+']\n    '+ch.desc+'\n';if(ch.details)c+=ch.details.map(function(d){return '    • '+d}).join('\n')+'\n'})}c+='\n'});
+  var blob=new Blob([c],{type:'text/plain'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='life-architecture.txt';a.click();
+});
+
+// ── AI CHAT ────────────────────────────────────────────────────
+// API key is read from localStorage (set once in the browser console:
+//   localStorage.setItem('GEMINI_KEY','your-key')) so it is never committed.
+var GEMINI_KEY=localStorage.getItem('GEMINI_KEY')||'';
+var GEMINI_URL='https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+GEMINI_KEY;
+var ttsOn=true,addNodeMode=false;
+document.getElementById('btn-tts').addEventListener('click',function(){ttsOn=!ttsOn;this.classList.toggle('active');this.textContent=ttsOn?'🔊 VOICE':'🔇 MUTED'});
+document.getElementById('btn-addnode').addEventListener('click',function(){addNodeMode=!addNodeMode;this.classList.toggle('active');this.textContent=addNodeMode?'✓ ADDING':'＋ ADD NODE'});
+document.getElementById('btn-stress').addEventListener('click',function(){document.getElementById('ai-input').value='Stress test my entire life plan. What are the biggest risks, contradictions, and dependencies?';sendAI()});
+
+document.getElementById('ai-toggle').addEventListener('click',function(){document.getElementById('ai-panel').classList.toggle('open');document.getElementById('ai-input').focus()});
+document.getElementById('ai-close-btn').addEventListener('click',function(){closeAi()});
+function closeAi(){document.getElementById('ai-panel').classList.remove('open')}
+
+function addMsg(txt,cls){var d=document.createElement('div');d.className='ai-msg '+cls;d.textContent=txt;document.getElementById('ai-messages').appendChild(d);document.getElementById('ai-messages').scrollTop=99999;return d}
+function speak(txt){try{if(!ttsOn||!window.speechSynthesis)return;window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(txt);u.rate=1.05;u.pitch=0.9;u.volume=0.8;window.speechSynthesis.speak(u)}catch(e){}}
+
+function addLiveNode(name,color){
+  var a=Math.random()*Math.PI*2,dist=16+Math.random()*8;
+  var x=Math.cos(a)*dist,z=Math.sin(a)*dist,y=(Math.random()-0.5)*4;
+  var g=new THREE.Group();g.position.set(x,y,z);scene.add(g);
+  var nm=branchGroups.length+1;
+  var m=new THREE.Mesh(new THREE.IcosahedronGeometry(1,2),new THREE.MeshPhysicalMaterial({color:color,emissive:color,emissiveIntensity:0.5,metalness:0.7,roughness:0.2,transparent:true,opacity:0.85}));
+  m.userData={type:'branch',data:{num:nm,name:name,color:color,status:'ADDED BY JAFFAR',desc:'Dynamically added by Jaffar AI',details:['Added via AI analysis','Review and refine as needed']}};
+  g.add(m);allInter.push(m);
+  g.add(new THREE.Mesh(new THREE.SphereGeometry(1.5,16,16),new THREE.MeshBasicMaterial({color:color,transparent:true,opacity:0.06})));
+  var lg=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0),new THREE.Vector3(x,y,z)]);
+  scene.add(new THREE.Line(lg,new THREE.LineBasicMaterial({color:color,transparent:true,opacity:0.15})));
+  branchGroups.push({group:g,mesh:m,branch:m.userData.data,wp:new THREE.Vector3(x,y,z)});
+  var lb=document.createElement('div');lb.style.cssText="font-family:'Orbitron',sans-serif;font-size:9px;font-weight:600;color:#fff;text-align:center;pointer-events:none;white-space:nowrap;text-shadow:0 0 8px rgba(0,0,0,0.9);letter-spacing:2px;";
+  lb.innerHTML="<div style='font-size:14px;font-weight:900;margin-bottom:2px;color:#"+color.toString(16).padStart(6,'0')+"'>"+nm+"</div>"+name;
+  lc.appendChild(lb);labelEls.push({el:lb,pos:new THREE.Vector3(x,y+2.2,z)});
+  addMsg('🗺️ NEW NODE #'+nm+' '+name+' — added to mind map','node-added');
+}
+
+var SYS_PROMPT="You are JAFFAR — Executive AI OS for a life architecture system. You are direct, analytical, truthful. You NEVER just agree — you challenge assumptions.\n\nTHE LIFE MAP:\n"+JSON.stringify(LD,null,2)+"\n\nUSER: Born 2012-05-29, currently "+(typeof ay!=='undefined'?ay:'?')+" years old. Target retirement: 25-30.\n\nCAPABILITIES:\n1. Answer questions about the life plan\n2. Stress-test: find risks, contradictions, dependencies\n3. Recalculate timelines when assumptions change\n4. Add new nodes: output {\"add_node\":{\"name\":\"NAME\",\"color\":\"#HEX\"}} to add a 3D node\n5. Provide recommendations with confidence levels\n6. Challenge unrealistic assumptions\n\nRULES:\n- Be direct and honest even if uncomfortable\n- Goal analysis: Goal → Why → Cost → Income → Dependencies → Risks → Milestones → Deadline\n- Distinguish facts from assumptions\n- Keep responses concise\n- When adding nodes, output the JSON AND explain what you added\n- Write naturally for text-to-speech";
+
+async function sendAI(){
+  var txt=document.getElementById('ai-input').value.trim();if(!txt)return;document.getElementById('ai-input').value='';
+  addMsg(txt,'user');
+  var pend=addMsg('Analyzing...','assistant pending');
+  try{
+    var res=await fetch(GEMINI_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{role:'user',parts:[{text:SYS_PROMPT+'\n\nUser: '+txt}]}],generationConfig:{temperature:0.7,maxOutputTokens:800}})});
+    var data=await res.json();pend.remove();
+    var reply=(data.candidates&&data.candidates[0]&&data.candidates[0].content&&data.candidates[0].content.parts&&data.candidates[0].content.parts[0]&&data.candidates[0].content.parts[0].text)||'No response from Gemini.';
+    var nodeMatch=reply.match(/\{"add_node":\s*\{[^}]+\}\}/);
+    if(nodeMatch){try{var nd=JSON.parse(nodeMatch[0]).add_node;addLiveNode(nd.name,parseInt(nd.color.replace('#',''),16))}catch(e){}}
+    var clean=reply.replace(/\{"add_node":[^}]+\}/g,'').trim();
+    addMsg(clean,'assistant');speak(clean);
+  }catch(err){pend.remove();addMsg('Error: '+err.message,'system')}
+}
+document.getElementById('ai-send').addEventListener('click',sendAI);
+document.getElementById('ai-input').addEventListener('keydown',function(e){if(e.key==='Enter')sendAI()});
+
+// ── PHASE CYCLE ────────────────────────────────────────────────
+var phases=document.querySelectorAll('.phase'),cp=0;setInterval(function(){phases[cp].classList.remove('active');cp=(cp+1)%phases.length;phases[cp].classList.add('active')},3500);
+
+setProgress(90,'Starting animation loop...');
+// ── ANIMATION ──────────────────────────────────────────────────
+var clock=new THREE.Clock();
+function animate(){
+  requestAnimationFrame(animate);var t=clock.getElapsedTime();
+  coreMesh.rotation.y=t*0.3;coreMesh.rotation.x=t*0.15;
+  centerGroup.children[1].rotation.y=-t*0.2;centerGroup.children[1].rotation.z=t*0.1;
+  centerGroup.children[2].rotation.z=t*0.2;centerGroup.children[3].rotation.z=-t*0.15;centerGroup.children[4].rotation.z=t*0.1;
+  centerGroup.children[5].scale.setScalar(1+Math.sin(t*2)*0.1);
+  centerLight.intensity=2.5+Math.sin(t*1.5)*0.8;
+  branchGroups.forEach(function(b,i){b.mesh.rotation.y=t*0.4+i;b.mesh.rotation.x=t*0.25+i*0.5;if(hovered!==b.mesh)b.mesh.scale.setScalar(1+Math.sin(t*1.5+i*0.7)*0.06)});
+  if(car1)car1.rotation.y=Math.sin(t*0.3)*0.1;
+  if(car2)car2.rotation.y=Math.sin(t*0.4+1)*0.1;
+  if(dad)dad.rotation.y=Math.sin(t*0.5)*0.05;
+  if(kid1)kid1.position.y=Math.sin(t*2)*0.05;
+  scene.children[scene.children.length-1].rotation.y=t*0.015;
+  updLabels();controls.update();renderer.render(scene,camera);
+}
+
+// ── RESIZE + START ─────────────────────────────────────────────
+addEventListener('resize',function(){camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});
+setProgress(100,'Life Map ready');
+animate();
+setTimeout(function(){document.getElementById('loading').className='done'},400);
+
+})();
+</script>
+</body>
+</html>

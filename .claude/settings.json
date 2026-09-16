@@ -1,0 +1,5 @@
+{
+  "enabledPlugins": {
+    "token-optimizer@token-optimizer": true
+  }
+}

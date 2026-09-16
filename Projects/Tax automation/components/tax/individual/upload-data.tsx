@@ -92,7 +92,7 @@ export function UploadData() {
             type="file"
             name="file"
             accept=".csv,.xlsx,.xls"
-            className="block text-sm text-ink-soft file:mr-3 file:rounded-md file:border-0 file:bg-navy file:px-3 file:py-2 file:text-sm file:font-medium file:text-white hover:file:bg-navy-soft"
+            className="block cursor-pointer text-sm text-ink-soft file:mr-3 file:rounded-md file:border-0 file:bg-navy file:px-3 file:py-2 file:text-sm file:font-medium file:text-white hover:file:bg-navy-soft"
           />
           <Button type="submit" variant="secondary" disabled={parsing}>
             {parsing ? "Parsing…" : "Parse file"}
@@ -107,8 +107,8 @@ export function UploadData() {
         {parsed && rows.length > 0 ? (
           <>
             <div>
-              <p className="mb-2 text-xs uppercase tracking-wide text-ink-soft">
-                Preview · {parsed.filename}
+              <p className="mb-2 text-xs font-semibold text-ink-soft">
+                Preview — {parsed.filename}
               </p>
               <div className="overflow-x-auto rounded-md border border-line">
                 <table className="w-full text-sm">
@@ -117,7 +117,7 @@ export function UploadData() {
                       {headers.map((h, i) => (
                         <th
                           key={i}
-                          className="whitespace-nowrap px-3 py-2 text-left text-xs font-semibold uppercase tracking-wide text-ink-soft"
+                          className="whitespace-nowrap px-3 py-2 text-left text-xs font-semibold text-ink-soft"
                         >
                           {h}
                         </th>
@@ -143,7 +143,7 @@ export function UploadData() {
             </div>
 
             <div>
-              <p className="mb-2 text-xs uppercase tracking-wide text-ink-soft">
+              <p className="mb-2 text-xs font-semibold text-ink-soft">
                 Map columns to tax fields
               </p>
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">

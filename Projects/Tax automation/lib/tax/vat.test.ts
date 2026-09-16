@@ -233,27 +233,27 @@ describe("non-resident electronic-platform rule", () => {
 describe("VAT validation", () => {
   it("rejects negative amounts", () => {
     expect(validateVatInput({ standardRatedSales: -1 })).toContain(
-      "standardRatedSales cannot be negative."
+      "Standard-rated supplies cannot be negative."
     );
     expect(() => calc({ standardRatedSales: -1 })).toThrow(/Invalid input/);
   });
 
   it("rejects fractional rupees", () => {
     expect(validateVatInput({ deductibleInputVat: 10.5 })).toContain(
-      "deductibleInputVat must be a whole number of rupees."
+      "Deductible input VAT must be a whole number of rupees."
     );
   });
 
   it("rejects non-finite numbers", () => {
     expect(validateVatInput({ zeroRatedSales: Number.NaN })).toContain(
-      "zeroRatedSales must be a number."
+      "Zero-rated supplies (exports) must be a number."
     );
   });
 
   it("rejects negative registration turnover", () => {
     expect(
       validateVatRegistrationContext({ standardAnnualTurnover: -5 })
-    ).toContain("standardAnnualTurnover cannot be negative.");
+    ).toContain("Ordinary taxable supplies — 12 months cannot be negative.");
     expect(() => assess({ standardAnnualTurnover: -5 })).toThrow(/Invalid input/);
   });
 

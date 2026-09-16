@@ -38,8 +38,14 @@ const REG_STATUS_TONE: Record<
 
 const REG_STATUS_LABEL: Record<VatRegistrationAssessment["status"], string> = {
   MANDATORY: "Registration required",
-  VOLUNTARY: "Voluntary registration",
+  VOLUNTARY: "Voluntary registration available",
   NOT_REQUIRED: "Registration not required",
+};
+
+const REG_STATUS_ICON: Record<VatRegistrationAssessment["status"], string> = {
+  MANDATORY: "⚠",
+  VOLUNTARY: "ℹ",
+  NOT_REQUIRED: "✓",
 };
 
 export function VatResult({
@@ -99,7 +105,7 @@ function VatBreakdown({ result }: { result: VatCalculationResult }) {
       <Card>
         <CardHeader
           title="VAT calculation breakdown"
-          subtitle={`${result.ruleset.label} · ${result.ruleset.taxYear}`}
+          subtitle={`${result.ruleset.label}, ${result.ruleset.taxYear}`}
           action={
             <Badge tone={result.ruleset.verified ? "positive" : "warn"}>
               {result.ruleset.verified ? "IRD verified" : "Unverified rules"}
@@ -109,7 +115,7 @@ function VatBreakdown({ result }: { result: VatCalculationResult }) {
         <CardBody className="p-0">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-line text-left text-xs uppercase tracking-wide text-ink-soft">
+              <tr className="border-b border-line text-left text-xs font-semibold text-ink-soft">
                 <th className="px-5 py-2.5 font-medium">Supply category</th>
                 <th className="px-5 py-2.5 text-right font-medium">Rate</th>
                 <th className="px-5 py-2.5 text-right font-medium">Value</th>
@@ -129,7 +135,7 @@ function VatBreakdown({ result }: { result: VatCalculationResult }) {
                   </td>
                 </tr>
               ))}
-              <tr className="border-t border-line-strong bg-surface-dim font-medium">
+              <tr className="border-t-2 border-line-strong font-semibold">
                 <td className="px-5 py-2.5">Total output VAT</td>
                 <td className="px-5 py-2.5 text-right tabular text-ink-faint">—</td>
                 <td className="px-5 py-2.5 text-right tabular text-ink-faint">—</td>
@@ -196,84 +202,127 @@ function VatBreakdown({ result }: { result: VatCalculationResult }) {
 function RegistrationAssessment({ result }: { result: VatRegistrationAssessment }) {
   const currency = "LKR" as const;
   return (
-    <Card>
-      <CardHeader
-        title="VAT registration assessment"
-        subtitle={`${result.ruleset.label} · assessed at ${result.atDate}`}
-        action={
-          <Badge tone={REG_STATUS_TONE[result.status]}>
+    <>
+      {/* Primary answer — immediately visible, large stat */}
+      <div
+        className="rounded-lg border px-5 py-4"
+        style={{
+          borderColor:
+            result.status === "MANDATORY"
+              ? "var(--color-warn)"
+              : result.status === "VOLUNTARY"
+                ? "var(--color-navy-soft)"
+                : "var(--color-line)",
+          backgroundColor:
+            result.status === "MANDATORY"
+              ? "var(--color-warn-soft)"
+              : result.status === "VOLUNTARY"
+                ? "var(--color-navy-tint)"
+                : "var(--color-surface)",
+        }}
+      >
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <p className="text-xs font-semibold text-ink-soft">
+              Registration status
+            </p>
+            <p
+              className="mt-1 text-xl font-semibold"
+              style={{
+                color:
+                  result.status === "MANDATORY"
+                    ? "var(--color-warn)"
+                    : result.status === "VOLUNTARY"
+                      ? "var(--color-navy-soft)"
+                      : "var(--color-ink)",
+              }}
+            >
+              {REG_STATUS_ICON[result.status]} {REG_STATUS_LABEL[result.status]}
+            </p>
+            <p className="mt-1 text-sm text-ink-soft">{result.reason}</p>
+          </div>
+          <Badge tone={REG_STATUS_TONE[result.status]} className="shrink-0">
             {REG_STATUS_LABEL[result.status]}
           </Badge>
-        }
-      />
-      <CardBody className="flex flex-col gap-4">
-        <div className="flex flex-col gap-1">
-          <p className="text-sm text-ink-soft">{result.reason}</p>
+        </div>
+      </div>
+
+      <Card>
+        <CardHeader
+          title="VAT registration assessment"
+          subtitle={`${result.ruleset.label}, assessed at ${result.atDate}`}
+          action={
+            <Badge tone={REG_STATUS_TONE[result.status]}>
+              {REG_STATUS_LABEL[result.status]}
+            </Badge>
+          }
+        />
+        <CardBody className="flex flex-col gap-4">
           {result.category ? (
             <p className="text-xs text-ink-faint">
               Driving category: {result.category}
             </p>
           ) : null}
-        </div>
 
-        {result.details.length > 0 ? (
-          <div className="overflow-x-auto rounded-md border border-line">
-            <table className="w-full text-sm">
-              <thead className="bg-surface-dim">
-                <tr className="text-left text-xs uppercase tracking-wide text-ink-soft">
-                  <th className="px-4 py-2 font-medium">Check</th>
-                  <th className="px-4 py-2 text-right font-medium">Threshold</th>
-                  <th className="px-4 py-2 text-right font-medium">Turnover</th>
-                  <th className="px-4 py-2 text-right font-medium">Exceeds</th>
-                </tr>
-              </thead>
-              <tbody>
-                {result.details.map((d, i) => (
-                  <tr key={i} className="border-t border-line">
-                    <td className="px-4 py-2">
-                      {d.label}
-                      {d.note ? <span className="ml-2 text-xs text-ink-faint">{d.note}</span> : null}
-                    </td>
-                    <td className="px-4 py-2 text-right tabular">
-                      {d.threshold == null ? "—" : formatMoney(d.threshold, currency)}
-                    </td>
-                    <td className="px-4 py-2 text-right tabular">
-                      {d.turnover == null ? "—" : formatMoney(d.turnover, currency)}
-                    </td>
-                    <td className="px-4 py-2 text-right font-medium tabular">
-                      {d.meets ? (
-                        <span className="text-warn">Yes</span>
-                      ) : (
-                        <span className="text-ink-faint">No</span>
-                      )}
-                    </td>
+          {result.details.length > 0 ? (
+            <div className="overflow-x-auto rounded-md border border-line">
+              <table className="w-full text-sm">
+                <thead className="bg-surface-dim">
+                  <tr className="text-left text-xs font-semibold text-ink-soft">
+                    <th className="px-4 py-2 font-medium">Check</th>
+                    <th className="px-4 py-2 text-right font-medium">Threshold</th>
+                    <th className="px-4 py-2 text-right font-medium">Turnover</th>
+                    <th className="px-4 py-2 text-right font-medium">Exceeds</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <p className="text-sm text-ink-faint">
-            No turnover was provided, so no threshold was compared.
-          </p>
-        )}
+                </thead>
+                <tbody>
+                  {result.details.map((d, i) => (
+                    <tr key={i} className="border-t border-line">
+                      <td className="px-4 py-2">
+                        {d.label}
+                        {d.note ? <span className="ml-2 text-xs text-ink-faint">{d.note}</span> : null}
+                      </td>
+                      <td className="px-4 py-2 text-right tabular">
+                        {d.threshold == null ? "—" : formatMoney(d.threshold, currency)}
+                      </td>
+                      <td className="px-4 py-2 text-right tabular">
+                        {d.turnover == null ? "—" : formatMoney(d.turnover, currency)}
+                      </td>
+                      <td className="px-4 py-2 text-right font-medium tabular">
+                        {d.meets ? (
+                          <span className="text-warn">Yes</span>
+                        ) : (
+                          <span className="text-ink-faint">No</span>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <p className="text-sm text-ink-faint">
+              No turnover was provided, so no threshold was compared.
+            </p>
+          )}
 
-        <div className="border-t border-line pt-3">
-          <p className="mb-2 text-xs uppercase tracking-wide text-ink-soft">Audit trail</p>
-          <ol className="flex flex-col gap-2">
-            {result.audit.map((step, i) => (
-              <li key={i} className="flex items-baseline justify-between gap-4 text-sm">
-                <span className="text-ink-soft">
-                  <span className="mr-2 text-ink-faint">{i + 1}.</span>
-                  {step.label}
-                  {step.detail ? <span className="ml-2 text-ink-faint">{step.detail}</span> : null}
-                </span>
-                <span className="font-medium tabular">{formatMoney(step.amount, currency)}</span>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </CardBody>
-    </Card>
+          <div className="border-t border-line pt-3">
+            <p className="mb-2 text-xs font-semibold text-ink-soft">Audit trail</p>
+            <ol className="flex flex-col gap-2">
+              {result.audit.map((step, i) => (
+                <li key={i} className="flex items-baseline justify-between gap-4 text-sm">
+                  <span className="text-ink-soft">
+                    <span className="mr-2 text-ink-faint">{i + 1}.</span>
+                    {step.label}
+                    {step.detail ? <span className="ml-2 text-ink-faint">{step.detail}</span> : null}
+                  </span>
+                  <span className="font-medium tabular">{formatMoney(step.amount, currency)}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </CardBody>
+      </Card>
+    </>
   );
 }

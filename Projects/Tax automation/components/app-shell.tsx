@@ -2,17 +2,22 @@ import type { ReactNode } from "react";
 import { AppNav } from "./app-nav";
 import { MobileNav } from "./mobile-nav";
 
+/**
+ * Brand mark — the product's one deliberate flourish: a quiet bilingual
+ * monogram. බදු is Sinhala for "tax". Navy square, white glyphs, no
+ * invented logo imagery.
+ */
 function Brand() {
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2.5">
       <span
         aria-hidden
-        className="flex h-8 w-8 items-center justify-center rounded-md bg-navy text-sm font-semibold text-white"
+        className="flex h-9 w-9 items-center justify-center rounded-md bg-navy text-base leading-none text-white"
       >
-        TD
+        බදු
       </span>
       <div className="leading-tight">
-        <p className="text-sm font-semibold text-ink">Tax Desk</p>
+        <p className="font-display text-sm font-semibold text-ink">Tax Desk</p>
         <p className="text-[11px] text-ink-faint">Sri Lanka</p>
       </div>
     </div>
@@ -23,7 +28,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-full bg-canvas">
       {/* Sidebar — desktop */}
-      <aside className="fixed inset-y-0 left-0 z-20 hidden w-60 border-r border-line bg-surface-dim lg:flex lg:flex-col">
+      <aside className="fixed inset-y-0 left-0 z-20 hidden w-60 border-r border-line bg-surface lg:flex lg:flex-col">
         <div className="px-4 py-5">
           <Brand />
         </div>
@@ -31,7 +36,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           <AppNav />
         </div>
         <div className="border-t border-line px-4 py-3 text-[11px] text-ink-faint">
-          Rules: 2025/2026 · IRD verified
+          Rules 2025/2026, verified against IRD publications
         </div>
       </aside>
 
@@ -47,7 +52,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
       {/* Main content */}
       <div className="lg:pl-60">
-        <main className="mx-auto w-full max-w-6xl px-4 py-6 sm:px-6 lg:px-10 lg:py-8">
+        <main className="mx-auto w-full max-w-5xl px-4 py-6 sm:px-6 lg:px-10 lg:py-8">
           {children}
         </main>
       </div>

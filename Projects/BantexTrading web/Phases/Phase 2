@@ -1,0 +1,266 @@
+PHASE 2 — STATIONERY PAGE + CATALOGUE FOUNDATION
+
+Continue ONLY with Phase 2.
+
+IMPORTANT:
+Phase 1 is complete. Do NOT redesign or rebuild Phase 1 unless a small change is genuinely required for Phase 2 integration.
+
+DO NOT start Phase 3 or any later phase.
+
+==================================================
+1. GOAL
+==================================================
+
+Build the dedicated Stationery page:
+
+/stationery
+
+This should feel like a complete, polished page, not simply the Home page copied into another route.
+
+Keep the exact Bantex Trading visual language established in Phase 1 and the uploaded Frontend.html.
+
+The Stationery page should feel like a natural continuation of the website.
+
+==================================================
+2. STATIONERY PAGE STRUCTURE
+==================================================
+
+Create a polished stationery catalogue experience.
+
+Include:
+
+- Page hero
+- Short introduction
+- Stationery category/navigation area
+- Product catalogue area
+- Product cards
+- Clear pricing structure
+- Appropriate CTA
+- Shared footer
+
+The page should make it easy for a customer to browse stationery products.
+
+Do NOT fabricate products.
+
+If real products have not yet been entered, create a polished honest empty catalogue state that clearly communicates that the catalogue is being prepared.
+
+Do NOT fill the page with fake products just to make it look populated.
+
+==================================================
+3. PRODUCT ARCHITECTURE
+==================================================
+
+Establish the reusable product architecture that will eventually power the entire website.
+
+Create a proper Product type/data model capable of supporting:
+
+- id
+- name
+- description
+- price
+- images
+- category
+- availability
+- variants/options
+
+Products may eventually have completely different options.
+
+For example:
+
+A pen could have:
+- Colour
+
+A notebook could have:
+- Size
+- Colour
+
+An electrical product could have:
+- Model
+- Specification
+- Colour
+
+Therefore, DO NOT hard-code the product system around only "colour" or only "size".
+
+The future admin dashboard must be able to define the options for each product.
+
+==================================================
+4. PRODUCT CARDS
+==================================================
+
+Create a reusable ProductCard component.
+
+It should eventually support:
+
+- product image
+- product name
+- price
+- optional variant information
+- availability state
+- link to product page
+
+For Phase 2:
+
+The product card should link toward the future dynamic product route architecture.
+
+Do not build the complete product-detail system yet.
+
+Do not build Add to Cart functionality yet.
+
+==================================================
+5. CATEGORY STRUCTURE
+==================================================
+
+Create reusable category architecture for stationery.
+
+The system should be able to support stationery subcategories later without rewriting the page.
+
+Examples of possible categories can be represented structurally, but DO NOT invent a claim that Bantex actually sells a category unless confirmed.
+
+Make the category system data-driven.
+
+==================================================
+6. DESIGN
+==================================================
+
+Use Phase 1's established design system.
+
+Do NOT introduce a completely different design.
+
+Maintain:
+
+- typography
+- spacing
+- buttons
+- cards
+- borders
+- image treatment
+- responsive behavior
+- animation language
+- navbar
+- footer
+
+The Stationery page should look like it belongs to the same website.
+
+Do not make it feel like a template pasted onto the Home page.
+
+==================================================
+7. ANIMATIONS
+==================================================
+
+Use the animation system created in Phase 1.
+
+Add subtle animations where useful:
+
+- page hero reveal
+- category appearance
+- product card reveal
+
+Keep them restrained.
+
+Respect:
+
+prefers-reduced-motion
+
+==================================================
+8. RESPONSIVENESS
+==================================================
+
+Test the Stationery page on:
+
+- desktop
+- tablet
+- mobile
+
+Pay particular attention to:
+
+- product grid
+- cards
+- images
+- category navigation
+- typography
+- spacing
+
+No horizontal overflow.
+
+==================================================
+9. DATA HONESTY
+==================================================
+
+This is critical.
+
+No fake:
+
+- products
+- prices
+- brands
+- specifications
+- stock numbers
+- ratings
+- reviews
+- customer counts
+
+If there are currently no real products in the project, the page should still look polished using a well-designed empty catalogue state.
+
+Build the architecture so real products can be inserted later from the admin system.
+
+==================================================
+10. DO NOT BUILD YET
+==================================================
+
+DO NOT implement:
+
+- Electrical Goods page
+- Product detail pages
+- Add to Cart
+- Cart functionality
+- Checkout
+- Stripe
+- Admin dashboard
+- Database
+- Orders
+- Email notifications
+
+Those belong to later phases.
+
+==================================================
+11. QUALITY CHECK
+==================================================
+
+Before finishing:
+
+- Run the development server.
+- Check /stationery.
+- Check navigation from Home → Stationery.
+- Check desktop.
+- Check mobile.
+- Check animations.
+- Check product architecture.
+- Check for TypeScript errors.
+- Check for console errors.
+- Check that no fake business/product information was introduced.
+- Make sure the page looks genuinely polished.
+
+==================================================
+12. PREVIEW + STOP
+==================================================
+
+When Phase 2 is complete:
+
+1. Run the website.
+2. Inspect the Stationery page.
+3. Test desktop.
+4. Test mobile.
+5. Test navigation.
+6. Test the catalogue state/product architecture.
+7. Fix obvious problems.
+8. Show me a working preview.
+
+THEN STOP.
+
+Do NOT start Phase 3.
+
+Do NOT implement any part of the Electrical Goods page.
+
+Wait for my explicit instruction to continue.
+
+PHASE 2 = STATIONERY PAGE + CATALOGUE FOUNDATION ONLY.

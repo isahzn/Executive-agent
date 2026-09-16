@@ -19,13 +19,13 @@ export default function NotFound() {
           <div className="flex flex-wrap gap-3">
             <Link
               href="/"
-              className="inline-flex h-10 items-center justify-center rounded-md bg-navy px-4 text-sm font-medium text-white transition-colors hover:bg-navy-soft"
+              className="inline-flex h-10 cursor-pointer items-center justify-center rounded-md bg-navy px-4 text-sm font-medium text-white transition-colors hover:bg-navy-soft"
             >
               Back to dashboard
             </Link>
             <Link
               href="/history"
-              className="inline-flex h-10 items-center justify-center rounded-md border border-line bg-surface px-4 text-sm font-medium text-ink-soft transition-colors hover:border-line-strong hover:bg-surface-dim hover:text-ink"
+              className="inline-flex h-10 cursor-pointer items-center justify-center rounded-md border border-line bg-surface px-4 text-sm font-medium text-ink-soft transition-colors hover:border-line-strong hover:bg-surface-dim hover:text-ink"
             >
               View calculation history
             </Link>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useState, useRef, useEffect } from "react";
 import { calculateWithholding } from "@/app/actions";
 import type { WithholdingState } from "@/app/actions";
 import { Card, CardHeader, CardBody } from "@/components/ui/card";
@@ -37,6 +37,15 @@ export function WithholdingCalculator({
   const [category, setCategory] = useState<WhtPaymentCategory>(categories[0]?.key);
   const selected = categories.find((c) => c.key === category);
   const needsAggregate = selected?.monthlyThreshold != null;
+
+  const resultRef = useRef<HTMLDivElement>(null);
+
+  // Auto-scroll to result
+  useEffect(() => {
+    if (state.result && resultRef.current) {
+      resultRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [state.result]);
 
   return (
     <div className="flex flex-col gap-6">
@@ -100,8 +109,8 @@ export function WithholdingCalculator({
 
             <div className="flex items-center justify-between gap-4">
               <p className="text-xs text-ink-faint">
-                Tax year <span className="font-medium text-ink-soft">{taxYear}</span> ·
-                Sri Lanka · {verified ? "IRD verified" : "Unverified rules"}.
+                Tax year {taxYear}, Sri Lanka.{" "}
+                {verified ? "Verified against IRD publications." : "Unverified rules."}
               </p>
               <Button type="submit" disabled={pending} className="min-w-36">
                 {pending ? "Calculating…" : "Calculate withholding"}
@@ -111,7 +120,11 @@ export function WithholdingCalculator({
         </CardBody>
       </Card>
 
-      {state.result ? <WithholdingResult result={state.result} /> : null}
+      {state.result ? (
+        <div ref={resultRef}>
+          <WithholdingResult result={state.result} />
+        </div>
+      ) : null}
     </div>
   );
 }

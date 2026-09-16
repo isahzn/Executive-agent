@@ -20,12 +20,12 @@ export function Field({
         <input
           type="number"
           min={0}
-          step="any"
-          inputMode="decimal"
+          step={1}
+          inputMode="numeric"
           className={[
             "h-10 w-full rounded-md border bg-surface px-3 text-sm tabular text-ink",
             "placeholder:text-ink-faint",
-            error ? "border-danger" : "border-line focus:border-navy-soft",
+            error ? "border-danger" : "border-line focus:border-navy",
           ].join(" ")}
           {...props}
         />

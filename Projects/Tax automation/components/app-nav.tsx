@@ -11,16 +11,13 @@ function NavLink({ href, label, soon }: { href: string; label: string; soon?: bo
     <Link
       href={href}
       aria-current={active ? "page" : undefined}
-      className={[
-        "flex items-center justify-between gap-2 rounded-md px-3 py-1.5 text-sm",
-        active
-          ? "bg-surface text-ink font-medium"
-          : "text-ink-soft hover:text-ink hover:bg-surface-dim",
-      ].join(" ")}
+      className={active
+        ? "flex cursor-pointer items-center justify-between gap-2 rounded-md bg-navy px-3 py-1.5 text-sm font-medium text-white"
+        : "flex cursor-pointer items-center justify-between gap-2 rounded-md px-3 py-1.5 text-sm text-ink-soft hover:bg-surface-dim hover:text-ink"}
     >
       <span>{label}</span>
       {soon ? (
-        <span className="rounded bg-line px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-ink-faint">
+        <span className="rounded-sm bg-line px-1.5 py-0.5 text-[10px] font-medium text-ink-faint">
           Soon
         </span>
       ) : null}
@@ -33,7 +30,7 @@ export function AppNav() {
     <nav className="flex flex-col gap-6" aria-label="Primary">
       {NAV_SECTIONS.map((section) => (
         <div key={section.label} className="flex flex-col gap-1.5">
-          <p className="px-3 text-[11px] font-semibold uppercase tracking-wider text-ink-faint">
+          <p className="px-3 text-[11px] font-semibold text-ink-faint">
             {section.label}
           </p>
           <div className="flex flex-col gap-0.5">

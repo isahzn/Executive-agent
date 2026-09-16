@@ -9,10 +9,10 @@ import type { CalculationType } from "@/lib/database";
 import { HistoryResult } from "@/components/history/result-view";
 
 const TYPE_LABEL: Record<CalculationType, string> = {
-  INDIVIDUAL_INCOME: "Individual Income Tax",
-  BUSINESS: "Business Tax",
+  INDIVIDUAL_INCOME: "Individual income tax",
+  BUSINESS: "Business tax",
   VAT: "VAT",
-  WITHHOLDING: "Withholding Tax",
+  WITHHOLDING: "Withholding tax",
 };
 
 type Params = { params: Promise<{ id: string }> };
@@ -32,11 +32,11 @@ export default async function HistoryDetailPage({ params }: Params) {
     <div className="flex flex-col gap-6">
       <PageHeader
         title="Reopened calculation"
-        subtitle={`${TYPE_LABEL[saved.type]} · Year of Assessment ${saved.taxYear}. Reopened with its exact inputs and applied rule version.`}
+        subtitle={`${TYPE_LABEL[saved.type]}, year ${saved.taxYear}. Reopened with its exact inputs and applied rule version.`}
         action={
           <Link
             href="/history"
-            className="inline-flex h-9 items-center gap-1.5 rounded-md border border-line bg-surface px-3 text-sm font-medium text-ink-soft transition-colors hover:border-line-strong hover:bg-surface-dim hover:text-ink"
+            className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-md border border-line bg-surface px-3 text-sm font-medium text-ink-soft transition-colors hover:border-line-strong hover:bg-surface-dim hover:text-ink"
           >
             <span aria-hidden>←</span> History
           </Link>
@@ -83,7 +83,7 @@ function Detail({
 }) {
   return (
     <div>
-      <dt className="text-xs uppercase tracking-wide text-ink-soft">{label}</dt>
+      <dt className="text-xs font-semibold text-ink-soft">{label}</dt>
       <dd className={`tabular ${accent ? "font-semibold text-accent" : "text-ink"}`}>{value}</dd>
     </div>
   );

@@ -1,0 +1,622 @@
+PHASE 8 — ORDERS + EMAIL NOTIFICATIONS + PRODUCTION HARDENING
+
+## Context
+
+This is Phase 8 of the Bantex Trading website rebuild.
+
+All phases are stored inside the `phases` folder.
+
+This is the final planned phase.
+
+You must work ONLY on Phase 8.
+
+Do not redesign the approved Bantex Trading website.
+
+The previous phases established:
+
+* Public multi-page website
+* Stationery catalogue
+* Electrical Goods catalogue
+* Product detail pages
+* Product options/variants
+* Persistent cart
+* Stripe checkout
+* Admin dashboard
+* Product/category management
+
+Now connect the complete purchasing system together and make it production-ready.
+
+---
+
+# Goal
+
+Complete the real order lifecycle:
+
+Product → Cart → Checkout → Stripe → Confirmed Order → Owner Email
+
+The owner should receive an email when a customer successfully completes a payment.
+
+The admin dashboard should also have a usable Orders section so the owner can view incoming orders.
+
+---
+
+# 1. Order System
+
+Create a persistent order system.
+
+Each order should contain appropriate information such as:
+
+* Unique order ID
+* Order number/reference
+* Customer name
+* Customer email
+* Customer phone
+* Delivery/contact information
+* Purchased products
+* Selected options/variants
+* Quantities
+* Prices at time of purchase
+* Subtotal
+* Currency
+* Stripe payment/session ID
+* Payment status
+* Order status
+* Created date
+* Updated date
+
+Do not rely on the current product price to reconstruct historical orders.
+
+An order must preserve the price that was actually charged at the time of purchase.
+
+---
+
+# 2. Stripe Webhook → Order Creation
+
+The Stripe webhook should be the authoritative trigger for a successfully paid order.
+
+Do NOT create a "paid" order merely because the customer reaches the success page.
+
+The flow should be:
+
+1. Customer submits checkout.
+2. Server validates the cart.
+3. Stripe payment is created.
+4. Customer completes payment.
+5. Stripe sends the webhook.
+6. Webhook signature is verified.
+7. Payment is confirmed.
+8. Order is created/updated as paid.
+9. Owner notification is triggered.
+10. Customer can view the appropriate success state.
+
+Make webhook processing idempotent.
+
+If Stripe sends the same event more than once, the system must not create duplicate orders or duplicate notifications.
+
+---
+
+# 3. Order Status
+
+Separate payment status from order/fulfilment status.
+
+For example:
+
+Payment status:
+
+* Pending
+* Paid
+* Failed
+* Refunded
+
+Order status:
+
+* New
+* Processing
+* Completed
+* Cancelled
+
+Keep the system extensible so additional statuses can be added later.
+
+Do not automatically mark an order as completed merely because payment succeeded.
+
+---
+
+# 4. Admin Orders Section
+
+Complete the Orders section inside `/admin`.
+
+The owner should be able to:
+
+* View orders
+* Open an individual order
+* See customer information
+* See purchased products
+* See selected options
+* See quantities
+* See prices
+* See total
+* See payment status
+* See order status
+* See order date
+* Update order status
+
+Provide useful filtering/search where practical.
+
+At minimum, make it easy to distinguish new/unprocessed orders from completed ones.
+
+---
+
+# 5. Order Detail Page
+
+Create an order detail view.
+
+Show:
+
+### Customer
+
+* Name
+* Email
+* Phone
+* Delivery/contact information
+
+### Order
+
+* Order number
+* Date
+* Products
+* Options
+* Quantities
+* Individual prices
+* Subtotal
+* Currency
+* Payment status
+* Order status
+
+### Stripe
+
+Show the relevant Stripe reference/identifier where appropriate.
+
+Do not expose sensitive payment information.
+
+Never show:
+
+* Card number
+* CVV
+* Full payment credentials
+* Stripe secret keys
+
+---
+
+# 6. Owner Email Notification
+
+After a payment is successfully confirmed, send an email notification to the Bantex Trading owner.
+
+The email should contain useful order information:
+
+* New order notification
+* Order number
+* Customer name
+* Customer email
+* Customer phone
+* Products
+* Selected options
+* Quantities
+* Total
+* Payment status
+* Order date
+
+Keep the email clean and professional.
+
+Do not send sensitive payment-card information.
+
+---
+
+# 7. Email Architecture
+
+Use a proper server-side email implementation.
+
+Do not send email directly from browser/client-side code.
+
+Credentials must be stored securely in environment variables.
+
+If the existing project is using Gmail SMTP/app-password email delivery, keep that approach if it is already established and secure.
+
+Do not hard-code email credentials.
+
+Use placeholders in `.env.example`.
+
+---
+
+# 8. Email Reliability
+
+Email failure must not incorrectly change a paid order into an unpaid order.
+
+For example:
+
+Payment succeeds → Order is paid → Email fails
+
+The order should still remain paid.
+
+Record/log the email notification failure appropriately so it can be diagnosed or retried later.
+
+Do not create duplicate orders just because email delivery failed.
+
+---
+
+# 9. Customer Success Page
+
+Improve the existing success page so that it reflects the confirmed order.
+
+Show:
+
+* Confirmation message
+* Order number
+* Customer email
+* Order summary
+* Total
+* Next-step information
+* Continue Shopping button
+
+Do not expose internal database IDs unnecessarily.
+
+Do not claim that an email was sent unless the application actually knows the notification was successfully processed.
+
+---
+
+# 10. Cart Clearing
+
+Once the order is successfully confirmed:
+
+* Clear the customer's cart.
+* Do not clear the cart on payment cancellation.
+* Do not clear the cart on payment failure.
+* Do not clear the cart simply by visiting the checkout success URL.
+
+Prevent accidental duplicate order submissions.
+
+---
+
+# 11. Product / Order Snapshot
+
+Orders must preserve historical purchase information.
+
+If an admin later changes:
+
+* Product name
+* Product price
+* Product options
+* Product image
+* Product availability
+
+existing orders must NOT change.
+
+Store the necessary purchase snapshot when the order is created.
+
+Example:
+
+If a customer buys a product for LKR 1,500 and the admin later changes the product to LKR 1,800, the old order must still show LKR 1,500.
+
+---
+
+# 12. Security Review
+
+Review the complete application for common security problems.
+
+Check:
+
+* Admin authentication
+* Admin authorization
+* Server-side validation
+* Stripe webhook signature verification
+* Environment variables
+* API routes
+* Database access
+* Image uploads
+* User input
+* Product IDs
+* Variant IDs
+* Quantities
+* Prices
+* Order access
+
+Never trust client-side values for:
+
+* Price
+* Payment status
+* Order status
+* Product availability
+* Authorization
+
+Do not expose private database credentials or API secrets.
+
+---
+
+# 13. Production Environment Configuration
+
+Create/update:
+
+`.env.example`
+
+Document all required environment variables without including real secrets.
+
+Include appropriate placeholders for things such as:
+
+* Database configuration
+* Stripe publishable key
+* Stripe secret key
+* Stripe webhook secret
+* Email credentials
+* Owner notification email
+* Other required production configuration
+
+Do not commit real `.env` secrets.
+
+---
+
+# 14. Error Handling
+
+Review the entire application for graceful error handling.
+
+Handle:
+
+* Product not found
+* Invalid product options
+* Empty cart
+* Checkout failure
+* Stripe failure
+* Webhook failure
+* Database failure
+* Email failure
+* Unauthorized admin access
+* Missing configuration
+* Invalid requests
+* Image upload failure
+
+Do not expose raw stack traces or secrets to customers.
+
+Create useful customer-facing error states.
+
+---
+
+# 15. Loading States
+
+Review important areas for loading states:
+
+* Product pages
+* Cart
+* Checkout
+* Admin products
+* Admin categories
+* Admin orders
+* Product creation/editing
+* Order updates
+
+Avoid interfaces that appear frozen while an operation is processing.
+
+Disable duplicate submissions where necessary.
+
+---
+
+# 16. Responsive Review
+
+Review the complete website on:
+
+* Desktop
+* Laptop
+* Tablet
+* Mobile
+
+Pay particular attention to:
+
+* Navigation
+* Product pages
+* Product options
+* Cart
+* Checkout
+* Stripe flow
+* Success page
+* Admin dashboard
+* Orders
+
+Fix obvious responsive issues.
+
+Do not redesign the site.
+
+---
+
+# 17. Accessibility Review
+
+Review:
+
+* Keyboard navigation
+* Form labels
+* Button labels
+* Focus states
+* Image alt text
+* Error messages
+* Color contrast
+* Screen-reader-friendly status messages
+
+Interactive elements should be usable without relying only on hover.
+
+Respect:
+
+`prefers-reduced-motion`
+
+---
+
+# 18. SEO / Public Website Review
+
+Perform a final review of the public website.
+
+Check:
+
+* Page titles
+* Meta descriptions
+* Canonical URLs where appropriate
+* Open Graph metadata
+* Image alt text
+* Heading hierarchy
+* Internal links
+* 404 handling
+* Sitemap if appropriate
+* Robots configuration if appropriate
+
+Do not invent business claims or SEO content.
+
+Do not fabricate addresses, reviews, ratings, product claims, or company history.
+
+---
+
+# 19. Performance Review
+
+Check for unnecessary:
+
+* Large client bundles
+* Duplicate requests
+* Unoptimized images
+* Excessive animations
+* Unnecessary client components
+* Repeated database queries
+
+Use appropriate Next.js/server rendering patterns.
+
+Do not optimize prematurely at the expense of maintainability.
+
+---
+
+# 20. Database Review
+
+Review the database structure for:
+
+* Correct relationships
+* Required indexes
+* Referential integrity
+* Appropriate constraints
+* Duplicate prevention
+* Order/payment idempotency
+* Secure access
+
+Do not leave important production data stored only in frontend state.
+
+---
+
+# 21. Final End-to-End Test
+
+Test the complete system from beginning to end.
+
+### Customer flow
+
+1. Open homepage.
+2. Open Stationery.
+3. Open Electrical Goods.
+4. Open a product.
+5. Select product options.
+6. Add product to cart.
+7. Refresh browser.
+8. Confirm cart persists.
+9. Open checkout.
+10. Enter customer information.
+11. Confirm correct order summary.
+12. Complete a Stripe test payment.
+13. Verify Stripe webhook.
+14. Verify order creation.
+15. Verify order is marked paid.
+16. Verify cart is cleared.
+17. Verify success page.
+18. Verify owner email notification.
+
+### Admin flow
+
+19. Log into admin.
+20. Create a product.
+21. Edit a product.
+22. Change its price.
+23. Change its options.
+24. Change its availability.
+25. Create/edit categories.
+26. View incoming order.
+27. Open order details.
+28. Update order status.
+29. Confirm historical order information remains unchanged.
+
+---
+
+# 22. Stripe Testing
+
+Use Stripe TEST MODE during development.
+
+Test:
+
+* Successful payment
+* Failed payment
+* Cancelled payment
+* Duplicate webhook delivery
+* Invalid webhook signature
+* Price manipulation attempt
+* Invalid product/variant
+* Empty cart
+
+Do not use real customer card data during testing.
+
+---
+
+# 23. Build Verification
+
+Before declaring Phase 8 complete, run:
+
+* TypeScript/typecheck
+* ESLint
+* Production build
+* Relevant automated tests
+
+Fix all errors that you introduce or discover.
+
+Do not simply ignore warnings/errors because they existed previously.
+
+---
+
+# 24. Final Scope
+
+This phase completes the planned Bantex Trading ecommerce system.
+
+Do NOT add unrelated features such as:
+
+* Loyalty programs
+* Coupons
+* Customer accounts
+* Reviews
+* Wishlists
+* Advanced analytics
+* Inventory forecasting
+* Multi-vendor functionality
+* AI features
+* Live chat
+
+Only implement what is required to complete the order, notification and production-hardening system.
+
+---
+
+# 25. Final Requirement
+
+When Phase 8 is complete:
+
+1. Run the complete website.
+2. Demonstrate the customer purchase flow.
+3. Demonstrate a Stripe test payment.
+4. Demonstrate webhook confirmation.
+5. Demonstrate the created order in the admin dashboard.
+6. Demonstrate the owner email notification.
+7. Demonstrate order-status management.
+8. Verify cart clearing after successful payment.
+9. Verify failed/cancelled payments do not incorrectly create paid orders.
+10. Verify security and environment configuration.
+11. Run typecheck.
+12. Run lint.
+13. Run production build.
+14. Fix all obvious issues.
+15. Show me the final working preview.
+
+STOP after Phase 8.
+
+Do not add another development phase unless I explicitly request additional features or changes.

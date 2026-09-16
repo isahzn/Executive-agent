@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Floza — AI Automation & Software Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --bg:#06070b;--surface:#0c0e13;--surface-2:#11131a;
+    --border:#1a1d28;--border-soft:#13161f;
+    --text:#e8e9ee;--muted:#8a8e9c;--faint:#555866;
+    --accent:#5468e0;--accent-hover:#6a80ff;
+    --accent-glow:rgba(84,104,224,0.15);
+    --accent-glow2:rgba(84,104,224,0.30);
+    --green:#34d399;--green-glow:rgba(52,211,153,0.12);
+    --serif:'Instrument Serif',Georgia,serif;
+    --sans:'Inter',system-ui,sans-serif;
+    --mono:'IBM Plex Mono',monospace;
+  }
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);color:var(--text);
+    font-family:var(--sans);font-size:16px;line-height:1.5;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+    cursor:none;
+  }
+  ::selection{background:var(--accent);color:#fff;}
+  a{color:inherit;text-decoration:none;}
+  @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto;}}
+  @media(max-width:768px){body{cursor:auto;}}
+
+  /* ===== CUSTOM CURSOR ===== */
+  .cursor-dot{
+    width:8px;height:8px;background:var(--accent);
+    border-radius:50%;position:fixed;top:0;left:0;
+    pointer-events:none;z-index:99999;
+    transition:transform 0.1s ease,background 0.2s ease;
+    mix-blend-mode:difference;
+    transform:translate(-50%,-50%);
+  }
+  .cursor-ring{
+    width:36px;height:36px;
+    border:1.5px solid rgba(84,104,224,0.5);
+    border-radius:50%;position:fixed;top:0;left:0;
+    pointer-events:none;z-index:99998;
+    transition:width 0.3s ease,height 0.3s ease,border-color 0.3s ease,transform 0.15s ease;
+    transform:translate(-50%,-50%);
+  }
+  .cursor-ring.hovering{
+    width:60px;height:60px;
+    border-color:var(--accent);
+    background:rgba(84,104,224,0.06);
+  }
+  @media(max-width:768px){.cursor-dot,.cursor-ring{display:none;}}
+
+  /* ===== ANIMATED MESH BACKGROUND ===== */
+  .mesh-bg{
+    position:fixed;inset:0;z-index:0;pointer-events:none;
+    overflow:hidden;
+  }
+  .mesh-blob{
+    position:absolute;border-radius:50%;
+    filter:blur(120px);opacity:0.35;
+    animation:drift 20s ease-in-out infinite alternate;
+  }
+  .mesh-blob:nth-child(1){
+    width:600px;height:600px;
+    background:radial-gradient(circle,rgba(84,104,224,0.4),transparent 70%);
+    top:-10%;right:-5%;
+    animation-duration:25s;
+  }
+  .mesh-blob:nth-child(2){
+    width:500px;height:500px;
+    background:radial-gradient(circle,rgba(52,211,153,0.2),transparent 70%);
+    bottom:-15%;left:-10%;
+    animation-duration:30s;animation-delay:-5s;
+  }
+  .mesh-blob:nth-child(3){
+    width:400px;height:400px;
+    background:radial-gradient(circle,rgba(124,140,245,0.2),transparent 70%);
+    top:40%;left:30%;
+    animation-duration:22s;animation-delay:-10s;
+  }
+  @keyframes drift{
+    0%{transform:translate(0,0) scale(1);}
+    33%{transform:translate(60px,-40px) scale(1.1);}
+    66%{transform:translate(-30px,50px) scale(0.95);}
+    100%{transform:translate(40px,-20px) scale(1.05);}
+  }
+
+  /* ===== GRID OVERLAY ===== */
+  .grid-overlay{
+    position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:
+      linear-gradient(rgba(84,104,224,0.03) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(84,104,224,0.03) 1px,transparent 1px);
+    background-size:60px 60px;
+    mask-image:radial-gradient(ellipse at 50% 30%,black 20%,transparent 70%);
+  }
+
+  /* ===== GRAIN ===== */
+  .grain{
+    position:fixed;inset:0;z-index:1;pointer-events:none;
+    opacity:0.03;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ===== WRAPPER ===== */
+  .wrap{max-width:1200px;margin:0 auto;padding:0 6vw;position:relative;z-index:2;}
+
+  /* ===== NAV ===== */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(6,7,11,0.7);
+    backdrop-filter:blur(20px) saturate(1.5);
+    border-bottom:1px solid var(--border-soft);
+  }
+  nav{display:flex;align-items:center;justify-content:space-between;height:72px;}
+  .logo{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:14px;letter-spacing:.02em;}
+  .logo-mark{
+    width:30px;height:30px;background:var(--accent);
+    display:flex;align-items:center;justify-content:center;
+    font-size:14px;font-weight:700;color:#fff;
+    border-radius:8px;
+    box-shadow:0 0 24px var(--accent-glow2);
+    transition:transform 0.3s ease,box-shadow 0.3s ease;
+  }
+  .logo:hover .logo-mark{transform:rotate(-10deg) scale(1.1);box-shadow:0 0 32px var(--accent-glow2);}
+  .navlinks{display:flex;gap:36px;font-size:14px;color:var(--muted);}
+  .navlinks a{padding:4px 0;transition:color .2s;}
+  .navlinks a:hover{color:var(--text);}
+  .navlinks a.active{color:var(--text);}
+  .navcta{display:flex;gap:20px;align-items:center;}
+
+  /* ===== BUTTONS ===== */
+  .btn{
+    font-family:var(--sans);font-size:14px;font-weight:500;
+    padding:10px 20px;border:1px solid var(--border);
+    color:var(--text);display:inline-flex;align-items:center;gap:8px;
+    white-space:nowrap;border-radius:8px;cursor:none;
+    transition:all .25s cubic-bezier(.4,0,.2,1);
+    position:relative;overflow:hidden;
+  }
+  .btn:hover{border-color:var(--faint);background:var(--surface-2);transform:translateY(-2px);}
+  .btn:active{transform:translateY(0);}
+  .btn-primary{
+    background:var(--accent);border-color:var(--accent);color:#fff;
+    box-shadow:0 0 24px var(--accent-glow),0 2px 8px rgba(0,0,0,.3);
+  }
+  .btn-primary:hover{
+    background:var(--accent-hover);border-color:var(--accent-hover);
+    box-shadow:0 0 40px var(--accent-glow2),0 4px 20px rgba(0,0,0,.4);
+    transform:translateY(-3px);
+  }
+  .btn-primary::after{
+    content:'';position:absolute;top:-50%;left:-50%;
+    width:200%;height:200%;
+    background:linear-gradient(45deg,transparent 30%,rgba(255,255,255,0.1) 50%,transparent 70%);
+    transform:translateX(-100%);transition:transform .6s ease;
+  }
+  .btn-primary:hover::after{transform:translateX(100%);}
+  .btn-ghost{border:none;padding:10px 4px;color:var(--muted);}
+  .btn-ghost:hover{color:var(--text);background:none;transform:none;}
+
+  /* ===== HERO ===== */
+  .hero{padding:140px 0 120px;position:relative;min-height:100vh;display:flex;align-items:center;}
+  .hero-grid{display:grid;grid-template-columns:1.15fr 0.85fr;gap:72px;align-items:center;}
+
+  /* Marquee eyebrow */
+  .eyebrow-wrap{
+    margin-bottom:32px;overflow:hidden;
+    font-family:var(--mono);font-size:12px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--accent);
+  }
+  .eyebrow-track{
+    display:flex;gap:40px;
+    animation:marquee 20s linear infinite;
+    white-space:nowrap;width:max-content;
+  }
+  .eyebrow-track span{display:flex;align-items:center;gap:10px;}
+  .eyebrow-track .dot{
+    width:5px;height:5px;border-radius:50%;background:var(--accent);
+    box-shadow:0 0 8px var(--accent-glow2);
+  }
+  @keyframes marquee{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+  h1.hero-title{
+    font-family:var(--sans);font-weight:800;
+    font-size:clamp(2.8rem,5vw,4.5rem);
+    line-height:1.04;letter-spacing:-0.03em;
+    margin-bottom:28px;
+  }
+  h1.hero-title .line{display:block;overflow:hidden;}
+  h1.hero-title .line span{
+    display:inline-block;
+    transform:translateY(110%);
+    animation:slide-up 0.8s cubic-bezier(.16,1,.3,1) forwards;
+  }
+  h1.hero-title .line:nth-child(2) span{animation-delay:0.15s;}
+  h1.hero-title .line:nth-child(3) span{animation-delay:0.3s;}
+  @keyframes slide-up{to{transform:translateY(0);}}
+
+  h1.hero-title em{
+    font-family:var(--serif);font-style:italic;font-weight:400;
+    color:var(--accent-hover);letter-spacing:0;
+    text-shadow:0 0 40px var(--accent-glow2);
+  }
+
+  .hero-sub{
+    font-size:17px;color:var(--muted);max-width:480px;
+    line-height:1.7;margin-bottom:44px;
+    opacity:0;animation:fade-up .8s .5s ease forwards;
+  }
+  .hero-actions{
+    display:flex;gap:14px;align-items:center;margin-bottom:60px;
+    opacity:0;animation:fade-up .8s .7s ease forwards;
+  }
+  .hero-actions .btn{padding:14px 28px;font-size:14.5px;}
+  @keyframes fade-up{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+  .hero-stats{
+    display:flex;gap:48px;padding-top:32px;
+    border-top:1px solid var(--border-soft);
+    opacity:0;animation:fade-up .8s .9s ease forwards;
+  }
+  .hero-stats .stat-num{
+    font-family:var(--serif);font-size:32px;color:var(--text);
+    display:block;
+  }
+  .hero-stats .stat-label{
+    font-family:var(--mono);font-size:11px;color:var(--faint);
+    text-transform:uppercase;letter-spacing:.04em;
+  }
+
+  /* ===== FLOATING ORB NEXT TO HERO ===== */
+  .hero-visual{position:relative;display:flex;align-items:center;justify-content:center;}
+  .orb-container{position:relative;width:100%;aspect-ratio:1;max-width:440px;}
+  .orb{
+    position:absolute;inset:10%;
+    border-radius:50%;
+    background:radial-gradient(circle at 30% 30%,var(--accent),var(--accent-hover) 40%,rgba(84,104,224,0.1) 70%,transparent);
+    filter:blur(1px);
+    animation:orb-float 6s ease-in-out infinite;
+    box-shadow:0 0 80px var(--accent-glow2),inset 0 0 60px rgba(0,0,0,.3);
+  }
+  @keyframes orb-float{
+    0%,100%{transform:translateY(0) scale(1);}
+    50%{transform:translateY(-20px) scale(1.03);}
+  }
+  .orb-ring{
+    position:absolute;inset:0;border:1px solid rgba(84,104,224,0.15);
+    border-radius:50%;animation:orb-ring-spin 30s linear infinite;
+  }
+  .orb-ring:nth-child(2){inset:8%;border-color:rgba(52,211,153,0.1);animation-direction:reverse;animation-duration:25s;}
+  .orb-ring:nth-child(3){inset:16%;border-color:rgba(84,104,224,0.08);animation-duration:35s;}
+  @keyframes orb-ring-spin{0%{transform:rotate(0);}100%{transform:rotate(360deg);}}
+
+  .orb-label{
+    position:absolute;font-family:var(--mono);font-size:10px;
+    color:var(--muted);letter-spacing:.06em;text-transform:uppercase;
+    white-space:nowrap;
+  }
+  .orb-label.top-right{top:10%;right:-10%;display:flex;align-items:center;gap:8px;}
+  .orb-label.bottom-left{bottom:15%;left:-5%;display:flex;align-items:center;gap:8px;}
+  .orb-label .pulse{
+    width:6px;height:6px;border-radius:50%;background:var(--green);
+    box-shadow:0 0 0 3px var(--green-glow);
+    animation:pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+
+  /* Status lines floating around the orb */
+  .float-status{
+    position:absolute;
+    background:rgba(12,14,19,0.8);
+    backdrop-filter:blur(12px);
+    border:1px solid var(--border);
+    border-radius:8px;padding:10px 14px;
+    font-family:var(--mono);font-size:11px;
+    display:flex;align-items:center;gap:8px;
+    animation:float-card 5s ease-in-out infinite;
+  }
+  .float-status:nth-child(5){top:5%;left:-15%;animation-delay:0s;}
+  .float-status:nth-child(6){bottom:20%;right:-20%;animation-delay:-2s;}
+  .float-status:nth-child(7){top:55%;left:-25%;animation-delay:-4s;}
+  @keyframes float-card{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-10px);}
+  }
+  .float-status .fs-dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+  .float-status .fs-val{color:var(--text);}
+
+  /* ===== SECTIONS ===== */
+  section{padding:120px 0;}
+  .section-border{border-bottom:1px solid var(--border-soft);}
+  .section-head{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-bottom:72px;align-items:end;}
+  .section-tag{
+    font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;
+    color:var(--faint);text-transform:uppercase;margin-bottom:16px;
+  }
+  h2.section-title{
+    font-weight:700;font-size:clamp(1.8rem,2.8vw,2.5rem);
+    letter-spacing:-.015em;line-height:1.12;
+  }
+  h2.section-title em{font-family:var(--serif);font-style:italic;font-weight:400;}
+  .section-desc{color:var(--muted);font-size:15.5px;line-height:1.65;max-width:420px;}
+
+  /* ===== CAPABILITIES ===== */
+  .cap-list{display:flex;flex-direction:column;}
+  .cap-row{
+    display:grid;grid-template-columns:80px 1fr 1.4fr;gap:40px;
+    padding:40px 0;border-top:1px solid var(--border-soft);
+    align-items:start;transition:all .3s ease;
+  }
+  .cap-row:hover{padding-left:12px;background:rgba(84,104,224,0.02);}
+  .cap-row:last-child{border-bottom:1px solid var(--border-soft);}
+  .cap-num{font-family:var(--serif);font-size:15px;color:var(--faint);padding-top:4px;}
+  .cap-name{font-size:19px;font-weight:600;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .cap-badge{
+    display:inline-flex;align-items:center;gap:5px;
+    font-family:var(--mono);font-size:10px;color:var(--green);text-transform:uppercase;
+    background:var(--green-glow);padding:3px 10px;border-radius:20px;
+    border:1px solid rgba(52,211,153,0.15);
+  }
+  .cap-badge .bdot{width:4px;height:4px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+  .cap-name .sub{display:block;margin-top:8px;font-size:14.5px;font-weight:400;color:var(--muted);line-height:1.6;max-width:280px;}
+  .cap-tags{display:flex;flex-wrap:wrap;gap:10px;padding-top:8px;}
+  .cap-tag{
+    font-family:var(--mono);font-size:12px;color:var(--muted);
+    padding:6px 14px;border:1px solid var(--border);border-radius:6px;
+    transition:all .25s ease;
+  }
+  .cap-tag:hover{border-color:var(--accent);color:var(--text);background:var(--accent-glow);transform:translateY(-2px);}
+
+  /* ===== CONTRAST ===== */
+  .contrast-grid{
+    display:grid;gap:1px;background:var(--border-soft);
+    border:1px solid var(--border-soft);border-radius:14px;overflow:hidden;
+  }
+  .contrast-grid.two{grid-template-columns:1fr 1fr;}
+  .contrast-panel{display:flex;flex-direction:column;gap:20px;padding:40px;}
+  .contrast-panel.manual{background:var(--bg);}
+  .contrast-panel.floza{background:var(--surface);}
+  .c-label{
+    display:flex;align-items:center;justify-content:space-between;
+    font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  }
+  .c-label .tag{color:var(--faint);}
+  .c-badge{padding:3px 10px;border-radius:20px;font-size:10px;}
+  .c-badge.red{color:rgba(239,68,68,.6);background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.1);}
+  .c-badge.green{color:var(--green);background:var(--green-glow);border:1px solid rgba(52,211,153,.15);}
+  .c-title{font-size:22px;font-weight:600;color:var(--muted);}
+  .c-title em{font-family:var(--serif);font-style:italic;color:var(--text);}
+  .c-list{display:flex;flex-direction:column;gap:14px;}
+  .c-item{display:flex;gap:12px;font-size:14px;line-height:1.6;}
+  .c-item.m{color:var(--muted);}
+  .c-item.f{color:var(--text);}
+  .c-item .ic{flex-shrink:0;width:18px;text-align:center;font-size:13px;padding-top:2px;}
+  .c-item.m .ic{color:rgba(239,68,68,.5);}
+  .c-item.f .ic{color:var(--green);}
+
+  /* ===== PROCESS ===== */
+  .process-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+    background:var(--border-soft);border:1px solid var(--border-soft);
+    border-radius:14px;overflow:hidden;
+  }
+  .process-step{
+    background:var(--bg);padding:36px 28px;
+    display:flex;flex-direction:column;gap:14px;
+    position:relative;transition:all .3s ease;
+  }
+  .process-step:hover{background:var(--surface);transform:translateY(-4px);}
+  .process-step::before{
+    content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+    width:40px;height:2px;background:var(--accent);
+    opacity:0;transition:all .3s ease;
+  }
+  .process-step:hover::before{opacity:1;width:60px;}
+  .process-num{font-family:var(--serif);font-size:36px;color:var(--accent);opacity:.35;line-height:1;}
+  .process-title{font-size:16px;font-weight:600;}
+  .process-desc{font-size:13.5px;color:var(--muted);line-height:1.6;}
+
+  /* ===== DEMOS ===== */
+  .demo-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+    background:var(--border-soft);border:1px solid var(--border-soft);
+    border-radius:14px;overflow:hidden;
+  }
+  .demo-card{
+    background:var(--bg);padding:36px 28px;
+    display:flex;flex-direction:column;gap:14px;
+    min-height:280px;transition:all .35s ease;
+    position:relative;overflow:hidden;
+  }
+  .demo-card::before{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(135deg,rgba(84,104,224,0.06),transparent 60%);
+    opacity:0;transition:opacity .3s ease;
+  }
+  .demo-card:hover{background:var(--surface);}
+  .demo-card:hover::before{opacity:1;}
+  .demo-card:hover{transform:translateY(-4px);}
+  .demo-kind{font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--accent);text-transform:uppercase;}
+  .demo-title{font-size:18px;font-weight:600;}
+  .demo-desc{font-size:14px;color:var(--muted);line-height:1.6;flex-grow:1;}
+  .demo-link{
+    font-family:var(--mono);font-size:12.5px;color:var(--text);
+    display:flex;align-items:center;gap:8px;
+    padding-top:14px;border-top:1px solid var(--border-soft);
+    transition:color .2s;
+  }
+  .demo-link svg{transition:transform .25s ease;}
+  .demo-card:hover .demo-link svg{transform:translateX(4px);}
+  .demo-card:hover .demo-link{color:var(--accent);}
+
+  /* ===== WORK ===== */
+  .work-row{
+    display:grid;grid-template-columns:1fr 1fr;gap:72px;
+    padding:52px 0;border-top:1px solid var(--border-soft);align-items:center;
+    transition:all .3s ease;
+  }
+  .work-row:last-child{border-bottom:1px solid var(--border-soft);}
+  .work-meta{display:flex;align-items:baseline;gap:16px;margin-bottom:14px;}
+  .work-year{font-family:var(--mono);font-size:12px;color:var(--faint);}
+  .work-type{font-family:var(--mono);font-size:12px;color:var(--accent);text-transform:uppercase;letter-spacing:.04em;}
+  .work-title{font-size:24px;font-weight:600;letter-spacing:-.01em;margin-bottom:10px;}
+  .work-desc{color:var(--muted);font-size:15px;line-height:1.65;max-width:420px;}
+  .work-stack{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;}
+  .work-stack span{
+    font-family:var(--mono);font-size:11.5px;color:var(--faint);
+    padding:4px 10px;border:1px solid var(--border);border-radius:6px;
+    transition:all .2s ease;
+  }
+  .work-stack span:hover{border-color:var(--accent);color:var(--text);}
+  .work-visual{
+    background:var(--surface);border:1px solid var(--border);
+    aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;
+    position:relative;overflow:hidden;border-radius:14px;
+    transition:all .4s ease;
+  }
+  .work-visual:hover{border-color:var(--accent);box-shadow:0 0 40px var(--accent-glow);}
+  .work-visual::before{
+    content:'';position:absolute;inset:0;
+    background-image:
+      linear-gradient(var(--border-soft) 1px,transparent 1px),
+      linear-gradient(90deg,var(--border-soft) 1px,transparent 1px);
+    background-size:28px 28px;opacity:.5;
+  }
+  .work-visual::after{
+    content:'';position:absolute;inset:0;
+    background:radial-gradient(circle at 50% 50%,var(--accent-glow),transparent 70%);
+    opacity:0;transition:opacity .4s ease;
+  }
+  .work-visual:hover::after{opacity:1;}
+  .work-visual span{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--faint);position:relative;z-index:1;}
+
+  /* ===== CTA ===== */
+  .cta{padding:120px 0;text-align:left;}
+  .cta-inner{
+    display:grid;grid-template-columns:1.3fr 0.7fr;gap:48px;
+    align-items:end;padding-bottom:60px;border-bottom:1px solid var(--border-soft);
+  }
+  .cta h2{font-weight:700;font-size:clamp(2rem,3.6vw,3.2rem);line-height:1.08;letter-spacing:-.02em;}
+  .cta h2 em{font-family:var(--serif);font-style:italic;font-weight:400;}
+  .cta-actions{display:flex;flex-direction:column;gap:14px;align-items:flex-start;}
+  .cta .btn{padding:14px 28px;font-size:14.5px;}
+  .cta-note{font-size:13px;color:var(--faint);}
+
+  /* ===== FOOTER ===== */
+  footer{padding:72px 0 44px;}
+  .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px;padding-bottom:48px;}
+  .foot-brand .logo{margin-bottom:16px;}
+  .foot-brand p{color:var(--muted);font-size:14px;line-height:1.6;max-width:280px;}
+  .foot-col h4{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--faint);text-transform:uppercase;margin-bottom:18px;}
+  .foot-col a{display:block;color:var(--muted);font-size:14px;margin-bottom:12px;transition:color .2s;}
+  .foot-col a:hover{color:var(--text);}
+  .foot-bottom{
+    display:flex;justify-content:space-between;align-items:center;
+    padding-top:28px;border-top:1px solid var(--border-soft);
+    font-family:var(--mono);font-size:12px;color:var(--faint);
+  }
+
+  /* ===== SCROLL REVEAL ===== */
+  .reveal{
+    opacity:0;transform:translateY(40px);
+    transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);
+  }
+  .reveal.visible{opacity:1;transform:translateY(0);}
+  .reveal-delay-1{transition-delay:.1s;}
+  .reveal-delay-2{transition-delay:.2s;}
+  .reveal-delay-3{transition-delay:.3s;}
+
+  /* ===== RESPONSIVE ===== */
+  @media(max-width:1024px){
+    .hero-grid{grid-template-columns:1fr;gap:60px;}
+    .hero-visual{order:-1;}
+    .orb-container{max-width:300px;margin:0 auto;}
+  }
+  @media(max-width:900px){
+    .section-head{grid-template-columns:1fr;gap:20px;}
+    .cap-row{grid-template-columns:1fr;gap:16px;}
+    .demo-grid{grid-template-columns:repeat(2,1fr);}
+    .work-row{grid-template-columns:1fr;gap:28px;}
+    .foot-grid{grid-template-columns:1fr 1fr;gap:32px;}
+    .navlinks{display:none;}
+    .hero-stats{flex-wrap:wrap;gap:28px;}
+    .cta-inner{grid-template-columns:1fr;gap:28px;}
+    .contrast-grid.two{grid-template-columns:1fr;}
+    .process-grid{grid-template-columns:repeat(2,1fr);}
+    .float-status{display:none;}
+  }
+  @media(max-width:600px){
+    .demo-grid{grid-template-columns:1fr;}
+    .process-grid{grid-template-columns:1fr;}
+    .foot-grid{grid-template-columns:1fr;}
+    .hero-actions{flex-direction:column;align-items:stretch;}
+    .hero{padding:100px 0 80px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Animated Mesh Background -->
+<div class="mesh-bg">
+  <div class="mesh-blob"></div>
+  <div class="mesh-blob"></div>
+  <div class="mesh-blob"></div>
+</div>
+<div class="grid-overlay"></div>
+<div class="grain"></div>
+
+<!-- ========== HEADER ========== -->
+<header>
+  <div class="wrap">
+    <nav>
+      <a href="#" class="logo" data-hover>
+        <span class="logo-mark">F</span>
+        FLOZA
+      </a>
+      <div class="navlinks">
+        <a href="#services" class="active" data-hover>Services</a>
+        <a href="#process" data-hover>Process</a>
+        <a href="#demos" data-hover>Demos</a>
+        <a href="#work" data-hover>Projects</a>
+      </div>
+      <div class="navcta">
+        <a href="#contact" class="btn btn-ghost" data-hover>Contact</a>
+        <a href="#contact" class="btn btn-primary" data-hover>Start a Project</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow-wrap">
+          <div class="eyebrow-track">
+            <span><span class="dot"></span>Online Always</span>
+            <span><span class="dot"></span>Automation Studio</span>
+            <span><span class="dot"></span>AI-Powered</span>
+            <span><span class="dot"></span>24/7 Systems</span>
+            <span><span class="dot"></span>Online Always</span>
+            <span><span class="dot"></span>Automation Studio</span>
+            <span><span class="dot"></span>AI-Powered</span>
+            <span><span class="dot"></span>24/7 Systems</span>
+          </div>
+        </div>
+
+        <h1 class="hero-title">
+          <span class="line"><span>Your business runs</span></span>
+          <span class="line"><span><em>24/7.</em> Your systems</span></span>
+          <span class="line"><span>should too.</span></span>
+        </h1>
+
+        <p class="hero-sub">AI-powered automations that work while you sleep. No manual tasks. No downtime. Floza builds the infrastructure that keeps your business moving around the clock.</p>
+
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary" data-hover>Build Something That Never Stops</a>
+          <a href="#demos" class="btn" data-hover>See It Running</a>
+        </div>
+
+        <div class="hero-stats">
+          <div><span class="stat-num" data-count="3">03</span><span class="stat-label">Core Disciplines</span></div>
+          <div><span class="stat-num">24/7</span><span class="stat-label">Systems Running</span></div>
+          <div><span class="stat-num">100%</span><span class="stat-label">Custom Built</span></div>
+        </div>
+      </div>
+
+      <!-- Orb Visual -->
+      <div class="hero-visual">
+        <div class="orb-container">
+          <div class="orb-ring"></div>
+          <div class="orb-ring"></div>
+          <div class="orb-ring"></div>
+          <div class="orb"></div>
+          <div class="orb-label top-right">
+            <span class="pulse"></span>
+            Systems operational
+          </div>
+          <div class="orb-label bottom-left">
+            Uptime: 99.97%
+          </div>
+          <div class="float-status">
+            <span class="fs-dot"></span>
+            <span style="color:var(--faint);">Leads today</span>
+            <span class="fs-val">1,247</span>
+          </div>
+          <div class="float-status">
+            <span style="color:var(--accent);">→</span>
+            <span style="color:var(--faint);">Response time</span>
+            <span class="fs-val">< 1s</span>
+          </div>
+          <div class="float-status">
+            <span style="color:var(--green);">✓</span>
+            <span style="color:var(--faint);">Automations</span>
+            <span class="fs-val">Running</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SERVICES ========== -->
+<section class="section-border reveal" id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-tag">What we build</div>
+        <h2 class="section-title">Three ways we remove<br><em>repetitive work.</em></h2>
+      </div>
+      <p class="section-desc">Every engagement starts the same way — understanding where time actually goes, then building the system that gets it back.</p>
+    </div>
+    <div class="cap-list">
+      <div class="cap-row reveal">
+        <div class="cap-num">01</div>
+        <div>
+          <div class="cap-name">AI Automation
+            <span class="cap-badge"><span class="bdot"></span> Running 24/7</span>
+            <span class="sub">Intelligent workflows that handle the repetitive parts of running a business.</span>
+          </div>
+        </div>
+        <div class="cap-tags">
+          <span class="cap-tag" data-hover>AI Assistants</span>
+          <span class="cap-tag" data-hover>Workflow Automation</span>
+          <span class="cap-tag" data-hover>Document Processing</span>
+          <span class="cap-tag" data-hover>Lead Management</span>
+        </div>
+      </div>
+      <div class="cap-row reveal reveal-delay-1">
+        <div class="cap-num">02</div>
+        <div>
+          <div class="cap-name">Website Development
+            <span class="cap-badge"><span class="bdot"></span> Running 24/7</span>
+            <span class="sub">Modern, fast sites built for the businesses and customers actually using them.</span>
+          </div>
+        </div>
+        <div class="cap-tags">
+          <span class="cap-tag" data-hover>Business Websites</span>
+          <span class="cap-tag" data-hover>Landing Pages</span>
+          <span class="cap-tag" data-hover>SaaS Websites</span>
+          <span class="cap-tag" data-hover>Dashboard Interfaces</span>
+        </div>
+      </div>
+      <div class="cap-row reveal reveal-delay-2">
+        <div class="cap-num">03</div>
+        <div>
+          <div class="cap-name">Custom Software
+            <span class="cap-badge"><span class="bdot"></span> Running 24/7</span>
+            <span class="sub">Internal tools and systems shaped around how your team actually works.</span>
+          </div>
+        </div>
+        <div class="cap-tags">
+          <span class="cap-tag" data-hover>Internal Tools</span>
+          <span class="cap-tag" data-hover>AI-Powered Systems</span>
+          <span class="cap-tag" data-hover>Business Dashboards</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CONTRAST ========== -->
+<section class="section-border reveal">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-tag">The difference</div>
+        <h2 class="section-title">Manual processes stop at 5pm.<br><em>We don't.</em></h2>
+      </div>
+      <p class="section-desc">Your customers don't clock out — neither should your operations. Here's what changes when the system runs without you.</p>
+    </div>
+    <div class="contrast-grid two">
+      <div class="contrast-panel manual">
+        <div class="c-label">
+          <span class="tag">Manual processes</span>
+          <span class="c-badge red">9-5</span>
+        </div>
+        <h3 class="c-title">Others work 9-5</h3>
+        <ul class="c-list">
+          <li class="c-item m"><span class="ic">✕</span> Inbox drowning by morning</li>
+          <li class="c-item m"><span class="ic">✕</span> Leads slip through the cracks</li>
+          <li class="c-item m"><span class="ic">✕</span> Nothing happens after hours</li>
+          <li class="c-item m"><span class="ic">✕</span> Monday = catching up from the weekend</li>
+        </ul>
+      </div>
+      <div class="contrast-panel floza">
+        <div class="c-label">
+          <span class="tag" style="color:var(--green);display:flex;align-items:center;gap:6px;"><span class="pulse" style="width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px var(--green-glow);animation:pulse 2s infinite;display:inline-block;"></span> Floza automation</span>
+          <span class="c-badge green">24/7</span>
+        </div>
+        <h3 class="c-title">We work <em>24/7</em></h3>
+        <ul class="c-list">
+          <li class="c-item f"><span class="ic">✓</span> Leads handled in seconds — even at 2am</li>
+          <li class="c-item f"><span class="ic">✓</span> No inbox. No manual work. Ever.</li>
+          <li class="c-item f"><span class="ic">✓</span> Your system keeps going. Always.</li>
+          <li class="c-item f"><span class="ic">✓</span> Monday = zero backlog. Clean slate.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PROCESS ========== -->
+<section class="section-border reveal" id="process">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-tag">How it works</div>
+        <h2 class="section-title">From problem to<br><em>running system.</em></h2>
+      </div>
+      <p class="section-desc">A clear, four-step path from your first message to a deployed automation — no surprises, no vague timelines.</p>
+    </div>
+    <div class="process-grid">
+      <div class="process-step reveal">
+        <div class="process-num">01</div>
+        <div class="process-title">Discovery</div>
+        <p class="process-desc">We map your workflows, find bottlenecks, and identify where automation delivers the highest ROI.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-1">
+        <div class="process-num">02</div>
+        <div class="process-title">Design</div>
+        <p class="process-desc">We architect the system — clear data flows, AI decision logic, and a UX your team will actually use.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-2">
+        <div class="process-num">03</div>
+        <div class="process-title">Build</div>
+        <p class="process-desc">We ship fast, iterate on real usage, and ensure every edge case is handled before it becomes a problem.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-3">
+        <div class="process-num">04</div>
+        <div class="process-title">Run</div>
+        <p class="process-desc">Your system goes live and stays live. We monitor, optimize, and ensure 24/7 uptime from day one.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== DEMOS ========== -->
+<section class="section-border reveal" id="demos">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-tag">See it running</div>
+        <h2 class="section-title">Automation in <em>action.</em></h2>
+      </div>
+      <p class="section-desc">Interactive versions of the systems we build — try them the way a customer would.</p>
+    </div>
+    <div class="demo-grid">
+      <a href="#" class="demo-card reveal" data-hover>
+        <span class="demo-kind">AI Agent</span>
+        <span class="demo-title">AI Business Assistant</span>
+        <p class="demo-desc">Answers your customers 24/7 and captures leads while you sleep.</p>
+        <span class="demo-link">Try the demo <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.3"/></svg></span>
+      </a>
+      <a href="#" class="demo-card reveal reveal-delay-1" data-hover>
+        <span class="demo-kind">Automation</span>
+        <span class="demo-title">Document Processing</span>
+        <p class="demo-desc">Processes every PDF the moment it arrives — no matter when that is.</p>
+        <span class="demo-link">Try the demo <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.3"/></svg></span>
+      </a>
+      <a href="#" class="demo-card reveal reveal-delay-2" data-hover>
+        <span class="demo-kind">Workflow</span>
+        <span class="demo-title">Lead Qualification CRM</span>
+        <p class="demo-desc">Scores and routes leads instantly, around the clock.</p>
+        <span class="demo-link">Try the demo <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.3"/></svg></span>
+      </a>
+      <a href="#" class="demo-card reveal reveal-delay-3" data-hover>
+        <span class="demo-kind">Voice AI</span>
+        <span class="demo-title">Voice Project Intake</span>
+        <p class="demo-desc">Speak your project details and watch an AI capture them into a brief.</p>
+        <span class="demo-link">Try the demo <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.3"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== WORK ========== -->
+<section class="section-border reveal" id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-tag">Recent work</div>
+        <h2 class="section-title">Built for real<br><em>business problems.</em></h2>
+      </div>
+      <p class="section-desc">Systems, websites, and automations shipped for teams who needed them to just work.</p>
+    </div>
+    <div class="work-list">
+      <div class="work-row reveal">
+        <div>
+          <div class="work-meta"><span class="work-year">2026</span><span class="work-type">AI Automation</span></div>
+          <div class="work-title">Inbound Lead Router</div>
+          <p class="work-desc">Replaced a manual triage inbox with an AI system that reads, scores, and routes every incoming lead to the right rep in under a minute.</p>
+          <div class="work-stack"><span>Next.js</span><span>OpenAI</span><span>Postgres</span></div>
+        </div>
+        <div class="work-visual" data-hover><span>Case study 01</span></div>
+      </div>
+      <div class="work-row reveal">
+        <div>
+          <div class="work-meta"><span class="work-year">2025</span><span class="work-type">Custom Software</span></div>
+          <div class="work-title">Operations Dashboard</div>
+          <p class="work-desc">A single internal view replacing four spreadsheets, giving an operations team live visibility into every open job.</p>
+          <div class="work-stack"><span>React</span><span>Node</span><span>Supabase</span></div>
+        </div>
+        <div class="work-visual" data-hover><span>Case study 02</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CTA ========== -->
+<section class="cta reveal" id="contact">
+  <div class="wrap">
+    <div class="cta-inner">
+      <h2>Have a process that<br>needs to <em>run itself?</em></h2>
+      <div class="cta-actions">
+        <a href="mailto:hello@floza.com" class="btn btn-primary" data-hover>Contact Floza</a>
+        <span class="cta-note">Usually replies within one business day.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="#" class="logo" data-hover><span class="logo-mark">F</span>FLOZA</a>
+        <p>Floza builds AI-powered automations, websites, and software systems that help businesses work faster.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Explore</h4>
+        <a href="#services" data-hover>Services</a>
+        <a href="#process" data-hover>Process</a>
+        <a href="#demos" data-hover>Demos</a>
+        <a href="#work" data-hover>Projects</a>
+      </div>
+      <div class="foot-col">
+        <h4>Services</h4>
+        <a href="#services" data-hover>AI Automation</a>
+        <a href="#services" data-hover>Website Development</a>
+        <a href="#services" data-hover>Custom Software</a>
+      </div>
+      <div class="foot-col">
+        <h4>Contact</h4>
+        <a href="mailto:hello@floza.com" data-hover>hello@floza.com</a>
+        <a href="#" data-hover>LinkedIn</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Floza. All rights reserved.</span>
+      <span>Turn manual tasks into intelligent systems.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ========== JAVASCRIPT ========== -->
+<script>
+(function(){
+  /* === CUSTOM CURSOR === */
+  const dot=document.getElementById('cursorDot');
+  const ring=document.getElementById('cursorRing');
+  let mx=0,my=0,rx=0,ry=0;
+
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+  (function animateCursor(){
+    rx+=(mx-rx)*0.15;ry+=(my-ry)*0.15;
+    dot.style.left=mx+'px';dot.style.top=my+'px';
+    ring.style.left=rx+'px';ring.style.top=ry+'px';
+    requestAnimationFrame(animateCursor);
+  })();
+
+  document.querySelectorAll('[data-hover]').forEach(el=>{
+    el.addEventListener('mouseenter',()=>ring.classList.add('hovering'));
+    el.addEventListener('mouseleave',()=>ring.classList.remove('hovering'));
+  });
+
+  /* === SCROLL REVEAL === */
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}
+    });
+  },{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+  /* === TILT ON HERO ORB === */
+  const orb=document.querySelector('.orb-container');
+  if(orb&&window.innerWidth>768){
+    document.addEventListener('mousemove',e=>{
+      const rect=orb.getBoundingClientRect();
+      const cx=rect.left+rect.width/2;
+      const cy=rect.top+rect.height/2;
+      const dx=(e.clientX-cx)/rect.width;
+      const dy=(e.clientY-cy)/rect.height;
+      orb.style.transform=`rotateY(${dx*12}deg) rotateX(${-dy*12}deg)`;
+    });
+  }
+
+  /* === MAGNETIC BUTTON EFFECT === */
+  document.querySelectorAll('.btn-primary').forEach(btn=>{
+    btn.addEventListener('mousemove',e=>{
+      const rect=btn.getBoundingClientRect();
+      const x=e.clientX-rect.left-rect.width/2;
+      const y=e.clientY-rect.top-rect.height/2;
+      btn.style.transform=`translate(${x*0.15}px,${y*0.15}px)`;
+    });
+    btn.addEventListener('mouseleave',()=>{btn.style.transform='';});
+  });
+
+  /* === PARALLAX BLOBS ON SCROLL === */
+  const blobs=document.querySelectorAll('.mesh-blob');
+  window.addEventListener('scroll',()=>{
+    const s=window.scrollY;
+    blobs.forEach((b,i)=>{
+      const speed=0.03*(i+1);
+      b.style.transform=`translateY(${s*speed}px)`;
+    });
+  },{passive:true});
+
+  /* === TEXT SHIMMER ON SECTION TITLES === */
+  document.querySelectorAll('.section-title').forEach(title=>{
+    title.addEventListener('mouseenter',()=>{
+      title.style.textShadow='0 0 40px rgba(84,104,224,0.15)';
+    });
+    title.addEventListener('mouseleave',()=>{title.style.textShadow='none';});
+  });
+
+})();
+</script>
+
+</body>
+</html>

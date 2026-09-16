@@ -32,9 +32,11 @@ export type VatSpecialRegistrationKind =
 
 /**
  * Income categories a Sri Lankan company may earn, each attracting a distinct
- * verified business-tax rate. Income is taxed per category; the ordinary
- * (standard) pool absorbs declared allowable expenses, while the special-rate
- * categories and investment-asset gains are computed on gross.
+ * verified business-tax rate. Income is taxed per category. Expenses are
+ * attributable per category: each expense reduces only the income source it
+ * relates to (IRC s60(2) — an activity/source taxed at a different rate is a
+ * separate business). Investment-asset gains are computed on gross and are
+ * never reduced by business expenses.
  */
 export type BusinessIncomeCategory =
   | "STANDARD"
@@ -449,16 +451,18 @@ export interface WithholdingResult {
 
 /**
  * Inputs to the business tax calculator, in whole LKR. Income is split into the
- * categories the verified Sri Lankan company rates apply to. The declared
- * allowable-expense pool reduces ONLY the ordinary (standard) business income;
- * the special-rate categories (15% / 45%) and investment-asset gains are
- * computed on gross with no expense netting and no cross-category allocation.
- * Allowable amounts are declared inputs: the engine applies no invented
- * eligibility rule — it subtracts what the user declares as allowable against
- * the standard pool.
+ * categories the verified Sri Lankan company rates apply to. Because each
+ * differently-taxed activity/source is treated as a separate business (Inland
+ * Revenue Act s60(2)), expenses are attributed **per category**: an expense
+ * reduces only the income source it directly relates to. Expenses that cannot
+ * be attributed to a single source go in `sharedExpenses` and are never deducted
+ * (the engine invents no allocation formula) — the computation is held at
+ * NEEDS_ALLOCATION until they are specifically attributed. Investment-asset
+ * gains are computed on gross with no expense deduction. Amounts are declared
+ * inputs: the engine applies no invented eligibility rule.
  */
 export interface BusinessTaxInput {
-  /** Ordinary (standard) business income, before allowable expenses. */
+  /** Ordinary (standard) business income, before attributable expenses. */
   standardIncome: number;
   /** Qualifying foreign-currency service income remitted through a bank. */
   foreignCcyServiceIncome: number;
@@ -468,27 +472,43 @@ export interface BusinessTaxInput {
   bettingGamingIncome: number;
   /** Income from the manufacture/import and sale of liquor or tobacco. */
   liquorTobaccoIncome: number;
-  /** Gains from the realisation of investment assets (separate 30% rate, gross). */
+  /** Gains from the realisation of investment assets (separate 30% rate, gross — no deduction). */
   investmentAssetGains: number;
-  /** Cost of goods sold. */
-  costOfGoodsSold: number;
-  /** Operating expenses. */
-  operatingExpenses: number;
-  /** Other allowable expenses (beyond COGS and operating). */
-  otherAllowableExpenses: number;
-  /** Capital allowances / depreciation claimed. */
-  capitalAllowances: number;
-  /** Other deductions. */
-  otherDeductions: number;
+  /** Expenses directly attributable to ordinary (standard) business income. */
+  ordinaryExpenses: number;
+  /** Expenses directly attributable to qualifying foreign-currency service income. */
+  foreignCcyServiceExpenses: number;
+  /** Expenses directly attributable to qualifying foreign-source income (foreign currency). */
+  foreignCcyForeignSourceExpenses: number;
+  /** Expenses directly attributable to betting and gaming income. */
+  bettingGamingExpenses: number;
+  /** Expenses directly attributable to the manufacture/import and sale of liquor or tobacco. */
+  liquorTobaccoExpenses: number;
+  /**
+   * Expenses that cannot be attributed to a single income source. Never deducted;
+   * the computation reports NEEDS_ALLOCATION until the user attributes these to a
+   * specific category. The engine applies no allocation formula.
+   */
+  sharedExpenses: number;
 }
 
-/** Whether the tax step was computed or withheld pending verification. */
-export type BusinessTaxComputationStatus = "COMPUTED" | "NOT_IMPLEMENTED";
+/**
+ * Whether the tax step was computed, withheld pending verification, or held
+ * because shared expenses still need to be attributed to a specific source.
+ * Only COMPUTED carries a liability; NEEDS_ALLOCATION and NOT_IMPLEMENTED do not
+ * (the engine never invents a figure).
+ */
+export type BusinessTaxComputationStatus =
+  | "COMPUTED"
+  | "NEEDS_ALLOCATION"
+  | "NOT_IMPLEMENTED";
 
 /**
- * One income category's computed tax in the breakdown. `netted` is true only
- * for the standard pool (which absorbs the declared expenses); the special-rate
- * categories and investment gains are computed on gross.
+ * One income category's computed tax in the breakdown. Every taxable category
+ * (except investment gains) is reduced only by the expenses attributed to it
+ * (`expenses`), so `taxable = max(0, gross − expenses)`. `netted` is true for
+ * categories that carry an attributable-expense field; investment-asset gains
+ * are always gross (`netted` false, `expenses` 0).
  */
 export interface BusinessTaxComponentResult {
   category: BusinessIncomeCategory;
@@ -496,9 +516,11 @@ export interface BusinessTaxComponentResult {
   label: string;
   /** Gross income for the category. */
   gross: number;
-  /** True when declared expenses were netted against this category. */
+  /** Expenses attributed to this category (0 for investment-asset gains). */
+  expenses: number;
+  /** True when this category is reduced by its attributable expenses. */
   netted: boolean;
-  /** Taxable income for the category (gross, or gross−expenses for standard). */
+  /** Taxable income = max(0, gross − expenses) when netted, else gross. */
   taxable: number;
   /** Verified rate applied (decimal fraction), or null when not computed. */
   rate: number | null;
@@ -514,17 +536,19 @@ export interface BusinessTaxResult {
   currency: Currency;
   /** Sum of all gross income across every category. */
   totalGrossIncome: number;
-  /** Sum of all the declared allowable expense inputs. */
+  /** Sum of the attributable (per-category) deductible expenses actually applied. */
   allowableExpenses: number;
-  /** max(0, standardIncome − allowableExpenses). Ordinary income after expenses. */
+  /** Sum of shared expenses that could not be attributed (never deducted). */
+  unallocatedExpenses: number;
+  /** max(0, standardIncome − ordinaryExpenses). Ordinary income after its own expenses. */
   standardTaxableIncome: number;
-  /** One entry per income category that has gross > 0. */
+  /** One entry per income category that has gross > 0 or attributable expenses > 0. */
   components: BusinessTaxComponentResult[];
   /** Sum of per-category taxable income. */
   totalTaxableIncome: number;
-  /** COMPUTED when verified rates are in force for every category with income; else NOT_IMPLEMENTED. */
+  /** COMPUTED (rates in force, no unallocated expenses); NEEDS_ALLOCATION (shared expenses present); NOT_IMPLEMENTED (no trustworthy rate). */
   taxStatus: BusinessTaxComputationStatus;
-  /** Total tax across all categories, or null when NOT_IMPLEMENTED. */
+  /** Total tax across all categories, or null when not COMPUTED. */
   totalTax: number | null;
   /** Total estimated liability (= total tax; no verified reliefs/credits yet), or null. */
   estimatedLiability: number | null;

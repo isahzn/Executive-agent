@@ -1,0 +1,278 @@
+PHASE 3 — ELECTRICAL GOODS PAGE + CATALOGUE FOUNDATION
+
+Continue ONLY with Phase 3.
+
+IMPORTANT:
+Phase 1 and Phase 2 are complete. Do NOT redesign them.
+
+Do NOT start Phase 4 or any later phase.
+
+==================================================
+1. GOAL
+==================================================
+
+Build the dedicated Electrical Goods page:
+
+/electrical
+
+It must be a polished, complete category page that matches the Bantex Trading website.
+
+It should feel like a natural continuation of the Home and Stationery pages, while being appropriately structured for electrical goods.
+
+Use the visual system established in Phase 1 and Phase 2.
+
+==================================================
+2. PAGE STRUCTURE
+==================================================
+
+Create:
+
+- Page hero
+- Short introduction
+- Electrical goods category/navigation area
+- Product catalogue area
+- Reusable product cards
+- Pricing display
+- Appropriate CTA
+- Shared footer
+
+The page should make browsing electrical goods simple and clear.
+
+Do NOT simply duplicate the Stationery page and change the heading.
+
+Reuse the underlying components and architecture, but make the content/layout appropriate for electrical goods.
+
+==================================================
+3. PRODUCT SYSTEM
+==================================================
+
+Use the reusable Product architecture created in Phase 2.
+
+Electrical products must be able to support flexible options.
+
+Examples:
+
+- Colour
+- Model
+- Size
+- Specification
+- Capacity
+- Pack/quantity
+- Other custom variants
+
+Do NOT hard-code electrical products to a fixed set of options.
+
+The eventual Admin system must be able to define whatever options a particular product requires.
+
+==================================================
+4. PRODUCT CARDS
+==================================================
+
+Use the reusable ProductCard component.
+
+Cards should support:
+
+- Product image
+- Product name
+- Price
+- Availability
+- Relevant variant information
+- Link to the future product detail page
+
+For this phase:
+
+DO NOT implement full product detail pages.
+
+DO NOT implement Add to Cart.
+
+DO NOT implement Order Now.
+
+Those belong to Phase 4.
+
+==================================================
+5. CATALOGUE DATA
+==================================================
+
+The product catalogue must be data-driven.
+
+Do NOT hard-code products directly into the UI.
+
+If no real electrical products have been supplied yet:
+
+Create a polished empty catalogue state.
+
+Do NOT invent:
+
+- Products
+- Brands
+- Prices
+- Specifications
+- Ratings
+- Reviews
+- Stock quantities
+- Product images presented as real Bantex inventory
+
+The architecture must be ready for real products later.
+
+==================================================
+6. CATEGORY STRUCTURE
+==================================================
+
+Create reusable electrical category architecture.
+
+It should support future subcategories without requiring a complete rebuild.
+
+Do not claim Bantex sells specific electrical categories unless actual product information has been provided.
+
+Keep the structure configurable.
+
+==================================================
+7. DESIGN
+==================================================
+
+Maintain the established Bantex Trading design system.
+
+Do NOT introduce a new visual style.
+
+Keep consistent:
+
+- Typography
+- Colours
+- Spacing
+- Buttons
+- Cards
+- Borders
+- Image treatment
+- Navbar
+- Footer
+- Responsive behavior
+- Animation language
+
+The Stationery and Electrical pages should clearly feel like parts of the same website.
+
+==================================================
+8. ANIMATIONS
+==================================================
+
+Reuse the existing animation system.
+
+Use subtle animations for:
+
+- Hero entrance
+- Category sections
+- Product cards
+- Page transitions where appropriate
+
+Do not over-animate the page.
+
+Respect:
+
+prefers-reduced-motion
+
+==================================================
+9. RESPONSIVENESS
+==================================================
+
+Test:
+
+- Desktop
+- Tablet
+- Mobile
+
+Pay particular attention to:
+
+- Product grid
+- Product cards
+- Images
+- Category navigation
+- Typography
+- Spacing
+- Navigation
+
+No horizontal overflow.
+
+==================================================
+10. NAVIGATION
+==================================================
+
+Ensure:
+
+Home → Electrical Goods
+
+works correctly.
+
+The global navbar must continue to contain:
+
+- Home
+- Stationery
+- Electrical Goods
+- Contact
+- Cart icon
+
+Do not break existing navigation.
+
+==================================================
+11. DO NOT BUILD YET
+==================================================
+
+DO NOT implement:
+
+- Product detail pages
+- Product variants UI
+- Add to Cart
+- Order Now
+- Cart functionality
+- Checkout
+- Stripe
+- Admin dashboard
+- Database
+- Orders
+- Email notifications
+
+Those belong to later phases.
+
+==================================================
+12. QUALITY CHECK
+==================================================
+
+Before finishing:
+
+- Run the development server.
+- Check /electrical.
+- Check Home → Electrical navigation.
+- Check Stationery → Electrical navigation where applicable.
+- Test desktop.
+- Test tablet.
+- Test mobile.
+- Check animations.
+- Check product architecture.
+- Check TypeScript.
+- Check console errors.
+- Check that no fabricated products or business information were introduced.
+
+The page must look polished even if the catalogue is currently empty.
+
+==================================================
+13. PREVIEW + STOP
+==================================================
+
+When Phase 3 is complete:
+
+1. Run the website.
+2. Inspect the Electrical Goods page.
+3. Test desktop.
+4. Test mobile.
+5. Test navigation.
+6. Check the catalogue architecture.
+7. Fix obvious visual or functional issues.
+8. Show me a working preview.
+
+THEN STOP.
+
+Do NOT start Phase 4.
+
+Do NOT implement product detail pages yet.
+
+Wait for my explicit instruction to continue.
+
+PHASE 3 = ELECTRICAL GOODS PAGE + CATALOGUE FOUNDATION ONLY.

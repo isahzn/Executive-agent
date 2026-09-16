@@ -1,0 +1,352 @@
+PHASE 1 — FOUNDATION + HOME PAGE
+
+We are building the new Bantex Trading website completely from scratch.
+
+IMPORTANT:
+This is a full restart. Do NOT modify, continue, or redesign the previous Inkwell implementation.
+
+The uploaded Frontend.html is the visual reference I already approved. I like the design. Do NOT invent a completely new visual direction.
+
+Your job is to take the design language of Frontend.html, change the branding/content to Bantex Trading, and build the first page properly.
+
+==================================================
+1. PROJECT ARCHITECTURE
+==================================================
+
+Use:
+- Next.js
+- App Router
+- TypeScript
+- Responsive CSS
+- Clean reusable components
+
+Set up the project so it can eventually support:
+
+Home
+Stationery
+Electrical Goods
+Contact
+Product pages
+Cart
+Checkout
+Admin
+Orders
+Stripe
+
+However, ONLY implement what belongs to Phase 1.
+
+Create a clean architecture that will allow later phases to be added without rebuilding the foundation.
+
+==================================================
+2. BRAND
+==================================================
+
+The business is:
+
+Bantex Trading
+
+Remove ALL Inkwell branding.
+
+Do not use:
+- Inkwell
+- Inkwell & Co.
+- fake company information
+- fake reviews
+- fake ratings
+- fake statistics
+- fake products
+- fake prices
+- fake addresses
+- fake business claims
+
+If real business information has not been provided, use honest placeholder/configurable content.
+
+==================================================
+3. USE FRONTEND.HTML AS THE DESIGN REFERENCE
+==================================================
+
+The uploaded Frontend.html is the design I want.
+
+Do NOT redesign it into a different website.
+
+Preserve the general:
+- visual language
+- typography hierarchy
+- spacing
+- proportions
+- navigation style
+- buttons
+- cards
+- image treatment
+- section rhythm
+- responsive behavior
+- overall premium/commercial feel
+
+Change the branding and content to Bantex Trading.
+
+The goal is:
+
+"Turn the frontend I already liked into the Bantex Trading website."
+
+NOT:
+
+"Create a new website inspired by it."
+
+Do not make unnecessary creative changes.
+
+==================================================
+4. GLOBAL NAVBAR
+==================================================
+
+Create a reusable site-wide navbar.
+
+Navigation:
+
+Home
+Stationery
+Electrical Goods
+Contact
+
+Also include a cart icon.
+
+The cart does NOT need full functionality yet.
+
+But structure the navigation so later phases can connect the cart properly.
+
+The navigation must be responsive.
+
+Desktop:
+- polished horizontal navigation
+- Bantex Trading branding
+- cart icon
+
+Mobile:
+- polished mobile menu/drawer
+- same navigation options
+- cart icon
+
+The current page should have a subtle active state.
+
+==================================================
+5. HOME PAGE
+==================================================
+
+Build the actual Home page at:
+
+/
+
+The Home page should feel complete and polished.
+
+Use the uploaded Frontend.html as the primary design reference.
+
+Create an appropriate structure such as:
+
+- Hero
+- Bantex Trading introduction
+- Stationery category section
+- Electrical Goods category section
+- Supporting business/value section
+- CTA
+- Footer
+
+The two main categories must be visually important:
+
+STATIONERY
+
+ELECTRICAL GOODS
+
+Each category should link to its future page:
+
+/stationery
+
+/electrical
+
+These routes can initially be placeholder pages if necessary, but the links and architecture must be correct.
+
+Do NOT create fake products.
+
+==================================================
+6. PRODUCT/CATALOGUE ARCHITECTURE
+==================================================
+
+We will eventually have real products.
+
+Products will support things such as:
+
+- name
+- description
+- price
+- images
+- category
+- variants
+- colours
+- sizes
+- other configurable options
+
+The admin system will eventually allow the owner to create these options.
+
+For Phase 1:
+
+DO NOT build the admin system.
+
+DO NOT build real product pages.
+
+DO NOT fabricate products.
+
+Only establish sensible architecture/interfaces if needed for future phases.
+
+==================================================
+7. CART ARCHITECTURE
+==================================================
+
+The final website will have a real cart.
+
+The intended flow is:
+
+Product
+→ Product Page
+→ Select colour/variant/etc.
+→ Add to Cart
+→ Cart
+→ Checkout
+→ Stripe payment
+→ Order created
+→ Owner receives email
+
+For Phase 1:
+
+DO NOT build the full cart.
+
+Only create the cart icon/navigation foundation.
+
+Do not implement Stripe or checkout yet.
+
+==================================================
+8. ANIMATIONS
+==================================================
+
+The reference design uses animations.
+
+Keep the animation concept but make it polished.
+
+Animations should be:
+
+- smooth
+- subtle
+- quick
+- professional
+- intentional
+
+Use reveal-on-scroll where appropriate.
+
+Do not animate everything.
+
+Do not use excessive:
+- bouncing
+- spinning
+- zooming
+- parallax
+- flashy transitions
+
+Respect:
+
+prefers-reduced-motion
+
+==================================================
+9. RESPONSIVENESS
+==================================================
+
+The Home page must work properly on:
+
+- desktop
+- tablet
+- mobile
+
+Check:
+- navbar
+- hero
+- typography
+- images
+- cards
+- spacing
+- buttons
+- footer
+
+There must be no:
+- horizontal overflow
+- broken layouts
+- tiny unreadable text
+- overlapping elements
+
+==================================================
+10. DO NOT BUILD YET
+==================================================
+
+These belong to later phases.
+
+DO NOT implement:
+
+- Stripe
+- checkout
+- payment processing
+- database
+- admin dashboard
+- product management
+- real cart functionality
+- order management
+- email notifications
+- customer accounts
+
+Do not start future phases early.
+
+==================================================
+11. QUALITY STANDARD
+==================================================
+
+This is NOT a rough prototype.
+
+Make Phase 1 visually polished.
+
+The result should already feel like a legitimate Bantex Trading website.
+
+Check:
+- TypeScript
+- responsiveness
+- navigation
+- accessibility
+- animations
+- spacing
+- typography
+- visual consistency
+- build errors
+- console errors
+
+Fix obvious issues before finishing.
+
+==================================================
+12. PREVIEW + STOP
+==================================================
+
+When Phase 1 is complete:
+
+1. Run the development server.
+2. Open and inspect the website.
+3. Test the Home page.
+4. Test desktop.
+5. Test mobile.
+6. Test navigation.
+7. Test animations.
+8. Fix any obvious issues.
+9. Give me a working preview of Phase 1.
+
+THEN STOP.
+
+DO NOT START PHASE 2.
+
+DO NOT IMPLEMENT ANY PART OF PHASE 2.
+
+Wait for me to explicitly tell you to continue.
+
+The phases are intentionally being built ONE AT A TIME so I can inspect and approve each stage before development continues.
+
+PHASE 1 = FOUNDATION + HOME PAGE ONLY.

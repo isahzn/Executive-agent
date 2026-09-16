@@ -19,7 +19,7 @@ export function Select({
       <select
         className={[
           "h-10 w-full rounded-md border bg-surface px-3 text-sm text-ink",
-          error ? "border-danger" : "border-line focus:border-navy-soft",
+          error ? "border-danger" : "border-line focus:border-navy",
         ].join(" ")}
         {...props}
       >

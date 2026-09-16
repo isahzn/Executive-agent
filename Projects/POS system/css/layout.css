@@ -72,6 +72,8 @@
 
 /* --- Admin sidebar (control center) --- */
 .admin-layout{display:grid;grid-template-columns:210px 1fr;gap:12px;align-items:start}
+.grid-tables{display:grid;gap:12px}
+.grid-side{display:grid;gap:12px}
 .admin-nav{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:9px;position:sticky;top:86px}
 .admin-nav button{width:100%;display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:8px;font-size:12px;color:var(--muted);text-align:left}
 .admin-nav button:hover{background:var(--surface);color:var(--ink)}
@@ -93,6 +95,7 @@
 .client-hero{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px;margin-bottom:16px;display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
 .client-hero .ch-main{flex:1;min-width:220px}
 .client-hero h2{margin:0 0 4px;font-size:18px}
+.client-hero .ch-row{display:flex;align-items:center;gap:8px;margin-top:6px}
 .client-hero .meta{color:var(--muted-2);font-size:11px;margin-top:6px;display:flex;gap:14px;flex-wrap:wrap}
 .client-hero .meta span{display:inline-flex;align-items:center;gap:5px}
 .client-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;width:100%}

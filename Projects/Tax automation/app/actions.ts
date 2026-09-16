@@ -349,11 +349,12 @@ function parseBusinessInput(formData: FormData): BusinessTaxInput {
     bettingGamingIncome: numberField(formData, "bettingGamingIncome"),
     liquorTobaccoIncome: numberField(formData, "liquorTobaccoIncome"),
     investmentAssetGains: numberField(formData, "investmentAssetGains"),
-    costOfGoodsSold: numberField(formData, "costOfGoodsSold"),
-    operatingExpenses: numberField(formData, "operatingExpenses"),
-    otherAllowableExpenses: numberField(formData, "otherAllowableExpenses"),
-    capitalAllowances: numberField(formData, "capitalAllowances"),
-    otherDeductions: numberField(formData, "otherDeductions"),
+    ordinaryExpenses: numberField(formData, "ordinaryExpenses"),
+    foreignCcyServiceExpenses: numberField(formData, "foreignCcyServiceExpenses"),
+    foreignCcyForeignSourceExpenses: numberField(formData, "foreignCcyForeignSourceExpenses"),
+    bettingGamingExpenses: numberField(formData, "bettingGamingExpenses"),
+    liquorTobaccoExpenses: numberField(formData, "liquorTobaccoExpenses"),
+    sharedExpenses: numberField(formData, "sharedExpenses"),
   };
 }
 

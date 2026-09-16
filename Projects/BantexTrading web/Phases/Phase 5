@@ -1,0 +1,350 @@
+PHASE 5 — CART SYSTEM + PERSISTENT BROWSER CART
+
+## Context
+
+This is Phase 5 of the Bantex Trading website rebuild.
+
+The project is being built phase-by-phase inside the `phases` folder. You must work ONLY on Phase 5.
+
+Do NOT start Phase 6 or implement checkout, Stripe, orders, admin functionality, database functionality, or email functionality early.
+
+The approved visual reference is the existing `Frontend.html` design that was supplied earlier. The design direction is already decided. Do not redesign the website or introduce a new visual style.
+
+Bantex Trading should continue using the established design system, typography, spacing, navigation, cards, buttons, responsive behavior, and animation style from the previous phases.
+
+## Goal
+
+Build the complete frontend cart experience and make the cart persist in the customer's browser.
+
+The customer flow should now be:
+
+Product → Select Options → Add to Cart → Cart
+
+Checkout itself will be built in Phase 6.
+
+---
+
+## 1. Build the Cart Page
+
+Create:
+
+`/cart`
+
+The page should feel like a polished real ecommerce cart, not a basic development screen.
+
+Include:
+
+* Cart heading
+* Cart item list
+* Product image
+* Product name
+* Selected product options/variants
+* Quantity controls
+* Individual item price
+* Item subtotal
+* Remove item control
+* Overall cart subtotal
+* Continue Shopping action
+* Proceed to Checkout button
+
+The checkout button should lead toward the future checkout route, but DO NOT build the checkout system yet.
+
+---
+
+## 2. Connect the Existing Product Pages
+
+Connect the Add to Cart functionality from Phase 4 to the actual cart system.
+
+When a customer selects:
+
+* Product
+* Colour
+* Size
+* Model
+* Capacity
+* Pack size
+* Specification
+* Or any other product-specific option
+
+and clicks Add to Cart, that exact configuration must be added to the cart.
+
+The cart must preserve the selected options.
+
+Example concept:
+
+Product A + Black + Large
+
+must be treated as a different cart line from:
+
+Product A + White + Large
+
+Do not assume every product has the same options.
+
+The existing flexible product/variant architecture from previous phases must remain intact.
+
+---
+
+## 3. Cart Line Identity
+
+Each cart line should represent:
+
+* Product ID
+* Product/variant identity
+* Selected options
+* Quantity
+* Display price
+* Necessary product information for rendering
+
+Two configurations of the same product should be separate cart lines when their selected options differ.
+
+If the exact same product configuration is added again, increase its quantity instead of creating an unnecessary duplicate line.
+
+Create a reusable cart data structure rather than scattering cart logic throughout individual components.
+
+---
+
+## 4. Persistent Browser Storage
+
+The cart must survive:
+
+* Page navigation
+* Page refresh
+* Closing and reopening the browser
+
+Use client-side browser persistence.
+
+Prefer a clean storage abstraction so the UI does not become tightly coupled to the storage mechanism.
+
+If using `localStorage`, encapsulate it behind a cart storage utility.
+
+If using cookies instead, keep the stored payload lightweight and do not store sensitive information.
+
+Do NOT store payment information.
+
+Important:
+
+The browser cart is only a convenience/persistence layer.
+
+Never design the architecture as though the browser's stored price is authoritative.
+
+In the future checkout phase, the server must re-check the real product, variant and price before creating a Stripe payment.
+
+Make the cart architecture easy to replace or extend when the backend/database is introduced.
+
+---
+
+## 5. Global Cart Icon
+
+Update the shared navbar.
+
+The cart icon should:
+
+* Link to `/cart`
+* Show the current number of items
+* Update immediately when items are added or removed
+* Update when quantities change
+* Work correctly across navigation
+* Remain responsive on mobile
+
+The badge should represent the total quantity of products, not simply the number of different cart lines.
+
+Example:
+
+2 products + 3 products = cart badge of 5.
+
+Do not use fake cart numbers.
+
+---
+
+## 6. Quantity Controls
+
+Allow customers to:
+
+* Increase quantity
+* Decrease quantity
+* Remove an item
+* Never go below 1 through normal quantity controls
+
+Handle invalid values safely.
+
+If quantity reaches zero through an explicit action, remove the cart line rather than keeping an invalid zero-quantity item.
+
+The cart should update totals immediately.
+
+---
+
+## 7. Empty Cart State
+
+Create a polished empty-cart state.
+
+It should include:
+
+* Clear empty-cart message
+* Useful explanation
+* Continue Shopping button
+
+The empty state should match the Bantex design rather than looking like a generic ecommerce template.
+
+---
+
+## 8. Cart Calculations
+
+Calculate:
+
+* Individual line subtotal
+* Cart subtotal
+* Total quantity
+
+For now, only show the subtotal.
+
+Do NOT add:
+
+* Taxes
+* Shipping fees
+* Discounts
+* Stripe fees
+* Payment processing logic
+
+Those belong to later phases.
+
+Use safe numeric handling for prices and quantities.
+
+---
+
+## 9. Product Data Safety
+
+Do not fabricate real Bantex Trading products.
+
+Do not invent:
+
+* Products
+* Brands
+* Prices
+* Specifications
+* Stock
+* Reviews
+* Ratings
+* Product claims
+
+Use the existing product architecture/data from previous phases.
+
+If development requires test products, clearly structure them as development/test data so they can be replaced without changing the cart architecture.
+
+---
+
+## 10. Responsive Design
+
+The cart must work properly on:
+
+* Desktop
+* Laptop
+* Tablet
+* Mobile
+
+On smaller screens, redesign the layout appropriately rather than simply shrinking the desktop layout.
+
+Product information, options, quantity controls and prices must remain readable and usable.
+
+---
+
+## 11. Animations
+
+Use the animation system established in previous phases.
+
+Animations should be:
+
+* Subtle
+* Fast
+* Professional
+* Consistent with the existing Bantex website
+
+Avoid excessive animation.
+
+Respect:
+
+`prefers-reduced-motion`
+
+Do not introduce a completely different animation language.
+
+---
+
+## 12. Architecture
+
+Keep the cart system reusable and maintainable.
+
+Prefer reusable pieces such as:
+
+* Cart provider/state
+* Cart storage utility
+* Cart item component
+* Cart summary
+* Quantity control
+* Cart badge
+
+Do not duplicate cart logic across product pages.
+
+The architecture should make it straightforward for Phase 6 to connect:
+
+Cart → Checkout → Stripe
+
+without rebuilding the cart.
+
+---
+
+## 13. Important Scope Restrictions
+
+DO NOT implement:
+
+* Stripe
+* Checkout processing
+* Payment forms
+* Orders
+* Order database
+* Email notifications
+* Admin dashboard
+* Product management
+* Authentication
+* Backend cart
+* Database persistence
+* Webhooks
+
+Those belong to later phases.
+
+Do not start Phase 6.
+
+---
+
+## 14. Testing
+
+After implementation:
+
+1. Run the development server.
+2. Test adding a product to the cart.
+3. Test products with different options.
+4. Test adding the same configuration twice.
+5. Test adding different configurations of the same product.
+6. Test quantity increase/decrease.
+7. Test removing items.
+8. Test the empty cart.
+9. Test cart persistence after refreshing.
+10. Test persistence after navigating between pages.
+11. Test the navbar cart badge.
+12. Test desktop layout.
+13. Test mobile layout.
+14. Check for console errors.
+15. Fix obvious UI/functional issues you encounter.
+
+Do not move on to another phase.
+
+---
+
+## 15. Final Requirement
+
+When Phase 5 is complete:
+
+* Show me a working preview of the website.
+* Make sure the cart actually works in the preview.
+* Do not merely tell me that it works.
+* Do not continue implementing future phases.
+
+STOP after Phase 5 and wait for my explicit instruction before doing anything from Phase 6 onward.
